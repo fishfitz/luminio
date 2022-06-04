@@ -9,7 +9,7 @@
   "author": "FitzFish",
   "license": "ISC",
   "dependencies": {
-    "carni": "^0.0.1"
+    "carni": "^0.0.2"
   },
   "devDependencies": {
     "eslint": "^8.0.1",
