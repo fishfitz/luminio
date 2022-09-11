@@ -1,7 +1,7 @@
 {
-  "name": "carni-template",
+  "name": "luminio",
   "version": "1.0.0",
-  "description": "Sample new project for carni, the text-based game engine.",
+  "description": "Source code for the game Luminio!",
   "scripts": {
     "build": "carni",
     "dev": "carni dev"
@@ -9,7 +9,17 @@
   "author": "FitzFish",
   "license": "ISC",
   "dependencies": {
-    "carni": "^0.0.2"
+    "@pixi/particle-emitter": "^5.0.7",
+    "carni": "^0.0.2",
+    "carni-audio": "^0.0.1",
+    "just-clone": "^6.1.1",
+    "just-curry-it": "^5.2.1",
+    "just-intersect": "^4.2.1",
+    "just-random": "^3.1.1",
+    "just-random-integer": "^4.1.1",
+    "just-shuffle": "^4.1.1",
+    "pixi-live2d-display": "^0.4.0",
+    "pixi.js": "^6.5.2"
   },
   "devDependencies": {
     "eslint": "^8.0.1",

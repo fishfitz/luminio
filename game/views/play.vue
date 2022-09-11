@@ -1,18 +1,22 @@
 <template>
   <div>
-    <a @click="$story.next" tabindex="0">
+    <action @click="$story.next" class="dialog" autofocus>
       <span v-if="$story.line.speaker"> {{ $story.line.speaker.name }} — </span>
       <div> {{ $story.line.text }} </div>
-    </a>
+    </action>
 
-    <ul v-if="$story.choices">
-      <li v-for="choice in $story.choices" tabindex="0">
-        <a @click="$story.pickChoice(choice)">
+    <ul v-if="$story.line.choices">
+      <li v-for="choice in $story.line.choices">
+        <action @click="$story.pickChoice(choice)" class="dialog" autofocus>
           {{ choice.text }}
-        </a>
+        </action>
       </li>
     </ul>
-
-    <view-link to="menu"> Retour au menu </view-link>
   </div>
 </template>
+
+<style scoped lang="scss">
+  .dialog {
+    display: inline-block;
+  }
+</style>

@@ -14,5 +14,7 @@
     <view-link to="credits">
       Credits
     </view-link>
+
+    <br/><br/>
   </div>
 </template>

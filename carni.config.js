@@ -1,5 +1,6 @@
 module.exports = {
   firstScene: 'start',
-  firstView: 'menu',
-  title: 'New Carni Game'
+  firstView: 'play',
+  title: 'Luminio'
+  // plugins: [require('carni-audio')]
 }
