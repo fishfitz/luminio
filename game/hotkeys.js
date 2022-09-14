@@ -7,5 +7,8 @@ module.exports = {
   },
   f11: function ({ $UI }) {
     $UI.fullscreen()
+  },
+  'j,ctrl+j': function ({ $UI }) {
+    $UI.focusJournal()
   }
 }

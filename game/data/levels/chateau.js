@@ -1,4 +1,8 @@
 export default {
+  name: 'Le château',
+  dimensions: [5, 5],
+  spawn: [0, 0],
+  nightmare: [4, 4],
   repartition: {
     monster: 23
     /*

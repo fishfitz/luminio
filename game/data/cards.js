@@ -9,7 +9,8 @@ export default {
     upgrade: 'flamme_orfeu_majeure',
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(8, 'yellow')
+      $world.LOG('cards.flamme', { foe, color: 'yellow' })
+      foe.receiveDamages(8, 'yellow')
       $world.CANDELA -= 1
     }
   },
@@ -20,7 +21,8 @@ export default {
     upgrade: 'flamme_orfeu_supreme',
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(12, 'yellow')
+      $world.LOG('cards.flamme', { foe, color: 'yellow' })
+      foe.receiveDamages(12, 'yellow')
       $world.CANDELA -= 1
     }
   },
@@ -31,7 +33,8 @@ export default {
     upgrade: false,
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(16, 'yellow')
+      $world.LOG('cards.flamme', { foe, color: 'yellow' })
+      foe.receiveDamages(16, 'yellow')
       $world.CANDELA -= 1
     }
   },
@@ -43,6 +46,7 @@ export default {
     upgrade: 'bouclier_orfeu_majeur',
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'yellow' })
       $world.SET_PROTECTION(8, 'yellow')
     }
   },
@@ -53,6 +57,7 @@ export default {
     upgrade: 'bouclier_orfeu_supreme',
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'yellow' })
       $world.SET_PROTECTION(12, 'yellow')
     }
   },
@@ -63,6 +68,7 @@ export default {
     upgrade: false,
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'yellow' })
       $world.SET_PROTECTION(16, 'yellow')
     }
   },
@@ -75,7 +81,8 @@ export default {
     upgrade: 'flamme_celeste_majeure',
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(3 + $world.FIGHT_TURN, 'blue')
+      $world.LOG('cards.flamme', { foe, color: 'blue' })
+      foe.receiveDamages(3 + $world.FIGHT_TURN, 'blue')
     }
   },
   flamme_celeste_majeure: {
@@ -85,7 +92,8 @@ export default {
     upgrade: 'flamme_celeste_supreme',
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(3 + 2 * $world.FIGHT_TURN, 'blue')
+      $world.LOG('cards.flamme', { foe, color: 'blue' })
+      foe.receiveDamages(3 + 2 * $world.FIGHT_TURN, 'blue')
     }
   },
   flamme_celest_supreme: {
@@ -95,7 +103,8 @@ export default {
     upgrade: false,
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(3 + 3 * $world.FIGHT_TURN, 'blue')
+      $world.LOG('cards.flamme', { foe, color: 'blue' })
+      foe.receiveDamages(3 + 3 * $world.FIGHT_TURN, 'blue')
     }
   },
 
@@ -106,6 +115,7 @@ export default {
     upgrade: 'bouclier_celeste_majeur',
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'blue' })
       $world.SET_PROTECTION(3 + $world.FIGHT_TURN, 'blue')
     }
   },
@@ -116,6 +126,7 @@ export default {
     upgrade: 'bouclier_celeste_supreme',
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'blue' })
       $world.SET_PROTECTION(3 + 2 * $world.FIGHT_TURN, 'blue')
     }
   },
@@ -126,6 +137,7 @@ export default {
     upgrade: false,
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'blue' })
       $world.SET_PROTECTION(3 + 3 * $world.FIGHT_TURN, 'blue')
     }
   },
@@ -138,7 +150,8 @@ export default {
     upgrade: 'flamme_belarcane_majeure',
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(randomInt(3, 10), 'purple')
+      $world.LOG('cards.flamme', { foe, color: 'purple' })
+      foe.receiveDamages(randomInt(3, 10), 'purple')
     }
   },
   flamme_belarcane_majeure: {
@@ -148,7 +161,8 @@ export default {
     upgrade: 'flamme_belarcane_supreme',
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(randomInt(5, 15), 'purple')
+      $world.LOG('cards.flamme', { foe, color: 'purple' })
+      foe.receiveDamages(randomInt(5, 15), 'purple')
     }
   },
   flamme_belarcane_supreme: {
@@ -158,7 +172,8 @@ export default {
     upgrade: false,
     targetted: true,
     execute (foe) {
-      foe.inflictDamages(randomInt(7, 20), 'purple')
+      $world.LOG('cards.flamme', { foe, color: 'purple' })
+      foe.receiveDamages(randomInt(7, 20), 'purple')
     }
   },
 
@@ -169,6 +184,7 @@ export default {
     upgrade: 'bouclier_belarcane_majeur',
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'purple' })
       $world.SET_PROTECTION(randomInt(3, 10), 'purple')
     }
   },
@@ -179,6 +195,7 @@ export default {
     upgrade: 'bouclier_belarcane_supreme',
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'purple' })
       $world.SET_PROTECTION(randomInt(5, 15), 'purple')
     }
   },
@@ -189,6 +206,7 @@ export default {
     upgrade: false,
     targetted: false,
     execute (foe) {
+      $world.LOG('cards.bouclier', { color: 'purple' })
       $world.SET_PROTECTION(randomInt(7, 20), 'purple')
     }
   }

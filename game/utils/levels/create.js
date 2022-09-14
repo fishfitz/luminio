@@ -1,5 +1,5 @@
 import shuffle from 'just-shuffle'
-import firstLevelData from '../data/levels/chateau'
+import firstLevelData from '../../data/levels/chateau'
 
 const createMap = ([rows, cols]) => {
   const map = []
@@ -33,46 +33,31 @@ const randomAssign = (map, { scenes, repartition }) => {
   })
 }
 
-const createFirstLevel = () => {
-  const map = createMap([5, 5])
+const createLevel = (levelData) => {
+  const map = createMap(levelData.dimensions)
 
-  Object.assign(map[0][0], {
+  Object.assign(map[levelData.spawn[0]][levelData.spawn[1]], {
     type: 'empty',
     explored: true,
     visible: true,
     accessible: true
   })
 
-  Object.assign(map[4][4], {
+  Object.assign(map[levelData.nightmare[0]][levelData.nightmare[1]], {
     type: 'nightmare',
     visible: true
   })
 
-  randomAssign(map, firstLevelData)
+  randomAssign(map, levelData)
 
   return {
     map,
-    name: 'Le château',
-    playerPosition: [0, 0],
-    time: 12
+    name: levelData.name,
+    playerPosition: [levelData.spawn[0], levelData.spawn[1]],
+    time: 6
   }
 }
 
-const createSecondLevel = () => {
-
-}
-
-const createThirdLevel = () => {
-
-}
-
-const createFourthLevel = () => {
-
-}
-
-export const createLevels = () => [
-  createFirstLevel(),
-  createSecondLevel(),
-  createThirdLevel(),
-  createFourthLevel()
+export default () => [
+  createLevel(firstLevelData)
 ]

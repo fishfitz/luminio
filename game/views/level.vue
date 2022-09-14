@@ -1,48 +1,40 @@
 <template>
   <div>
-    Time : {{ $world.LEVELS[$world.CURRENT_LEVEL].time }} <br/>
-    <div role="grid" v-for="(row, rowIndex) in $world.LEVELS[$world.CURRENT_LEVEL].map">
-      <action
-        v-for="(room, colIndex) in row"
-        :key="colIndex"
-        :autofocus="isPlayer(rowIndex, colIndex)"
-        @click="room.accessible && !room.visited && $world.MAP_EXPLORE(room)"
-        v-grid:map="{ rowIndex, colIndex }"
-        class="room">
-        <template v-if="isPlayer(rowIndex, colIndex)"> Luminion </template>
-        <template v-else>
-          {{ squareName(room) }}
-          {{ room.accessible ? 'Accessible' : 'Inaccessible' }}
-        </template>
-      </action>
-    </div>
+    Time : {{ level.time }} <br/>
+    <table role="grid" v-for="(row, rowIndex) in level.map">
+      <tbody>
+        <tr>
+          <td v-for="(room, colIndex) in row" @click="room.accessible && !room.visited && explore(room)">
+            <action
+              :key="colIndex"
+              :autofocus="isPlayer(rowIndex, colIndex)"
+              @click="room.accessible && !room.explored && explore(room)"
+              @keyup.enter="room.accessible && !room.explored && explore(room)"
+              v-grid:map="{ rowIndex, colIndex }"
+              class="room"
+              role="gridcell">
+              <template v-if="isPlayer(rowIndex, colIndex)"> Luminion </template>
+              <template v-else>
+                {{ roomName(room) }}
+                {{ room.accessible ? 'Accessible' : 'Inaccessible' }}
+              </template>
+            </action>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script setup>
-import vGrid from '../utils/vGrid.js'
+import vGrid from '../utils/directives/vGrid.js'
+import { update, explore, roomName } from '../utils/levels/map'
 
-const squareName = (room) => {
-  switch (room.type) {
-    case 'empty':
-      return 'Pièce vide'
-    case 'nightmare':
-      return 'Pièce cauchemar'
-  }
-  switch (room.intensity) {
-    case 1:
-      return 'Pièce calme'
-    case 2:
-      return 'Pièce agitée'
-    case 3:
-      return 'Pièce déchaînée'
-  }
-}
-
-const isPlayer = (rowIndex, colIndex) => rowIndex === $world.LEVELS[0].playerPosition[0] && colIndex === $world.LEVELS[0].playerPosition[1]
+const level = $computed(() => $world.LEVELS[$world.CURRENT_LEVEL])
+const isPlayer = (rowIndex, colIndex) => rowIndex === level.playerPosition[0] && colIndex === level.playerPosition[1]
 
 onMounted(() => {
-  $world.MAP_UPDATE()
+  update()
 })
 </script>
 

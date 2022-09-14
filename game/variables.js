@@ -1,4 +1,4 @@
-import { createLevels } from './utils/levels'
+import createLevels from './utils/levels/create'
 import { createBaseDeck } from './utils/cards'
 
 export default {

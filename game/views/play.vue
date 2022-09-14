@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div role="log" aria-live="assertive">
     <action @click="$story.next" class="dialog" autofocus>
       <span v-if="$story.line.speaker"> {{ $story.line.speaker.name }} — </span>
       <div> {{ $story.line.text }} </div>

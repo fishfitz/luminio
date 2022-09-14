@@ -1,5 +1,6 @@
 import shuffle from 'just-shuffle'
 import clone from 'just-clone'
+import { nanoid } from 'nanoid'
 import cards from '../data/cards'
 
 export const createBaseDeck = () => {
@@ -20,7 +21,7 @@ export const createBaseDeck = () => {
     clone(attack2),
     clone(attack2),
     clone(attack2)
-  ]
+  ].map(card => ({ ...card, id: nanoid() }))
 
-  return deck
+  return shuffle(deck)
 }

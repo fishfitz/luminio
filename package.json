@@ -9,6 +9,7 @@
   "author": "FitzFish",
   "license": "ISC",
   "dependencies": {
+    "@autheur/operators": "^1.1.0",
     "@pixi/particle-emitter": "^5.0.7",
     "carni": "^0.0.2",
     "carni-audio": "^0.0.1",
@@ -17,7 +18,9 @@
     "just-intersect": "^4.2.1",
     "just-random": "^3.1.1",
     "just-random-integer": "^4.1.1",
+    "just-safe-get": "^4.1.1",
     "just-shuffle": "^4.1.1",
+    "nanoid": "^4.0.0",
     "pixi-live2d-display": "^0.4.0",
     "pixi.js": "^6.5.2"
   },
