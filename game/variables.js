@@ -5,6 +5,8 @@ export default {
   // Levels
   LEVELS: createLevels(),
   CURRENT_LEVEL: 0,
+  TIME_CANDELA_GAIN: 0,
+  MAX_TIME: 12,
 
   // Player
   CANDELAS: 100,
@@ -13,6 +15,7 @@ export default {
   PROTECTION: 0,
   WILL: 10,
   DECK: createBaseDeck(),
+  DECK_EVOLUTION: null,
 
   // Fight
   FIGHT_FOES: [],
@@ -20,5 +23,19 @@ export default {
   FIGHT_VICTORY: null,
   FIGHT_DEFEAT: null,
   HAND: [],
-  DISCARDED: []
+  DISCARDED: [],
+  CARD_COST: {
+    black: 0,
+    white: 0,
+    yellow: 0,
+    purple: 0,
+    blue: 0
+  },
+
+  // Challenge
+  CHALLENGE_BONUS: 0,
+
+  // Trinkets
+  TRINKET_CHOICE: null,
+  TRINKETS: []
 }

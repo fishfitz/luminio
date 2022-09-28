@@ -48,7 +48,7 @@ export const aura = (color) => {
     case 'blue':
       return 'Céleste'
     case 'black':
-      return 'Imergie'
+      return 'Ténèbre'
     case 'white':
       return 'Lumière'
   }

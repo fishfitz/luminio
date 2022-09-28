@@ -1,6 +1,7 @@
 #start
 Blabla intro
 Blabla
+$ EVOLVE_DECK('upgrade')
 On va afficher la map
 $ VIEW('level')
 

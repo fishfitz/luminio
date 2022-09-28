@@ -25,3 +25,21 @@ export const createBaseDeck = () => {
 
   return shuffle(deck)
 }
+
+export const shuffleDeck = () => {
+  $world.DECK = shuffle($world.DECK)
+}
+
+export const addCard = (card) => {
+  if (typeof card === 'string') card = cards[card]
+
+  $world.DECK.push({
+    ...clone(card),
+    id: nanoid()
+  })
+}
+
+export const removeCard = (card) => {
+  $world.DECK = $world.DECK.filter(({ id }) => id !== card.id)
+  shuffleDeck()
+}

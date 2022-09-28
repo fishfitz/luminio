@@ -1,14 +1,17 @@
 module.exports = {
-  'p,ctrl+p': function ({ VIEW }) {
-    VIEW('play')
+  f11: function () {
+    $ui.fullscreen()
   },
-  'c,ctrl+c': function ({ VIEW }) {
-    VIEW('credits')
+  'j,ctrl+j': function () {
+    $ui.focus('#journal')
   },
-  f11: function ({ $UI }) {
-    $UI.fullscreen()
+  'h,ctrl+h,m,ctrl+m': function () {
+    $ui.focus('#card_0')
   },
-  'j,ctrl+j': function ({ $UI }) {
-    $UI.focusJournal()
+  'e,ctrl+e,f,ctrl+f': function () {
+    $ui.focus('#foe_0')
+  },
+  'p,ctrl+p': function () {
+    $ui.focus('#last_position')
   }
 }

@@ -3,6 +3,7 @@ import randomInt from 'just-random-integer'
 export default {
   // Orfeu
   flamme_orfeu: {
+    intensity: 1,
     color: 'yellow',
     name: 'Flamme d\'Orfeu',
     description: 'Ce sort me coûte 1 candela de plus. J’inflige à ma cible 8 dégâts.',
@@ -15,6 +16,7 @@ export default {
     }
   },
   flamme_orfeu_majeure: {
+    intensity: 2,
     color: 'yellow',
     name: 'Flamme d\'Orfeu Majeure',
     description: 'Ce sort me coûte 1 candela de plus. J’inflige à ma cible 12 dégâts.',
@@ -27,6 +29,7 @@ export default {
     }
   },
   flamme_orfeu_supreme: {
+    intensity: 3,
     color: 'yellow',
     name: 'Flamme d\'Orfeu Suprême',
     description: 'Ce sort me coûte 1 candela de plus. J’inflige à ma cible 16 dégâts.',
@@ -40,6 +43,7 @@ export default {
   },
 
   bouclier_orfeu: {
+    intensity: 1,
     color: 'yellow',
     name: 'Bouclier d\'Orfeu',
     description: 'Ce sort me coûte 1 candela de plus. Je gagne 8 de protection.',
@@ -51,6 +55,7 @@ export default {
     }
   },
   bouclier_orfeu_majeure: {
+    intensity: 2,
     color: 'yellow',
     name: 'Bouclier d\'Orfeu Majeure',
     description: 'Ce sort me coûte 1 candela de plus. Je gagne 12 de protection.',
@@ -62,6 +67,7 @@ export default {
     }
   },
   bouclier_orfeu_supreme: {
+    intensity: 3,
     color: 'yellow',
     name: 'Bouclier d\'Orfeu Suprême',
     description: 'Ce sort me coûte 1 candela de plus. Je gagne 16 de protection.',
@@ -75,6 +81,7 @@ export default {
 
   // Céleste
   flamme_celeste: {
+    intensity: 1,
     color: 'blue',
     name: 'Flamme Céleste',
     description: 'J’inflige à ma cible 3 dégâts + 1 par tour (actuellement {{3 + FIGHT_TURN}}).',
@@ -86,6 +93,7 @@ export default {
     }
   },
   flamme_celeste_majeure: {
+    intensity: 2,
     color: 'blue',
     name: 'Flamme Céleste Majeure',
     description: 'J’inflige à ma cible 3 dégâts + 2 par tour (actuellement {{3 + 2 * FIGHT_TURN}}).',
@@ -97,6 +105,7 @@ export default {
     }
   },
   flamme_celest_supreme: {
+    intensity: 3,
     color: 'blue',
     name: 'Flamme Céleste Suprême',
     description: 'J’inflige à ma cible 3 dégâts + 3 par tour (actuellement {{3 + 3 * FIGHT_TURN}}).',
@@ -109,6 +118,7 @@ export default {
   },
 
   bouclier_celeste: {
+    intensity: 1,
     color: 'blue',
     name: 'Bouclier Céleste',
     description: 'Je gagne 3 de protection + 1 par tour (actuellement {{3 + FIGHT_TURN}}).',
@@ -120,6 +130,7 @@ export default {
     }
   },
   bouclier_celeste_majeur: {
+    intensity: 2,
     color: 'blue',
     name: 'Bouclier Céleste Majeure',
     description: 'Je gagne 3 de protection + 2 par tour (actuellement {{3 + 2 * FIGHT_TURN}}).',
@@ -131,6 +142,7 @@ export default {
     }
   },
   bouclier_celeste_supreme: {
+    intensity: 3,
     color: 'blue',
     name: 'Bouclier Céleste Suprême',
     description: 'Je gagne 3 de protection + 3 par tour (actuellement {{3 + 3 * FIGHT_TURN}}).',
@@ -144,6 +156,7 @@ export default {
 
   // Belarcane
   flamme_belarcane: {
+    intensity: 1,
     color: 'purple',
     name: 'Flamme de Belarcane',
     description: 'J’inflige à ma cible entre 3 et 10 dégâts.',
@@ -155,6 +168,7 @@ export default {
     }
   },
   flamme_belarcane_majeure: {
+    intensity: 2,
     color: 'purple',
     name: 'Flamme de Belarcane Majeure',
     description: 'J’inflige à ma cible entre 5 et 15 dégâts.',
@@ -166,6 +180,7 @@ export default {
     }
   },
   flamme_belarcane_supreme: {
+    intensity: 3,
     color: 'purple',
     name: 'Flamme de Belarcane Suprême',
     description: 'J’inflige à ma cible entre 7 et 20 dégâts.',
@@ -178,6 +193,7 @@ export default {
   },
 
   bouclier_belarcane: {
+    intensity: 1,
     color: 'purple',
     name: 'Bouclier de Belarcane',
     description: 'Je gagne entre 3 et 10 de protection.',
@@ -189,6 +205,7 @@ export default {
     }
   },
   bouclier_belarcane_majeur: {
+    intensity: 2,
     color: 'purple',
     name: 'Bouclier de Belarcane Majeure',
     description: 'Je gagne entre 5 et 15 de protection.',
@@ -200,6 +217,7 @@ export default {
     }
   },
   bouclier_belarcane_supreme: {
+    intensity: 3,
     color: 'purple',
     name: 'Bouclier de Belarcane Suprême',
     description: 'Je gagne entre 7 et 20 de protection.',

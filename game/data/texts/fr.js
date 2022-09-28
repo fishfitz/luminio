@@ -26,7 +26,7 @@ export default {
   },
   actions: {
     griffesDOmbre1: '{{cap(le(foe))}} me lacère avec ses griffes démesurées.',
-    griffesDOmbre2: '{{cap(le(foe))}} se nourrit de l’énergie qu’{{il(foe)}} vient de m’arracher. Sa vie augmente de {{candelasRemoved}} et son aura se teinte d\'Imergie.',
+    griffesDOmbre2: '{{cap(le(foe))}} se nourrit de l’énergie qu’{{il(foe)}} vient de m’arracher. Sa vie augmente de {{candelasRemoved}} et son aura se teinte de ténèbre.',
     hurlementDOmbre: '{{cap(le(foe))}} pousse un hurlement déchirant.',
     obscurcissement: '{{cap(le(foe))} se régénère et sa puissance augmente.'
   },

@@ -54,7 +54,7 @@ const createLevel = (levelData) => {
     map,
     name: levelData.name,
     playerPosition: [levelData.spawn[0], levelData.spawn[1]],
-    time: 6
+    time: $world?.MAX_TIME || 12
   }
 }
 

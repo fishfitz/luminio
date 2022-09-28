@@ -4,7 +4,11 @@ export const explore = (room) => {
   $world.VIEW('play')
   const level = $world.LEVELS[$world.CURRENT_LEVEL]
   level.playerPosition = [room.x, room.y]
-  $world.CANDELAS = Math.max(Math.min($world.CANDELAS + level.time, $world.MAX_CANDELAS), 1)
+
+  let candelasGain = Math.min(6, level.time)
+  if (candelasGain > 0) candelasGain += $world.TIME_CANDELA_GAIN
+  $world.CANDELAS = Math.max(Math.min($world.CANDELAS + candelasGain, $world.MAX_CANDELAS), 1)
+
   level.time -= 1
 }
 
@@ -19,16 +23,17 @@ export const update = () => {
 export const roomName = (room) => {
   switch (room.type) {
     case 'empty':
-      return 'Pièce vide'
+      return 'Lieu vide'
     case 'nightmare':
-      return 'Pièce cauchemar'
+      return 'Lieu cauchemar'
   }
+  if (!room.accessible) return 'Lieu inconnu'
   switch (room.intensity) {
     case 1:
-      return 'Pièce calme'
+      return 'Lieu calme'
     case 2:
-      return 'Pièce agitée'
+      return 'Lieu agité'
     case 3:
-      return 'Pièce déchaînée'
+      return 'Lieu déchaîné'
   }
 }

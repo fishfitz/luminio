@@ -1,11 +1,12 @@
 <template>
   <div>
     Time : {{ level.time }} <br/>
-    <table role="grid" v-for="(row, rowIndex) in level.map">
+    <table role="grid">
       <tbody>
-        <tr>
-          <td v-for="(room, colIndex) in row" @click="room.accessible && !room.visited && explore(room)">
+        <tr v-for="(row, rowIndex) in level.map">
+          <td v-for="(room, colIndex) in row">
             <action
+              :id="isPlayer(rowIndex, colIndex) ? 'last_position' : undefined"
               :key="colIndex"
               :autofocus="isPlayer(rowIndex, colIndex)"
               @click="room.accessible && !room.explored && explore(room)"
@@ -13,7 +14,7 @@
               v-grid:map="{ rowIndex, colIndex }"
               class="room"
               role="gridcell">
-              <template v-if="isPlayer(rowIndex, colIndex)"> Luminion </template>
+              <template v-if="isPlayer(rowIndex, colIndex)"> Dernière position </template>
               <template v-else>
                 {{ roomName(room) }}
                 {{ room.accessible ? 'Accessible' : 'Inaccessible' }}
@@ -35,6 +36,7 @@ const isPlayer = (rowIndex, colIndex) => rowIndex === level.playerPosition[0] &&
 
 onMounted(() => {
   update()
+  $ui.focus('#last_position')
 })
 </script>
 

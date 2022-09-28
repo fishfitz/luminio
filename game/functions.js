@@ -1,10 +1,12 @@
 import random from 'just-random-integer'
+import randomPick from 'just-random'
 import get from 'just-safe-get'
-import shuffle from 'just-shuffle'
 import render from '~carni/render'
 import * as french from './utils/french'
 import fights from './data/fights'
+import trinkets from './data/trinkets'
 import texts from './data/texts/fr'
+import * as cards from './utils/cards'
 
 export default {
   RANDOM: random,
@@ -25,9 +27,15 @@ export default {
       life: foe.maxLife,
       intention: null
     }))
+    $world.HAND = []
     $world.FIGHT_VICTORY = victorySceneId
     $world.FIGHT_DEFEAT = defeatSceneId
     $world.VIEW('fight')
+  },
+
+  ADD_TRINKET (trinket) {
+    $world.VIEW('play')
+    $world.TRINKET_CHOICE = trinkets[trinket]
   },
 
   INFLICT_DISCARD (amount) {
@@ -49,8 +57,18 @@ export default {
     if (typeof color !== 'undefined') $world.SHIELD = color
   },
 
+  EVOLVE_DECK (type) {
+    $world.VIEW('play')
+    $world.DECK_EVOLUTION = { type, cards: [], selectedCard: null }
+    for (let i = 0; i < 3; i++) {
+      const eligibleCards = $world.DECK
+        .filter(({ id }) => !$world.DECK_EVOLUTION.cards.some(c => c.id === id))
+      if (eligibleCards.length) $world.DECK_EVOLUTION.cards.push(randomPick(eligibleCards))
+    }
+  },
+
   // Deck
-  SHUFFLE_DECK () {
-    $world.DECK = shuffle($world.DECK)
-  }
+  SHUFFLE_DECK: cards.shuffleDeck,
+  ADD_CARD: cards.addCard,
+  REMOVE_CARD: cards.removeCard
 }

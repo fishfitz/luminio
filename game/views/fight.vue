@@ -1,7 +1,7 @@
 <template>
   <div>
     <div aria-live="off" style="display: inline-block; width: 50%">
-      <div tabindex="0" ref="luminio">
+      <div tabindex="0" id="luminio">
         Luminio
         <br/>
         Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }}
@@ -11,17 +11,17 @@
           <template v-if="$world.SHIELD"> ({{aura($world.SHIELD)}}) </template>
         </template>
         <br/>
-        Volonté: {{ $world.WILL }} sur 10
+        Volonté : {{ $world.WILL }} sur 10
       </div>
-      <br/>  <br/><br/>
+      <br/><br/><br/>
       <div class="foes">
         <action
           v-for="(foe, index) in $world.FIGHT_FOES"
           :key="index"
           @click="selectedCard && playCard(selectedCard, foe)"
-          ref="foes">
+          :id="`foe_${index}`">
           {{ foe.name }} <br/>
-          Imergie : {{ foe.life }} sur {{ foe.maxLife }} <br/>
+          Ténèbre : {{ foe.life }} sur {{ foe.maxLife }} <br/>
           Aura :
           <span v-for="(auraPattern, index) in foe.auraPattern">
             <template v-if="foe.aura[index]"> {{ aura(foe.aura[index]) }} Remplie </template>
@@ -31,7 +31,7 @@
             </template>
           </span> <br/>
           Intention : {{ foe.intention?.type }}
-          <br/><br/> <br/><br/>
+          <br/><br/><br/><br/>
         </action>
         <action v-if="selectedCard" @click="selectedCard = null">
           Annuler
@@ -39,24 +39,30 @@
       </div>
 
       <div class="hand">
-        <div v-for="card in $world.HAND" :key="card.id">
+        <div v-for="(card, index) in $world.HAND" :key="card.id">
           <action
             :disabled="!!selectedCard"
             @click="selectCard(card)"
-            ref="cards">
-            {{ card.name }} ({{ aura(card.color) }}) :
+            :id="`card_${index}`">
+            {{ card.name }}
+            <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
+              ({{ aura(card.color) }})
+            </template>
+            Coût : {{ Math.max(cardCost + $world.CARD_COST[card.color], 0) }} candelas
             {{ render(card.description, $world) }}
           </action>
         </div>
       </div>
 
-      <br/>  <br/><br/>
+      <br/><br/><br/>
 
-      <action :disabled="!!selectedCard" @click="resolveTurn" ref="skip"> Passer </action>
+      <action :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
     </div>
 
     <div role="log" aria-live="assertive" style="display: inline-block; width: 50%">
-      <div v-for="line in $story.journal.filter(l => l.type === 'log')">
+      <div v-for="(line, index) in $story.journal.filter(l => l.type === 'log')"
+        tabindex="0"
+        :id="index === $story.journal.filter(l => l.type === 'log').length - 1 ? 'journal' : undefined">
         {{ line.text }}
       </div>
     </div>
@@ -97,18 +103,15 @@ const draw = (amount) => {
   }
 }
 
-const luminio = ref()
-const foes = ref([])
-const cards = ref([])
-const skip = ref()
 const selectCard = (card) => {
   if (!card.targetted) playCard(card)
   else {
     selectedCard = card
-    foes.value[0].$el.focus()
+    $ui.focus('#foe_0')
   }
 }
 
+let cardCost = $ref(0)
 const resolveTurn = () => {
   $world.DISCARDED.push(...$world.HAND)
   $world.HAND.length = 0
@@ -139,22 +142,21 @@ const resolveTurn = () => {
   $world.PROTECTION = 0
   $world.SHIELD = null
   nextTick(() => {
-    if (cards.value.length) cards.value[0].$el.focus()
-    else skip.value.$el.focus()
+    if ($world.HAND.length) $ui.focus('#card_0')
+    else $ui.focus('skip')
   })
 }
 
 let selectedCard = $ref(null)
-let cardCost = $ref(0)
 const playCard = (card, foe) => {
   card.execute(foe)
-  $world.CANDELAS -= cardCost
+  $world.CANDELAS -= Math.max(cardCost + $world.CARD_COST[card.color], 0)
   $world.DISCARDED.push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
   selectedCard = null
   cardCost++
   nextTick(() => {
-    if (cards.value.length) cards.value[0].$el.focus()
-    else skip.value.$el.focus()
+    if ($world.HAND.length) $ui.focus('#card_0')
+    else $ui.focus('skip')
   })
 }
 
@@ -203,12 +205,12 @@ $world.FIGHT_FOES.forEach(foe => {
     }
     if (candelasRemoved) {
       let severity
-      if ($world.CANDELAS <= 0) severity = '6'
-      else if ($world.CANDELAS <= 9) severity = '5'
-      else if ($world.CANDELAS <= 29) severity = '4'
-      else if ($world.CANDELAS <= 54) severity = '3'
-      else if ($world.CANDELAS <= 79) severity = '2'
-      else severity = '1'
+      if ($world.CANDELAS <= 0) severity = 6
+      else if ($world.CANDELAS <= 9) severity = 5
+      else if ($world.CANDELAS <= 29) severity = 4
+      else if ($world.CANDELAS <= 54) severity = 3
+      else if ($world.CANDELAS <= 79) severity = 2
+      else severity = 1
       $world.LOG(`fight.encaisse${severity}`, { candelasRemoved })
     }
     return {
@@ -232,7 +234,7 @@ $world.FIGHT_FOES.forEach(foe => {
 })
 
 onMounted(() => {
-  luminio.value.focus()
+  $ui.focus('#luminio')
   $world.SHUFFLE_DECK()
   declareFoeIntentions()
   draw(5)
