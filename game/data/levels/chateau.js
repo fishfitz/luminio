@@ -4,70 +4,53 @@ export default {
   spawn: [4, 0],
   nightmare: [0, 4],
   repartition: {
-    monster: 23
-    /*
-      monster: 8,
-      rest: 5,
-      treasure: 2,
-      mystery: 8
-    */
+    majorMystery: 2,
+    majorFight: 2,
+    mediumMystery: 3,
+    mediumFight: 3,
+    rest: 5,
+    minorMystery: 4,
+    minorFight: 4
   },
   scenes: {
-    monster: [
-      { sceneId: 'monster1', intensity: 1 },
-      { sceneId: 'monster2', intensity: 1 },
-      { sceneId: 'monster3', intensity: 1 },
-      { sceneId: 'monster4', intensity: 2 },
-      { sceneId: 'monster5', intensity: 2 },
-      { sceneId: 'monster6', intensity: 2 },
-      { sceneId: 'monster7', intensity: 2 },
-      { sceneId: 'monster8', intensity: 3 },
-      { sceneId: 'monster9', intensity: 3 },
-      { sceneId: 'monster10', intensity: 3 },
-      { sceneId: 'monster1', intensity: 1 },
-      { sceneId: 'monster2', intensity: 1 },
-      { sceneId: 'monster3', intensity: 1 },
-      { sceneId: 'monster4', intensity: 2 },
-      { sceneId: 'monster5', intensity: 2 },
-      { sceneId: 'monster6', intensity: 2 },
-      { sceneId: 'monster7', intensity: 2 },
-      { sceneId: 'monster8', intensity: 3 },
-      { sceneId: 'monster9', intensity: 3 },
-      { sceneId: 'monster10', intensity: 3 },
-      { sceneId: 'monster1', intensity: 1 },
-      { sceneId: 'monster2', intensity: 1 },
-      { sceneId: 'monster3', intensity: 1 },
-      { sceneId: 'monster4', intensity: 2 },
-      { sceneId: 'monster5', intensity: 2 },
-      { sceneId: 'monster6', intensity: 2 },
-      { sceneId: 'monster7', intensity: 2 },
-      { sceneId: 'monster8', intensity: 3 },
-      { sceneId: 'monster9', intensity: 3 },
-      { sceneId: 'monster10', intensity: 3 }
+    minorFight: [
+      { sceneId: 'duoDOmbresFugaces', intensity: 2 },
+      { sceneId: 'murmure', intensity: 2 },
+      { sceneId: 'armureHantee', intensity: 2 },
+      { sceneId: 'armureEtFantome', intensity: 2 }
     ],
+    mediumFight: [
+      { sceneId: 'ombreEpaisse', intensity: 3 },
+      { sceneId: 'litanie', intensity: 3 },
+      { sceneId: 'embuscade', intensity: 3 }
+    ],
+    majorFight: [
+      { sceneId: 'laGalerieAuxArmures', intensity: 4 },
+      { sceneId: 'leFaiseurDOmbres', intensity: 4 }
+    ],
+
+    minorMystery: [
+      { sceneId: 'chateauAmbiance1', intensity: 2 },
+      { sceneId: 'chateauAmbiance2', intensity: 2 },
+      { sceneId: 'chateauAmbiance3', intensity: 2 },
+      { sceneId: 'lesPiques', intensity: 2 }
+    ],
+    mediumMystery: [
+      { sceneId: 'laGuillotine', intensity: 3 },
+      { sceneId: 'uneStatueDeLumière', intensity: 3 },
+      { sceneId: 'funesteMiseEnGarde', intensity: 3 }
+    ],
+    majorMystery: [
+      { sceneId: 'laPierreQuiRoule', intensity: 4 },
+      { sceneId: 'laGrandeSalle', intensity: 4 }
+    ],
+
     rest: [
-      { sceneId: 'rest', intensity: 1 },
-      { sceneId: 'rest', intensity: 1 },
-      { sceneId: 'rest', intensity: 1 },
-      { sceneId: 'rest', intensity: 1 },
-      { sceneId: 'rest', intensity: 1 }
-    ],
-    treasure: [
-      { sceneId: 'treasure1', intensity: 1 },
-      { sceneId: 'treasure2', intensity: 2 },
-      { sceneId: 'treasure3', intensity: 3 }
-    ],
-    mystery: [
-      { sceneId: 'mystery1', intensity: 1 },
-      { sceneId: 'mystery2', intensity: 1 },
-      { sceneId: 'mystery3', intensity: 1 },
-      { sceneId: 'mystery4', intensity: 2 },
-      { sceneId: 'mystery5', intensity: 2 },
-      { sceneId: 'mystery6', intensity: 2 },
-      { sceneId: 'mystery7', intensity: 2 },
-      { sceneId: 'mystery8', intensity: 3 },
-      { sceneId: 'mystery9', intensity: 3 },
-      { sceneId: 'mystery10', intensity: 3 }
+      { sceneId: 'chateauRepos', intensity: 1 },
+      { sceneId: 'chateauRepos', intensity: 1 },
+      { sceneId: 'chateauRepos', intensity: 1 },
+      { sceneId: 'chateauRepos', intensity: 1 },
+      { sceneId: 'chateauRepos', intensity: 1 }
     ]
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <div role="log" aria-live="assertive">
-    <template v-if="$world.TRINKET_CHOICE">
+  <div tabgroup role="log" aria-live="assertive">
+    <template  v-if="$world.TRINKET_CHOICE">
       <div tabindex="0">
         {{ $world.TRINKET_CHOICE.name }}
         {{ $world.TRINKET_CHOICE.description }}

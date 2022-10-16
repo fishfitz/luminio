@@ -13,6 +13,7 @@ La porte s’ouvre… Je ne peux m’empêcher de frémir, mais mon devoir m’i
 // Son : la porte qui se referme en claquant, son percutant et immédiat pour servir de transition entre les deux ambiances audio.
 // Ambiance audio : acte 1
 // Illustration : Luminio, de face, se tenant devant la porte close, dans un hall sinistre
+$ TEST(2, 'default_victory', 'default_defeat')
 Me voilà à l’intérieur. Je suis certain que l’Organiste m’attend, que tout ceci n’est qu’un piège. Mais ça ne se passera pas comme la dernière fois. Bon sang, il a prit mon rêveur, je ne peux pas échouer…
 $ VIEW('level')
 

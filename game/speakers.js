@@ -1,3 +1,8 @@
 module.exports = {
-  // TODO: add some speaker example here
+  luminio: {
+    name: 'Luminio'
+  },
+  fantome: {
+    name: 'Fantome'
+  }
 }

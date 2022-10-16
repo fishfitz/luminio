@@ -18,14 +18,34 @@ const createMap = ([rows, cols]) => {
   return map
 }
 
-const randomAssign = (map, { scenes, repartition }) => {
+const randomAssign = (map, { scenes, repartition, spawn }) => {
   const unsetSquares = shuffle(map
     .flatMap((row, rowIndex) => row
-      .map((col, colIndex) => col.type ? null : [rowIndex, colIndex]))
+      .map((col, colIndex) => col.type
+        ? null
+        : [
+            rowIndex,
+            colIndex,
+            Math.abs(spawn[0] - rowIndex) + Math.abs(spawn[1] - colIndex) // Distance to spawn
+          ]
+      )
+    )
     .filter(b => b))
+    .sort(([,, distA], [,, distB]) => {
+      let aScore = 1
+      if (distA >= 4) aScore = 3
+      else if (distA >= 2) aScore = 2
+
+      let bScore = 1
+      if (distB >= 4) bScore = 3
+      else if (distB >= 2) bScore = 2
+
+      return aScore - bScore
+    })
 
   Object.entries(repartition).forEach(([type, max]) => {
     const scenesOfType = shuffle(scenes[type])
+
     for (let i = 0; i < max; i++) {
       const [row, col] = unsetSquares.pop()
       Object.assign(map[row][col], { type, ...scenesOfType.pop() })

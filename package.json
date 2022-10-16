@@ -11,8 +11,9 @@
   "dependencies": {
     "@autheur/operators": "^1.1.0",
     "@pixi/particle-emitter": "^5.0.7",
-    "carni": "^0.0.13",
+    "carni": "^0.0.14",
     "carni-audio": "^0.0.1",
+    "french-ordinals": "^4.2.5",
     "just-clone": "^6.1.1",
     "just-curry-it": "^5.2.1",
     "just-intersect": "^4.2.1",

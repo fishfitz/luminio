@@ -24,6 +24,8 @@ export default {
   FIGHT_DEFEAT: null,
   HAND: [],
   DISCARDED: [],
+  EXILE: [],
+  VOID: [],
   CARD_COST: {
     black: 0,
     white: 0,

@@ -8,13 +8,13 @@
         <template v-if="$world.PROTECTION">
           <br/>
           Protection : {{ $world.PROTECTION }}
-          <template v-if="$world.SHIELD"> ({{aura($world.SHIELD)}}) </template>
+          <template v-if="$world.SHIELD"> ({{ aura($world.SHIELD) }}) </template>
         </template>
         <br/>
         Volonté : {{ $world.WILL }} sur 10
       </div>
       <br/><br/><br/>
-      <div class="foes">
+      <div tabgroup class="foes">
         <action
           v-for="(foe, index) in $world.FIGHT_FOES"
           :key="index"
@@ -23,13 +23,13 @@
           {{ foe.name }} <br/>
           Ténèbre : {{ foe.life }} sur {{ foe.maxLife }} <br/>
           Aura :
-          <span v-for="(auraPattern, index) in foe.auraPattern">
+          <div v-for="(auraPattern, index) in foe.auraPattern">
             <template v-if="foe.aura[index]"> {{ aura(foe.aura[index]) }} Remplie </template>
             <template v-else>
               <template v-if="isPatternCorrect(foe)"> {{ aura(auraPattern) }} </template>
               <template v-else> Vide </template>
             </template>
-          </span> <br/>
+          </div> <br/>
           Intention : {{ foe.intention?.type }}
           <br/><br/><br/><br/>
         </action>
@@ -38,7 +38,7 @@
         </action>
       </div>
 
-      <div class="hand">
+      <div tabgroup class="hand">
         <div v-for="(card, index) in $world.HAND" :key="card.id">
           <action
             :disabled="!!selectedCard"
@@ -59,8 +59,8 @@
       <action :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
     </div>
 
-    <div role="log" aria-live="assertive" style="display: inline-block; width: 50%">
-      <div v-for="(line, index) in $story.journal.filter(l => l.type === 'log')"
+    <div tabgroup tabstartlast role="log" aria-live="assertive" style="display: inline-block; width: 50%">
+      <div v-for="(line, index) in $story.journal.filter(l => l.type === 'log').slice(-50)"
         tabindex="0"
         :id="index === $story.journal.filter(l => l.type === 'log').length - 1 ? 'journal' : undefined">
         {{ line.text }}
@@ -71,15 +71,11 @@
 
 <script setup>
 import { nextTick } from 'vue'
-import intersect from 'just-intersect'
 import shuffle from 'just-shuffle'
+import clone from 'just-clone'
 import render from '~carni/render'
 import { aura } from '../utils/french'
-
-const isPatternCorrect = (foe) => {
-  return foe.aura.every(color => color !== 'black') &&
-    !intersect(foe.aura, foe.auraPattern).some(color => color !== 'white')
-}
+import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName, isPatternCorrect } from '../utils/fights'
 
 const declareFoeIntentions = () => {
   for (const foe of $world.FIGHT_FOES) {
@@ -103,14 +99,6 @@ const draw = (amount) => {
   }
 }
 
-const selectCard = (card) => {
-  if (!card.targetted) playCard(card)
-  else {
-    selectedCard = card
-    $ui.focus('#foe_0')
-  }
-}
-
 let cardCost = $ref(0)
 const resolveTurn = () => {
   $world.DISCARDED.push(...$world.HAND)
@@ -122,25 +110,16 @@ const resolveTurn = () => {
       foe.stunned = false
       $world.LOG('fight.estEtourditEtNeJouePas', { foe })
     } else if (foe.intention) foe.intention.execute.apply(foe)
-
-    if (!$world.CANDELAS) {
-      if ($world.WILL === 10) {
-        $world.LOG('fight.jeNePeuxPasEchouer')
-        $world.WILL = 0
-        $world.CANDELAS = $world.MAX_CANDELAS
-      } else {
-        $world.LOG('fight.jAiEchoue')
-        $world.GOTO($world.FIGHT_DEFEAT)
-      }
-    }
   }
 
   declareFoeIntentions()
   $world.FIGHT_TURN++
   cardCost = 0
+
   if ($world.PROTECTION) $world.LOG('fight.maSphereDisparait')
   $world.PROTECTION = 0
   $world.SHIELD = null
+
   nextTick(() => {
     if ($world.HAND.length) $ui.focus('#card_0')
     else $ui.focus('skip')
@@ -149,74 +128,72 @@ const resolveTurn = () => {
 
 let selectedCard = $ref(null)
 const playCard = (card, foe) => {
+  card.addProtection = addProtection
+  card.draw = draw
+
   card.execute(foe)
-  $world.CANDELAS -= Math.max(cardCost + $world.CARD_COST[card.color], 0)
-  $world.DISCARDED.push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
+
+  $world.CANDELAS -= Math.max(cardCost + $world.CARD_COST[card.color], 0);
+
+  ($world[card.destination] || $world.DISCARDED).push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
   selectedCard = null
   cardCost++
-  nextTick(() => {
-    if ($world.HAND.length) $ui.focus('#card_0')
-    else $ui.focus('skip')
-  })
+
+  if (card.endTurn) resolveTurn()
+  else {
+    nextTick(() => {
+      if ($world.HAND.length) $ui.focus('#card_0')
+      else $ui.focus('skip')
+    })
+  }
+}
+
+const selectCard = (card) => {
+  if (!card.targetted) playCard(card)
+  else {
+    selectedCard = card
+    $ui.focus('#foe_0')
+  }
 }
 
 const win = () => {
+  $world.DECK.push(...$world.DISCARDED, ...$world.EXILE, ...$world.HAND)
+  $world.DECK = shuffle($world.DECK)
+
+  $world.DISCARDED.length = 0
+  $world.EXILE.length = 0
+  $world.HAND.length = 0
+
+  if ($world.WILL < 10) $world.WILL += 1
+
   $world.GOTO($world.FIGHT_VICTORY)
 }
 
-$world.FIGHT_FOES.forEach(foe => {
+const resetFoe = (foe) => {
+  foe.intention = null
+  foe.life = foe.maxLife
   foe.aura = []
   resetAura(foe)
-  foe.addAura = (color) => {
-    foe.aura.push(color)
 
-    if (foe.aura.length >= foe.auraSlots) {
-      if (foe.aura.every(color => color !== 'black')) {
-        foe.stunned = true
-        if (isPatternCorrect(foe)) {
-          const candelasGain = $world.CANDELAS + 2 * foe.auraSlots
-          $world.CANDELAS = Math.min($world.MAX_CANDELAS, candelasGain)
-          $world.LOG('fight.sonAuraEstHarmonisee', { candelasGain })
-        } else $world.LOG('fight.sonAuraSurcharge')
-      } else if (foe.aura.every(color => color === 'black')) {
-        $world.LOG('fight.sonAuraSObscurcit')
-        foe.auraDarkening()
-      } else $world.LOG('fight.sonAuraEstSouillee')
-      foe.aura.length = 0
-    }
+  foe.addAura = (color) => {
+    return addAura(color, foe)
   }
 
-  foe.inflictDamages = function (amount, ignoreProtection = false) {
-    let protectionRemoved = 0
-    if (!ignoreProtection) {
-      protectionRemoved = $world.PROTECTION >= amount ? amount : $world.PROTECTION
-      $world.PROTECTION -= protectionRemoved
-    }
+  foe.inflictDiscard = (amount) => {
+    return discardPlayer(amount)
+  }
 
-    const afterProtection = amount - protectionRemoved
-    const candelasRemoved = $world.CANDELAS >= amount - afterProtection ? afterProtection : $world.CANDELAS
-    $world.CANDELAS -= candelasRemoved
+  foe.inflictDamages = (amount, ignoreProtection = false) => {
+    return damagePlayer(amount, ignoreProtection, foe)
+  }
 
-    if (protectionRemoved) $world.LOG('fight.maSphereAbsorbe', { protectionRemoved, broken: !$world.PROTECTION })
-    if ($world.SHIELD) {
-      $world.LOG('fight.maSphereTeinte', { foe, color: $world.SHIELD })
-      foe.addAura($world.SHIELD)
-      if (!$world.PROTECTION) $world.SHIELD = null
-    }
-    if (candelasRemoved) {
-      let severity
-      if ($world.CANDELAS <= 0) severity = 6
-      else if ($world.CANDELAS <= 9) severity = 5
-      else if ($world.CANDELAS <= 29) severity = 4
-      else if ($world.CANDELAS <= 54) severity = 3
-      else if ($world.CANDELAS <= 79) severity = 2
-      else severity = 1
-      $world.LOG(`fight.encaisse${severity}`, { candelasRemoved })
-    }
-    return {
-      protectionRemoved,
-      candelasRemoved
-    }
+  foe.summon = (minion) => {
+    const clonedMinion = clone({
+      name: uniqueName(minion),
+      ...minion
+    })
+    resetFoe(clonedMinion)
+    $world.FIGHT_FOES.push(clonedMinion)
   }
 
   foe.receiveDamages = (amount, color) => {
@@ -226,12 +203,12 @@ $world.FIGHT_FOES.forEach(foe => {
     else $world.LOG('fight.XSubitDegatsEtEstDetruit', { foe, amount })
 
     if (color) foe.addAura(color)
-    if (!foe.life) {
-      $world.FIGHT_FOES.splice($world.FIGHT_FOES.indexOf(foe), 1)
-    }
+    if (!foe.life) $world.FIGHT_FOES.splice($world.FIGHT_FOES.indexOf(foe), 1)
     if (!$world.FIGHT_FOES.length) win()
   }
-})
+}
+
+$world.FIGHT_FOES.forEach(resetFoe)
 
 onMounted(() => {
   $ui.focus('#luminio')

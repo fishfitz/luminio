@@ -13,5 +13,17 @@ module.exports = {
   },
   'p,ctrl+p': function () {
     $ui.focus('#last_position')
+  },
+  up: function () {
+    $ui.focusPreviousGroup()
+  },
+  down: function () {
+    $ui.focusNextGroup()
+  },
+  left: function () {
+    $ui.focusPreviousElementInGroup()
+  },
+  right: function () {
+    $ui.focusNextElementInGroup()
   }
 }

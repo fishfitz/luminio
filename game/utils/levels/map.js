@@ -25,15 +25,17 @@ export const roomName = (room) => {
     case 'empty':
       return 'Lieu vide'
     case 'nightmare':
-      return 'Lieu cauchemar'
+      return 'Source de Cauchemar'
   }
   if (!room.accessible) return 'Lieu inconnu'
   switch (room.intensity) {
     case 1:
       return 'Lieu calme'
     case 2:
-      return 'Lieu agité'
+      return 'Lieu troublé'
     case 3:
+      return 'Lieu agité'
+    case 4:
       return 'Lieu déchaîné'
   }
 }

@@ -1,3 +1,5 @@
+import { ombreFugace } from './foes'
+
 export const griffesDOmbre = () => ({
   type: 'buff',
   execute () {
@@ -12,12 +14,12 @@ export const griffesDOmbre = () => ({
   }
 })
 
-export const hurlementDOmbre = () => {
+export const etouffementDOmbre = () => {
   return {
     type: 'debuff',
     execute () {
-      $world.LOG('actions.hurlementDOmbre', { foe: this })
-      $world.INFLICT_DISCARD(1)
+      $world.LOG('actions.etouffementDOmbre', { foe: this })
+      this.inflictDiscard(1)
     }
   }
 }
@@ -29,6 +31,75 @@ export const obscurcissement = () => {
       $world.LOG('actions.obscurcissement', { foe: this })
       this.power += 5
       this.life = this.maxLife
+    }
+  }
+}
+
+export const contactGlacial = () => {
+  return {
+    type: 'buff',
+    execute () {
+      $world.LOG('actions.contactGlacial', { foe: this })
+      this.inflictDamages(8 + this.power)
+    }
+  }
+}
+
+export const murmureAction = () => {
+  return {
+    type: 'debuff',
+    execute () {
+      $world.LOG('actions.murmure', { foe: this })
+      $world.ADD_CARD('peurDiffuse', $world.DISCARDED)
+    }
+  }
+}
+
+export const litanieAction = () => {
+  return {
+    type: 'debuff',
+    execute () {
+      $world.LOG('actions.litanie', { foe: this })
+      $world.ADD_CARD('peur', $world.DISCARDED)
+    }
+  }
+}
+
+export const lenteur = () => {
+  return {
+    type: 'none',
+    execute () {
+      $world.LOG('actions.lenteur', { foe: this })
+    }
+  }
+}
+
+export const coupDEpee = () => {
+  return {
+    type: 'buff',
+    execute () {
+      $world.LOG('actions.coupDEpee', { foe: this })
+      this.inflictDamages(10 + this.power)
+    }
+  }
+}
+
+export const coupDeLanterne = () => {
+  return {
+    type: 'buff',
+    execute () {
+      $world.LOG('actions.coupDeLanterne', { foe: this })
+      this.inflictDamages(8 + this.power)
+    }
+  }
+}
+
+export const danseDesOmbres = () => {
+  return {
+    type: 'special',
+    execute () {
+      $world.LOG('actions.danseDesOmbres', { foe: this })
+      this.summon(ombreFugace())
     }
   }
 }

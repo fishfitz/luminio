@@ -1,4 +1,5 @@
 import { isFirstCharAVowel, pluralize, feminize } from '@autheur/operators'
+import { getOrdinal } from 'french-ordinals'
 
 export const le = ({ name, gender = 'masc', amount = 1, proper = false }, short = false) => {
   if (short) return gender === 'masc' ? 'le' : 'la'
@@ -65,4 +66,8 @@ export const cap = (word) => {
 
 export const fem = (word, gender = 'masc') => {
   return gender === 'masc' ? word : feminize(word)
+}
+
+export const nth = (count, gender = 'masc') => {
+  return getOrdinal(count, gender === 'masc' ? 'M' : 'F')
 }
