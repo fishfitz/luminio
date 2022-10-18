@@ -226,7 +226,7 @@ export const glypheOrfeuSupreme = {
   color: 'yellow',
   name: 'Glyphe d\'Orfeu Majeure',
   description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura 20 dégâts et je termine mon tour.',
-  upgrade: 'glypheOrfeuSupreme',
+  upgrade: false,
   targetted: false,
   endTurn: true,
   execute () {
@@ -363,7 +363,7 @@ export const radianceOrfeuSupreme = {
   color: 'yellow',
   name: 'Radiance d\'Orfeu Supreme',
   description: 'Je mets 4 éléments d’Orfeu dans l’aura de ma cible, au lieu d’un seul.',
-  upgrade: 'radianceOrfeuSupreme',
+  upgrade: false,
   targetted: true,
   execute (foe) {
     $world.LOG('cards.radiance', { foe, color: 'yellow' })
