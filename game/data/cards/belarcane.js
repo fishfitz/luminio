@@ -6,7 +6,7 @@ export const flammeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Flamme de Belarcane',
-  description: 'J’inflige à ma cible entre 1 et 11 dégâts.',
+  description: 'J\'inflige à ma cible entre 1 et 11 dégâts.',
   upgrade: 'flammeBelarcaneMajeure',
   targetted: true,
   execute (foe) {
@@ -19,7 +19,7 @@ export const flammeBelarcaneMajeure = {
   intensity: 2,
   color: 'purple',
   name: 'Flamme de Belarcane Majeure',
-  description: 'J’inflige à ma cible entre 4 et 14 dégâts.',
+  description: 'J\'inflige à ma cible entre 4 et 14 dégâts.',
   upgrade: 'flammeBelarcaneSupreme',
   targetted: true,
   execute (foe) {
@@ -32,7 +32,7 @@ export const flammeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Flamme de Belarcane Suprême',
-  description: 'J’inflige à ma cible entre 7 et 17 dégâts.',
+  description: 'J\'inflige à ma cible entre 7 et 17 dégâts.',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -125,7 +125,7 @@ export const brasierDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Brasier de Belarcane',
-  description: 'J’inflige à tous mes ennemis entre 1 et 11 dégâts et je termine mon tour.',
+  description: 'J\'inflige à tous mes ennemis entre 1 et 11 dégâts et je termine mon tour.',
   upgrade: 'brasierDeBelarcaneMajeur',
   targetted: false,
   endTurn: true,
@@ -141,7 +141,7 @@ export const brasierDeBelarcaneMajeur = {
   intensity: 2,
   color: 'purple',
   name: 'Brasier de Belarcane Majeur',
-  description: 'J’inflige à tous mes ennemis entre 4 et 14 dégâts et je termine mon tour.',
+  description: 'J\'inflige à tous mes ennemis entre 4 et 14 dégâts et je termine mon tour.',
   upgrade: 'brasierDeBelarcaneSupreme',
   targetted: false,
   endTurn: true,
@@ -157,7 +157,7 @@ export const brasierDeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Brasier de Belarcane Suprême',
-  description: 'J’inflige à tous mes ennemis entre 7 et 17 dégâts et je termine mon tour.',
+  description: 'J\'inflige à tous mes ennemis entre 7 et 17 dégâts et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,
@@ -173,7 +173,7 @@ export const eclatDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Éclat de Belarcane',
-  description: 'Si cette carte permet de surcharger l’aura de ma cible, je lui inflige entre 1 et 39 dégâts.',
+  description: 'Si cette carte permet de surcharger l\'aura de ma cible, je lui inflige entre 1 et 39 dégâts.',
   upgrade: 'eclatDeBelarcaneMajeur',
   targetted: true,
   execute (foe) {
@@ -185,7 +185,7 @@ export const glypheDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Glyphe de Belarcane',
-  description: 'J’inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 1 et 19 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 1 et 19 dégâts et je termine mon tour.',
   upgrade: 'glypheDeBelarcaneMajeur',
   targetted: false,
   endTurn: true,
@@ -206,7 +206,7 @@ export const glypheDeBelarcaneMajeur = {
   intensity: 2,
   color: 'purple',
   name: 'Glyphe de Belarcane Majeure',
-  description: 'J’inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 6 et 24 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 6 et 24 dégâts et je termine mon tour.',
   upgrade: 'glypheDeBelarcaneMajeur',
   targetted: false,
   endTurn: true,
@@ -227,7 +227,7 @@ export const glypheDeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Glyphe de Belarcane Majeure',
-  description: 'J’inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 11 et 29 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 11 et 29 dégâts et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,
@@ -248,7 +248,7 @@ export const mainDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Main de Belarcane',
-  description: 'J’inflige à ma cible entre 1 et 7 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{1 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{7 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
+  description: 'J\'inflige à ma cible entre 1 et 7 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{1 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{7 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
   upgrade: 'mainDeBelarcaneMajeure',
   targetted: true,
   execute (foe) {
@@ -262,7 +262,7 @@ export const mainDeBelarcaneMajeure = {
   intensity: 2,
   color: 'purple',
   name: 'Main de Belarcane Majeure',
-  description: 'J’inflige à ma cible entre 2 et 8 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{2 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{8 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
+  description: 'J\'inflige à ma cible entre 2 et 8 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{2 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{8 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
   upgrade: 'mainDeBelarcaneSupreme',
   targetted: true,
   execute (foe) {
@@ -276,7 +276,7 @@ export const mainDeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Main de Belarcane Supreme',
-  description: 'J’inflige à ma cible entre 3 et 9 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{3 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{9 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
+  description: 'J\'inflige à ma cible entre 3 et 9 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{3 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{9 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -309,7 +309,7 @@ export const motDeBelarcaneMajeur = {
   upgrade: 'motDeBelarcaneSupreme',
   targetted: false,
   execute () {
-    // TODO: coute 1 candela de moins
+    // TODO: coute 2 candelas de moins
     $world.LOG('cards.mot', { color: 'purple' })
     this.addProtection(randomInt(4, 14), 'purple')
     this.draw(1)
@@ -324,7 +324,7 @@ export const motDeBelarcaneSuprême = {
   upgrade: false,
   targetted: false,
   execute () {
-    // TODO: coute 1 candela de moins
+    // TODO: coute 3 candelas de moins
     $world.LOG('cards.mot', { color: 'purple' })
     this.addProtection(randomInt(7, 17), 'purple')
     this.draw(2)
@@ -335,7 +335,7 @@ export const radianceDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Radiance de Belarcane',
-  description: 'Je mets 2 éléments de Belarcane dans l’aura de ma cible, au lieu d’un seul.',
+  description: 'Je mets 2 éléments de Belarcane dans l\'aura de ma cible, au lieu d\'un seul.',
   upgrade: 'radianceDeBelarcaneMajeure',
   targetted: true,
   execute (foe) {
@@ -349,7 +349,7 @@ export const radianceDeBelarcaneMajeure = {
   intensity: 2,
   color: 'purple',
   name: 'Radiance de Belarcane Majeure',
-  description: 'Je mets 3 éléments de Belarcane dans l’aura de ma cible, au lieu d’un seul.',
+  description: 'Je mets 3 éléments de Belarcane dans l\'aura de ma cible, au lieu d\'un seul.',
   upgrade: 'radianceDeBelarcaneSupreme',
   targetted: true,
   execute (foe) {
@@ -364,7 +364,7 @@ export const radianceDeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Radiance de Belarcane Supreme',
-  description: 'Je mets 4 éléments de Belarcane dans l’aura de ma cible, au lieu d’un seul.',
+  description: 'Je mets 4 éléments de Belarcane dans l\'aura de ma cible, au lieu d\'un seul.',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -380,7 +380,7 @@ export const rayonDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Rayon de Belarcane',
-  description: 'J’inflige à ma cible entre 1 et 11 dégâts par élément de Belarcane dans son aura.',
+  description: 'J\'inflige à ma cible entre 1 et 11 dégâts par élément de Belarcane dans son aura.',
   upgrade: 'rayonDeBelarcaneMajeur',
   targetted: true,
   execute (foe) {
@@ -393,7 +393,7 @@ export const rayonDeBelarcaneMajeur = {
   intensity: 2,
   color: 'purple',
   name: 'Rayon de Belarcane Majeur',
-  description: 'J’inflige à ma cible entre 4 et 14 dégâts par élément de Belarcane dans son aura.',
+  description: 'J\'inflige à ma cible entre 4 et 14 dégâts par élément de Belarcane dans son aura.',
   upgrade: 'rayonDeBelarcaneSupreme',
   targetted: true,
   execute (foe) {
@@ -406,7 +406,7 @@ export const rayonDeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Rayon de Belarcane Supreme',
-  description: 'J’inflige à ma cible entre 7 et 17 dégâts par élément de Belarcane dans son aura.',
+  description: 'J\'inflige à ma cible entre 7 et 17 dégâts par élément de Belarcane dans son aura.',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -419,7 +419,7 @@ export const runeDeBelarcane = {
   intensity: 1,
   color: 'purple',
   name: 'Rune de Belarcane',
-  description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura 10 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura 10 dégâts et je termine mon tour.',
   upgrade: 'runeDeBelarcaneMajeure',
   targetted: false,
   endTurn: true,
@@ -440,7 +440,7 @@ export const runeDeBelarcaneMajeure = {
   intensity: 2,
   color: 'purple',
   name: 'Rune de Belarcane Majeure',
-  description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura entre 6 et 24 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura entre 6 et 24 dégâts et je termine mon tour.',
   upgrade: 'runeDeBelarcaneSupreme',
   targetted: false,
   endTurn: true,
@@ -461,7 +461,7 @@ export const runeDeBelarcaneSupreme = {
   intensity: 3,
   color: 'purple',
   name: 'Rune de Belarcane Suprême',
-  description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura entre 11 et 29 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura entre 11 et 29 dégâts et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,

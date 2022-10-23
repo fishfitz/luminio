@@ -4,7 +4,7 @@ export const flammeOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Flamme d\'Orfeu',
-  description: 'J’inflige à ma cible 6 dégâts.',
+  description: 'J\'inflige à ma cible 6 dégâts.',
   upgrade: 'flammeOrfeuMajeure',
   targetted: true,
   execute (foe) {
@@ -17,7 +17,7 @@ export const flammeOrfeuMajeure = {
   intensity: 2,
   color: 'yellow',
   name: 'Flamme d\'Orfeu Majeure',
-  description: 'J’inflige à ma cible 9 dégâts.',
+  description: 'J\'inflige à ma cible 9 dégâts.',
   upgrade: 'flammeOrfeuSupreme',
   targetted: true,
   execute (foe) {
@@ -30,7 +30,7 @@ export const flammeOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Flamme d\'Orfeu Suprême',
-  description: 'J’inflige à ma cible 12 dégâts.',
+  description: 'J\'inflige à ma cible 12 dégâts.',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -123,7 +123,7 @@ export const brasierOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Brasier d\'Orfeu',
-  description: 'J’inflige à tous mes ennemis 6 dégâts et je termine mon tour.',
+  description: 'J\'inflige à tous mes ennemis 6 dégâts et je termine mon tour.',
   upgrade: 'brasierOrfeuMajeur',
   targetted: false,
   endTurn: true,
@@ -139,7 +139,7 @@ export const brasierOrfeuMajeur = {
   intensity: 2,
   color: 'yellow',
   name: 'Brasier d\'Orfeu Majeur',
-  description: 'J’inflige à tous mes ennemis 9 dégâts et je termine mon tour.',
+  description: 'J\'inflige à tous mes ennemis 9 dégâts et je termine mon tour.',
   upgrade: 'brasierOrfeuSupreme',
   targetted: false,
   endTurn: true,
@@ -155,7 +155,7 @@ export const brasierOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Brasier d\'Orfeu Suprême',
-  description: 'J’inflige à tous mes ennemis 12 dégâts et je termine mon tour.',
+  description: 'J\'inflige à tous mes ennemis 12 dégâts et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,
@@ -171,7 +171,7 @@ export const eclatOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Éclat d\'Orfeu',
-  description: 'Si cette carte permet de surcharger l’aura de ma cible, je lui inflige 20 dégâts.',
+  description: 'Si cette carte permet de surcharger l\'aura de ma cible, je lui inflige 20 dégâts.',
   upgrade: 'eclatOrfeuMajeur',
   targetted: true,
   execute (foe) {
@@ -183,7 +183,7 @@ export const glypheOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Glyphe d\'Orfeu',
-  description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura 10 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura 10 dégâts et je termine mon tour.',
   upgrade: 'glypheOrfeuMajeur',
   targetted: false,
   endTurn: true,
@@ -204,7 +204,7 @@ export const glypheOrfeuMajeur = {
   intensity: 2,
   color: 'yellow',
   name: 'Glyphe d\'Orfeu Majeure',
-  description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura 15 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura 15 dégâts et je termine mon tour.',
   upgrade: 'glypheOrfeuMajeur',
   targetted: false,
   endTurn: true,
@@ -225,7 +225,7 @@ export const glypheOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Glyphe d\'Orfeu Majeure',
-  description: 'J’inflige à chaque ennemi ayant un élément Céleste dans son aura 20 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura 20 dégâts et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,
@@ -246,7 +246,7 @@ export const mainOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Main d\'Orfeu',
-  description: 'J’inflige à ma cible 4 dégâts par autre sort d\'Orfeu dans ma main (actuellement {{4 * (HAND.filter(function(c) { return c.color === "yellow" }).length - 1)}}).',
+  description: 'J\'inflige à ma cible 4 dégâts par autre sort d\'Orfeu dans ma main (actuellement {{4 * (HAND.filter(function(c) { return c.color === "yellow" }).length - 1)}}).',
   upgrade: 'mainOrfeuMajeure',
   targetted: true,
   execute (foe) {
@@ -260,7 +260,7 @@ export const mainOrfeuMajeure = {
   intensity: 2,
   color: 'yellow',
   name: 'Main d\'Orfeu Majeure',
-  description: 'J’inflige à ma cible 5 dégâts par autre sort d\'Orfeu dans ma main (actuellement {{5 * (HAND.filter(function(c) { return c.color === "yellow" }).length - 1)}}).',
+  description: 'J\'inflige à ma cible 5 dégâts par autre sort d\'Orfeu dans ma main (actuellement {{5 * (HAND.filter(function(c) { return c.color === "yellow" }).length - 1)}}).',
   upgrade: 'mainOrfeuSupreme',
   targetted: true,
   execute (foe) {
@@ -274,7 +274,7 @@ export const mainOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Main d\'Orfeu Supreme',
-  description: 'J’inflige à ma cible 6 dégâts par autre sort d\'Orfeu dans ma main (actuellement {{6 * (HAND.filter(function(c) { return c.color === "yellow" }).length - 1)}}).',
+  description: 'J\'inflige à ma cible 6 dégâts par autre sort d\'Orfeu dans ma main (actuellement {{6 * (HAND.filter(function(c) { return c.color === "yellow" }).length - 1)}}).',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -303,11 +303,11 @@ export const motOrfeuMajeur = {
   intensity: 2,
   color: 'yellow',
   name: 'Mot d\'Orfeu Majeur',
-  description: 'Ce sort me coûte 1 candela de moins. Je gagne 9 protection et je pioche 1 carte.',
+  description: 'Ce sort me coûte 2 candelas de moins. Je gagne 9 protection et je pioche 1 carte.',
   upgrade: 'motOrfeuSupreme',
   targetted: false,
   execute () {
-    // TODO: coute 1 candela de moins
+    // TODO: coute 2 candelas de moins
     $world.LOG('cards.mot', { color: 'yellow' })
     this.addProtection(9, 'yellow')
     this.draw(1)
@@ -318,11 +318,11 @@ export const motOrfeuSuprême = {
   intensity: 3,
   color: 'yellow',
   name: 'Mot d\'Orfeu Suprême',
-  description: 'Ce sort me coûte 1 candela de moins. Je gagne 12 protection et je pioche 2 cartes.',
+  description: 'Ce sort me coûte 3 candelas de moins. Je gagne 12 protection et je pioche 2 cartes.',
   upgrade: false,
   targetted: false,
   execute () {
-    // TODO: coute 1 candela de moins
+    // TODO: coute 3 candelas de moins
     $world.LOG('cards.mot', { color: 'yellow' })
     this.addProtection(12, 'yellow')
     this.draw(2)
@@ -333,7 +333,7 @@ export const radianceOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Radiance d\'Orfeu',
-  description: 'Je mets 2 éléments d’Orfeu dans l’aura de ma cible, au lieu d’un seul.',
+  description: 'Je mets 2 éléments d\'Orfeu dans l\'aura de ma cible, au lieu d\'un seul.',
   upgrade: 'radianceOrfeuMajeure',
   targetted: true,
   execute (foe) {
@@ -347,7 +347,7 @@ export const radianceOrfeuMajeure = {
   intensity: 2,
   color: 'yellow',
   name: 'Radiance d\'Orfeu Majeure',
-  description: 'Je mets 3 éléments d’Orfeu dans l’aura de ma cible, au lieu d’un seul.',
+  description: 'Je mets 3 éléments d\'Orfeu dans l\'aura de ma cible, au lieu d\'un seul.',
   upgrade: 'radianceOrfeuSupreme',
   targetted: true,
   execute (foe) {
@@ -362,7 +362,7 @@ export const radianceOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Radiance d\'Orfeu Supreme',
-  description: 'Je mets 4 éléments d’Orfeu dans l’aura de ma cible, au lieu d’un seul.',
+  description: 'Je mets 4 éléments d\'Orfeu dans l\'aura de ma cible, au lieu d\'un seul.',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -378,7 +378,7 @@ export const rayonOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Rayon d\'Orfeu',
-  description: 'J’inflige à ma cible 6 dégâts par élément d’Orfeu dans son aura.',
+  description: 'J\'inflige à ma cible 6 dégâts par élément d\'Orfeu dans son aura.',
   upgrade: 'rayonOrfeuMajeur',
   targetted: true,
   execute (foe) {
@@ -391,7 +391,7 @@ export const rayonOrfeuMajeur = {
   intensity: 2,
   color: 'yellow',
   name: 'Rayon d\'Orfeu Majeur',
-  description: 'J’inflige à ma cible 9 dégâts par élément d’Orfeu dans son aura.',
+  description: 'J\'inflige à ma cible 9 dégâts par élément d\'Orfeu dans son aura.',
   upgrade: 'rayonOrfeuSupreme',
   targetted: true,
   execute (foe) {
@@ -404,7 +404,7 @@ export const rayonOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Rayon d\'Orfeu Supreme',
-  description: 'J’inflige à ma cible 12 dégâts par élément d’Orfeu dans son aura.',
+  description: 'J\'inflige à ma cible 12 dégâts par élément d\'Orfeu dans son aura.',
   upgrade: false,
   targetted: true,
   execute (foe) {
@@ -417,7 +417,7 @@ export const runeOrfeu = {
   intensity: 1,
   color: 'yellow',
   name: 'Rune d\'Orfeu',
-  description: 'J’inflige à chaque ennemi ayant un élément Belarcane dans son aura 10 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Belarcane dans son aura 10 dégâts et je termine mon tour.',
   upgrade: 'runeOrfeuMajeure',
   targetted: false,
   endTurn: true,
@@ -438,7 +438,7 @@ export const runeOrfeuMajeure = {
   intensity: 2,
   color: 'yellow',
   name: 'Rune d\'Orfeu Majeure',
-  description: 'J’inflige à chaque ennemi ayant un élément Belarcane dans son aura 15 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Belarcane dans son aura 15 dégâts et je termine mon tour.',
   upgrade: 'runeOrfeuSupreme',
   targetted: false,
   endTurn: true,
@@ -459,7 +459,7 @@ export const runeOrfeuSupreme = {
   intensity: 3,
   color: 'yellow',
   name: 'Rune d\'Orfeu Suprême',
-  description: 'J’inflige à chaque ennemi ayant un élément Belarcane dans son aura 20 dégâts et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément Belarcane dans son aura 20 dégâts et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,
