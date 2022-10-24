@@ -6,7 +6,7 @@ export const explore = (room) => {
   level.playerPosition = [room.x, room.y]
 
   let candelasGain = Math.min(6, level.time)
-  if (candelasGain > 0) candelasGain += $world.TIME_CANDELA_GAIN
+  if (candelasGain > 0) candelasGain = Math.max(0, $world.ALTER('exploreCandelaGain', candelasGain))
   $world.CANDELAS = Math.max(Math.min($world.CANDELAS + candelasGain, $world.MAX_CANDELAS), 1)
 
   level.time -= 1

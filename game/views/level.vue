@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div tabindex="0"> Time : {{ level.time }} </div>
-    <div tabgroup tabkeepcolumn v-for="(row, rowIndex) in level.map">
+    <div aria-roledescription=" " tabindex="0"> Temps : {{ level.time }}, Candelas : {{ $world.CANDELAS }} / {{ $world.MAX_CANDELAS }}, Volonté : {{ $world.WILL }} / 10 </div>
+    <div aria-roledescription=" " tabgroup tabkeepcolumn v-for="(row, rowIndex) in level.map">
       <action
         v-for="(room, colIndex) in row"
         :id="isPlayer(rowIndex, colIndex) ? 'last_position' : undefined"

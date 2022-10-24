@@ -6,10 +6,14 @@ import * as french from './utils/french'
 import texts from './data/texts/fr'
 import * as cards from './utils/cards'
 import * as scenes from './utils/scenes'
+import * as common from './utils/common'
 
 export default {
+  // Common
   RANDOM: random,
   RANDOM_PICK: randomPick,
+  ALTER: common.alter,
+  ON: common.on,
 
   // Journal
   LOG (key, data, nextSceneId, nextLineIndex = 0) {

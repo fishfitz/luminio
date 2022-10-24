@@ -30,7 +30,7 @@
               <template v-else> Vide </template>
             </template>
           </div> <br/>
-          Intention : {{ foe.intention?.type }}
+          Intention : {{ intention(foe.intention?.type) }}
           <br/><br/><br/><br/>
         </action>
         <action v-if="selectedCard" @click="selectedCard = null">
@@ -48,7 +48,7 @@
             <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
               ({{ aura(card.color) }})
             </template>
-            Coût : {{ Math.max(cardCost + $world.CARD_COST[card.color], 0) }} candelas
+            Coût : {{ Math.max($world.ALTER('cardCost', cardCost, card), 0) }} candelas
             {{ render(card.description, $world) }}
           </action>
         </div>
@@ -74,7 +74,7 @@ import { nextTick } from 'vue'
 import shuffle from 'just-shuffle'
 import clone from 'just-clone'
 import render from '~carni/render'
-import { aura } from '../utils/french'
+import { aura, intention } from '../utils/french'
 import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName, isPatternCorrect } from '../utils/fights'
 
 const declareFoeIntentions = () => {
@@ -103,7 +103,7 @@ let cardCost = $ref(0)
 const resolveTurn = () => {
   $world.DISCARDED.push(...$world.HAND)
   $world.HAND.length = 0
-  draw(5)
+  draw($world.ALTER('startOfTurnDrawAmount', 5))
 
   for (const foe of $world.FIGHT_FOES) {
     if (foe.stunned) {
@@ -112,13 +112,15 @@ const resolveTurn = () => {
     } else if (foe.intention) foe.intention.execute.apply(foe)
   }
 
-  declareFoeIntentions()
   $world.FIGHT_TURN++
+  declareFoeIntentions()
   cardCost = 0
 
-  if ($world.PROTECTION) $world.LOG('fight.maSphereDisparait')
-  $world.PROTECTION = 0
-  $world.SHIELD = null
+  const hadProtection = !!$world.PROTECTION
+  $world.PROTECTION -= $world.ALTER('startOfTurnProtectionLoss', $world.PROTECTION)
+  if (!$world.PROTECTION) $world.SHIELD = null
+  if ($world.PROTECTION) $world.LOG('fight.jeConserveMaProtection', { amount: $world.PROTECTION })
+  else if (hadProtection) $world.LOG('fight.maSphereDisparait')
 
   nextTick(() => {
     if ($world.HAND.length) $ui.focus('#card_0')
@@ -133,7 +135,7 @@ const playCard = (card, foe) => {
 
   card.execute(foe)
 
-  $world.CANDELAS -= Math.max(cardCost + $world.CARD_COST[card.color], 0);
+  $world.CANDELAS -= Math.max($world.ALTER('cardCost', cardCost, card), 0);
 
   ($world[card.destination] || $world.DISCARDED).push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
   selectedCard = null
@@ -200,7 +202,10 @@ const resetFoe = (foe) => {
     foe.life = Math.max(foe.life - amount, 0)
 
     if (foe.life) $world.LOG('fight.XSubitDegats', { foe, amount })
-    else $world.LOG('fight.XSubitDegatsEtEstDetruit', { foe, amount })
+    else {
+      $world.LOG('fight.XSubitDegatsEtEstDetruit', { foe, amount })
+      $world.ON('foeDeath', foe)
+    }
 
     if (color) foe.addAura(color)
     if (!foe.life) $world.FIGHT_FOES.splice($world.FIGHT_FOES.indexOf(foe), 1)
@@ -214,6 +219,6 @@ onMounted(() => {
   $ui.focus('#luminio')
   $world.SHUFFLE_DECK()
   declareFoeIntentions()
-  draw(5)
+  draw($world.ALTER('startOfTurnDrawAmount', 5))
 })
 </script>

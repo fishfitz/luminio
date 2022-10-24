@@ -25,5 +25,8 @@ module.exports = {
   },
   right: function () {
     $ui.focusNextElementInGroup()
+  },
+  'space,enter': function () {
+    document.activeElement.click()
   }
 }

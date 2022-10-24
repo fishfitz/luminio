@@ -4,7 +4,7 @@ export const griffesDOmbre = () => ({
   type: 'buff',
   execute () {
     $world.LOG('actions.griffesDOmbre1', { foe: this })
-    const { candelasRemoved } = this.inflictDamages(5 + this.power)
+    const { candelasRemoved } = this.inflictDamages(5)
 
     if (candelasRemoved) {
       $world.LOG('actions.griffesDOmbre2', { foe: this, candelasRemoved })
@@ -37,10 +37,10 @@ export const obscurcissement = () => {
 
 export const contactGlacial = () => {
   return {
-    type: 'buff',
+    type: 'aggro',
     execute () {
       $world.LOG('actions.contactGlacial', { foe: this })
-      this.inflictDamages(8 + this.power)
+      this.inflictDamages(8)
     }
   }
 }
@@ -76,20 +76,20 @@ export const lenteur = () => {
 
 export const coupDEpee = () => {
   return {
-    type: 'buff',
+    type: 'aggro',
     execute () {
       $world.LOG('actions.coupDEpee', { foe: this })
-      this.inflictDamages(10 + this.power)
+      this.inflictDamages(10)
     }
   }
 }
 
 export const coupDeLanterne = () => {
   return {
-    type: 'buff',
+    type: 'aggro',
     execute () {
       $world.LOG('actions.coupDeLanterne', { foe: this })
-      this.inflictDamages(8 + this.power)
+      this.inflictDamages(8)
     }
   }
 }

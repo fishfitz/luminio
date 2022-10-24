@@ -1,15 +1,17 @@
 import random from 'just-random-integer'
-import intersect from 'just-intersect'
 import { nth, cap } from './french'
 
 // Returns true if the foe pattern is still correct
 export const isPatternCorrect = (foe) => {
-  return foe.aura.every(color => color !== 'black') &&
-    !intersect(foe.aura, foe.auraPattern).some(color => color !== 'white')
+  return !foe.aura.length ||
+    foe.aura
+      .every((color, index) => color === 'white' || color === foe.auraPattern[index])
 }
 
 // Remove protection and candelas from the player, and check if he has to recover or is dead
 export const damagePlayer = (amount, ignoreProtection = false, foe) => {
+  amount += Math.max(0, $world.ALTER('foePower', foe.power, foe))
+
   let protectionRemoved = 0
   if (!ignoreProtection) {
     protectionRemoved = $world.PROTECTION >= amount ? amount : $world.PROTECTION
@@ -90,7 +92,7 @@ export const addAura = (color, foe) => {
     if (foe.aura.every(color => color !== 'black')) {
       foe.stunned = true
       if (isPatternCorrect(foe)) {
-        const candelasGain = $world.CANDELAS + 2 * foe.auraSlots
+        const candelasGain = $world.ALTER('auraCandelasGain', 2 * foe.auraSlots)
         $world.CANDELAS = Math.min($world.MAX_CANDELAS, candelasGain)
         $world.LOG('fight.sonAuraEstHarmonisee', { candelasGain })
       } else $world.LOG('fight.sonAuraSurcharge')

@@ -5,6 +5,7 @@ export const souvenirCuisant = {
   description: 'Je ne peux pas retirer cette carte de mon deck. Je pioche une carte.',
   upgrade: false,
   targetted: false,
+  irremovable: true,
   execute (foe) {
     $world.LOG('cards.souvenirCuisant')
     this.draw(1)

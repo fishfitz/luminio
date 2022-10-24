@@ -11,15 +11,17 @@ export const le = ({ name, gender = 'masc', amount = 1, proper = false }, short 
 
 export const du = ({ name, gender = 'masc', amount = 1, proper = false }, short = false) => {
   if (amount > 1) return `des ${proper ? name : name.toLowerCase()}`
-  if (isFirstCharAVowel(name)) return `de l’${proper ? name : name.toLowerCase()}`
+  if (isFirstCharAVowel(name)) return `de l'${proper ? name : name.toLowerCase()}`
   return `${gender === 'masc' ? 'du' : 'de la'} ${proper ? name : name.toLowerCase()}`
 }
 
-export const de = (name) => {
-  return isFirstCharAVowel(name) ? `d’${name}` : `de ${name}`
+export const de = (arg) => {
+  const name = (typeof arg === 'object' ? arg.name : arg)
+  return isFirstCharAVowel(name) ? `d'${name}` : `de ${name}`
 }
 
-export const il = ({ gender = 'masc' }) => {
+export const il = (arg) => {
+  const gender = (typeof arg === 'object' ? arg.gender : arg) || 'masc'
   return gender === 'masc' ? 'il' : 'elle'
 }
 
@@ -70,4 +72,19 @@ export const fem = (word, gender = 'masc') => {
 
 export const nth = (count, gender = 'masc') => {
   return getOrdinal(count, gender === 'masc' ? 'M' : 'F')
+}
+
+export const intention = (type) => {
+  switch (type) {
+    case 'aggro':
+      return 'Agressive'
+    case 'debuff':
+      return 'Affaiblissement'
+    case 'buff':
+      return 'Renforcement'
+    case 'special':
+      return 'Spéciale'
+    case 'none':
+      return 'Aucune'
+  }
 }

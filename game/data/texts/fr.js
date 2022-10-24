@@ -22,7 +22,8 @@ export default {
     maSphereSeRenforce: 'Ma sphère protectrice se renforce de {{amount}} {{plural("point", amount)}}.',
     maSphereSeRenforceChangementCouleur: 'Ma sphère protectrice se renforce de {{amount}} {{plural("point", amount)}} et elle devient {{chroma(color, \'fem\')}}.',
     maSphereTeinte: 'Elle teinte l\'aura {{du(foe)}} {{de(aura(color))}}.',
-    jePioche: 'Je pioche {{ amount }} {{plural("carte", amount)}}.'
+    jePioche: 'Je pioche {{ amount }} {{plural("carte", amount)}}.',
+    jeConserveMaProtection: 'Ma sphère s\'affaiblit mais je conserve {{ amount }} {{plural("point", amount)}} de protection.'
   },
   actions: {
     griffesDOmbre1: '{{cap(le(foe))}} me lacère avec ses griffes démesurées.',

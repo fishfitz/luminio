@@ -7,6 +7,7 @@ export const flammeOrfeu = {
   description: 'J\'inflige à ma cible 6 dégâts.',
   upgrade: 'flammeOrfeuMajeure',
   targetted: true,
+  base: true,
   execute (foe) {
     $world.LOG('cards.flamme', { foe, color: 'yellow' })
     foe.receiveDamages(6, 'yellow')
@@ -46,6 +47,7 @@ export const bouclierOrfeu = {
   description: 'Je gagne 6 de protection.',
   upgrade: 'bouclierOrfeuMajeur',
   targetted: false,
+  base: true,
   execute (foe) {
     $world.LOG('cards.bouclier', { color: 'yellow' })
     this.addProtection(6, 'yellow')

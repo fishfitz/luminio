@@ -16,6 +16,7 @@ export default {
   WILL: 10,
   DECK: createBaseDeck(),
   DECK_EVOLUTION: null,
+  DECK_EVOLUTION_AMOUNT: 3,
 
   // Fight
   FIGHT_FOES: [],

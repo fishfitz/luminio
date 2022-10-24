@@ -23,8 +23,7 @@ export const createBaseDeck = () => {
     clone(attack2),
     clone(attack2),
 
-    clone(cards.souvenirCuisant),
-    clone(cards.mainOrfeu)
+    clone(cards.souvenirCuisant)
   ].map(card => ({ ...card, id: nanoid() }))
 
   return shuffle(deck)
@@ -53,6 +52,17 @@ export const removeCard = (card) => {
 export const evolveDeck = (type = 'replace') => {
   $world.VIEW('play')
   $world.DECK_EVOLUTION = { type, cards: [], selectedCard: null }
+  for (let i = 0; i < $world.DECK_EVOLUTION_AMOUNT; i++) {
+    const eligibleCards = Object.values(cards)
+      .filter(({ name, intensity, color, base }) =>
+        color !== 'white' &&
+        color !== 'black' &&
+        !base &&
+        intensity === 1 &&
+        !$world.DECK_EVOLUTION.cards.some(c => c.name === name))
+    if (eligibleCards.length) $world.DECK_EVOLUTION.cards.push(randomPick(eligibleCards))
+  }
+
   for (let i = 0; i < 3; i++) {
     const eligibleCards = $world.DECK
       .filter(({ id }) => !$world.DECK_EVOLUTION.cards.some(c => c.id === id))

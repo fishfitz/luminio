@@ -7,6 +7,7 @@ export const flammeCeleste = {
   description: 'J\'inflige à ma cible 3 dégâts + 1 par tour (actuellement {{3 + FIGHT_TURN}}).',
   upgrade: 'flammeCelesteMajeure',
   targetted: true,
+  base: true,
   execute (foe) {
     $world.LOG('cards.flamme', { foe, color: 'blue' })
     foe.receiveDamages(3 + $world.FIGHT_TURN, 'blue')
@@ -46,6 +47,7 @@ export const bouclierCeleste = {
   description: 'Je gagne 3 de protection + 1 par tour (actuellement {{3 + FIGHT_TURN}}).',
   upgrade: 'bouclierCelesteMajeur',
   targetted: false,
+  base: true,
   execute (foe) {
     $world.LOG('cards.bouclier', { color: 'blue' })
     this.addProtection(3 + $world.FIGHT_TURN, 'blue')
@@ -250,7 +252,7 @@ export const mainCeleste = {
   upgrade: 'mainCélesteMajeure',
   targetted: true,
   execute (foe) {
-    const damages = (1 + $world.FIGHT_TURN) * $world.HAND.filter(c => c.color == 'blue').length - 1
+    const damages = (1 + $world.FIGHT_TURN) * $world.HAND.filter(c => c.color === 'blue').length - 1
     $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'blue' })
     if (damages) foe.receiveDamages(damages, 'blue')
   }
@@ -264,7 +266,7 @@ export const mainCelesteMajeure = {
   upgrade: 'mainCélesteSupreme',
   targetted: true,
   execute (foe) {
-    const damages = (2 + $world.FIGHT_TURN) * $world.HAND.filter(c => c.color == 'blue').length - 1
+    const damages = (2 + $world.FIGHT_TURN) * $world.HAND.filter(c => c.color === 'blue').length - 1
     $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'blue' })
     if (damages) foe.receiveDamages(damages, 'blue')
   }
@@ -278,7 +280,7 @@ export const mainCelesteSupreme = {
   upgrade: false,
   targetted: true,
   execute (foe) {
-    const damages = 2 * $world.FIGHT_TURN * $world.HAND.filter(c => c.color == 'blue').length - 1
+    const damages = 2 * $world.FIGHT_TURN * $world.HAND.filter(c => c.color === 'blue').length - 1
     $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'blue' })
     if (damages) foe.receiveDamages(damages, 'blue')
   }
@@ -383,7 +385,7 @@ export const rayonCeleste = {
   targetted: true,
   execute (foe) {
     $world.LOG('cards.rayon', { foe, color: 'blue' })
-    foe.receiveDamages(foe.aura.filter(a => a == 'blue').length * 3 + $world.FIGHT_TURN, 'blue')
+    foe.receiveDamages(foe.aura.filter(a => a === 'blue').length * 3 + $world.FIGHT_TURN, 'blue')
   }
 }
 
@@ -396,7 +398,7 @@ export const rayonCelesteMajeur = {
   targetted: true,
   execute (foe) {
     $world.LOG('cards.rayon', { foe, color: 'blue' })
-    foe.receiveDamages(foe.aura.filter(a => a == 'blue').length * 3 + 2 * $world.FIGHT_TURN, 'blue')
+    foe.receiveDamages(foe.aura.filter(a => a === 'blue').length * 3 + 2 * $world.FIGHT_TURN, 'blue')
   }
 }
 
@@ -409,7 +411,7 @@ export const rayonCelesteSupreme = {
   targetted: true,
   execute (foe) {
     $world.LOG('cards.rayon', { foe, color: 'blue' })
-    foe.receiveDamages(foe.aura.filter(a => a == 'blue').length * 3 + 3 * $world.FIGHT_TURN, 'blue')
+    foe.receiveDamages(foe.aura.filter(a => a === 'blue').length * 3 + 3 * $world.FIGHT_TURN, 'blue')
   }
 }
 
@@ -417,7 +419,7 @@ export const runeCeleste = {
   intensity: 1,
   color: 'blue',
   name: 'Rune Céleste',
-  description: 'J\'inflige à chaque ennemi ayant un élément d'Orfeu dans son aura 4 dégâts + 2 par tour et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura 4 dégâts + 2 par tour et je termine mon tour.',
   upgrade: 'runeCélesteMajeure',
   targetted: false,
   endTurn: true,
@@ -438,7 +440,7 @@ export const runeCelesteMajeure = {
   intensity: 2,
   color: 'blue',
   name: 'Rune Céleste Majeure',
-  description: 'J\'inflige à chaque ennemi ayant un élément d'Orfeu dans son aura 6 dégâts + 2 par tour et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura 6 dégâts + 2 par tour et je termine mon tour.',
   upgrade: 'runeCélesteSupreme',
   targetted: false,
   endTurn: true,
@@ -459,7 +461,7 @@ export const runeCelesteSupreme = {
   intensity: 3,
   color: 'blue',
   name: 'Rune Céleste Suprême',
-  description: 'J\'inflige à chaque ennemi ayant un élément d'Orfeu dans son aura 8 dégâts + 3 par tour et je termine mon tour.',
+  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura 8 dégâts + 3 par tour et je termine mon tour.',
   upgrade: false,
   targetted: false,
   endTurn: true,

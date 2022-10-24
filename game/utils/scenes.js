@@ -1,6 +1,7 @@
+import randomPick from 'just-random'
 import clone from 'just-clone'
 import fights from '../data/fights'
-import trinkets from '../data/trinkets'
+import * as trinkets from '../data/trinkets'
 
 export const fight = (fightId, victorySceneId = 'default_victory', defeatSceneId = 'default_defeat') => {
   const { foes } = fights[fightId]()
@@ -12,6 +13,7 @@ export const fight = (fightId, victorySceneId = 'default_victory', defeatSceneId
 }
 
 export const addTrinket = (trinket) => {
+  if (!trinket) trinket = randomPick(Object.keys(trinkets))
   $world.VIEW('play')
   $world.TRINKET_CHOICE = trinkets[trinket]
 }
@@ -22,11 +24,11 @@ const basicTest = (intensity, successSceneId, failureSceneId, count = 0) => {
   let blackCard = false
   while (count < intensity && !blackCard) {
     if (!$world.DECK[count] || $world.DECK[count].color === 'black') blackCard = true
-    else count++
+    count++
   }
 
   $world.LOG(
-    blackCard ? 'tests.defeat' : 'tests.success',
+    blackCard ? 'tests.failure' : 'tests.success',
     { count },
     blackCard ? failureSceneId : successSceneId
   )
@@ -36,11 +38,11 @@ const basicTest = (intensity, successSceneId, failureSceneId, count = 0) => {
 
 export const test = (intensity, successSceneId, failureSceneId) => {
   $world.SHUFFLE_DECK()
-  basicTest(intensity, successSceneId, failureSceneId)
+  basicTest(Math.max(1, $world.ALTER('testIntensity', intensity)), successSceneId, failureSceneId)
 }
 
 export const progressiveTest = (intensity, successSceneId, failureSceneId) => {
-  $world.PROGRESSIVE_COUNT = basicTest(intensity, successSceneId, failureSceneId)
+  $world.PROGRESSIVE_COUNT = basicTest(Math.max(1, $world.ALTER('testIntensity', intensity)), successSceneId, failureSceneId)
 }
 
 export const damagePlayer = (amount, defeatSceneId) => {
