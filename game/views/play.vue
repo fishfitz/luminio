@@ -3,10 +3,10 @@
 
     <!-- Trinkets choice -->
     <template v-if="$world.TRINKET_CHOICE">
-      <div tabindex="0">
+      <action autofocus>
         {{ $world.TRINKET_CHOICE.name }}
         {{ $world.TRINKET_CHOICE.description }}
-      </div>
+      </action>
 
       <template v-if="$world.TRINKETS.length < 3">
         <action @click="addTrinket($world.TRINKETS.length)"> Ramasser le trésor </action>
@@ -25,9 +25,9 @@
     <template v-else-if="$world.DECK_EVOLUTION">
       <!-- Remove card from deck -->
       <template v-if="$world.DECK_EVOLUTION.type === 'remove'">
-        <div tabindex="0">
+        <action autofocus>
           Choisissez une carte à retirer
-        </div>
+        </action>
 
         <ul>
           <li v-for="card in $world.DECK.filter(card => !card.irremovable)">
@@ -44,9 +44,9 @@
 
       <!-- Replace first step or upgrade -->
       <template v-else-if="$world.DECK_EVOLUTION && !$world.DECK_EVOLUTION.selectedCard && $world.DECK_EVOLUTION.type !== 'add'">
-        <div tabindex="0">
+        <action autofocus>
           Choisissez une carte à remplacer <template v-if="$world.DECK_EVOLUTION.type === 'upgrade'"> ou à améliorer</template>
-        </div>
+        </action>
         <ul>
           <li v-for="card in $world.DECK.filter(c => !c.irremovable).slice(0, 3)">
             <div tabindex="0">
@@ -71,12 +71,12 @@
 
       <!-- Replace second step or add -->
       <template v-else>
-        <div v-if="$world.DECK_EVOLUTION.type === 'add'" tabindex="0">
+        <action v-if="$world.DECK_EVOLUTION.type === 'add'" tabindex="0" autofocus>
           Choisissez une carte à ajouter à votre deck
-        </div>
-        <div v-else tabindex="0">
+        </action>
+        <action v-else autofocus>
           Choisissez une carte pour remplacer {{ $world.DECK_EVOLUTION.selectedCard.name }}
-        </div>
+        </action>
         <ul>
           <li v-for="card in $world.DECK_EVOLUTION.cards">
             <action @click="$world.DECK_EVOLUTION.type === 'add' ? deckAdd(card) : deckReplace(card)">
