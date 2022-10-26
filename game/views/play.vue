@@ -144,6 +144,7 @@ const deckReplace = (card) => {
 
 const deckAdd = (card) => {
   $world.ADD_CARD(card)
+  skipDeckChange()
 }
 
 const deckRemove = (card) => {
