@@ -1,5 +1,6 @@
 
 export const explore = (room) => {
+  room.explored = true
   $world.GOTO(room.sceneId)
   $world.VIEW('play')
   const level = $world.LEVELS[$world.CURRENT_LEVEL]

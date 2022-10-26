@@ -1,7 +1,7 @@
 <template>
   <div>
     <div aria-live="off" style="display: inline-block; width: 50%">
-      <div tabindex="0" id="luminio">
+      <action tabindex="0" id="luminio">
         Luminio
         <br/>
         Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }}
@@ -12,7 +12,7 @@
         </template>
         <br/>
         Volonté : {{ $world.WILL }} sur 10
-      </div>
+      </action>
       <br/><br/><br/>
       <div tabgroup class="foes">
         <action
@@ -59,12 +59,12 @@
       <action :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
     </div>
 
-    <div tabgroup tabstartlast role="log" aria-live="assertive" style="display: inline-block; width: 50%">
-      <div v-for="(line, index) in $story.journal.filter(l => l.type === 'log').slice(-50)"
-        tabindex="0"
+    <div tabgroup tabstartlast role="log" aria-live="assertive" aria-relevant="additions" style="display: inline-block; width: 50%">
+      <action v-for="(line, index) in $story.journal.filter(l => l.type === 'log').slice(-25)"
+        :key="index"
         :id="index === $story.journal.filter(l => l.type === 'log').length - 1 ? 'journal' : undefined">
         {{ line.text }}
-      </div>
+      </action>
     </div>
   </div>
 </template>
@@ -202,13 +202,13 @@ const resetFoe = (foe) => {
     foe.life = Math.max(foe.life - amount, 0)
 
     if (foe.life) $world.LOG('fight.XSubitDegats', { foe, amount })
-    else {
-      $world.LOG('fight.XSubitDegatsEtEstDetruit', { foe, amount })
-      $world.ON('foeDeath', foe)
-    }
 
     if (color) foe.addAura(color)
-    if (!foe.life) $world.FIGHT_FOES.splice($world.FIGHT_FOES.indexOf(foe), 1)
+    if (!foe.life) {
+      $world.LOG('fight.XSubitDegatsEtEstDetruit', { foe, amount })
+      $world.ON('foeDeath', foe)
+      $world.FIGHT_FOES.splice($world.FIGHT_FOES.indexOf(foe), 1)
+    }
     if (!$world.FIGHT_FOES.length) win()
   }
 }

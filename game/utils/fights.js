@@ -93,7 +93,7 @@ export const addAura = (color, foe) => {
       foe.stunned = true
       if (isPatternCorrect(foe)) {
         const candelasGain = $world.ALTER('auraCandelasGain', 2 * foe.auraSlots)
-        $world.CANDELAS = Math.min($world.MAX_CANDELAS, candelasGain)
+        $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + candelasGain)
         $world.LOG('fight.sonAuraEstHarmonisee', { candelasGain })
       } else $world.LOG('fight.sonAuraSurcharge')
     } else if (foe.aura.every(color => color === 'black')) {

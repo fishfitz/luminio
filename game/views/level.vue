@@ -8,7 +8,6 @@
         :key="colIndex"
         :autofocus="isPlayer(rowIndex, colIndex)"
         @click="room.accessible && !room.explored && explore(room)"
-        @keyup.enter="room.accessible && !room.explored && explore(room)"
         class="room">
         <template v-if="isPlayer(rowIndex, colIndex)"> Dernière position </template>
         <template v-else>

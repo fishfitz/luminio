@@ -1,5 +1,5 @@
 <template>
-  <div tabgroup role="log" aria-live="assertive">
+  <div tabgroup role="log" aria-live="assertive" aria-relevant="text">
 
     <!-- Trinkets choice -->
     <template v-if="$world.TRINKET_CHOICE">
@@ -63,8 +63,10 @@
               Améliorer {{ card.name }}
             </action>
           </li>
-          <li @click="skipDeckChange">
-            Ne rien faire
+          <li>
+            <action @click="skipDeckChange">
+              Ne rien faire
+            </action>
           </li>
         </ul>
       </template>
