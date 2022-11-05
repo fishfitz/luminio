@@ -46,7 +46,7 @@ export const progressiveTest = (intensity, successSceneId, failureSceneId) => {
 }
 
 export const damagePlayer = (amount, defeatSceneId) => {
-  $world.CANDELAS -= amount
+  $world.CANDELAS = Math.max(0, $world.CANDELAS - amount)
 
   let severity
   if ($world.CANDELAS <= 0) severity = 6
@@ -55,16 +55,15 @@ export const damagePlayer = (amount, defeatSceneId) => {
   else if ($world.CANDELAS <= 54) severity = 3
   else if ($world.CANDELAS <= 79) severity = 2
   else severity = 1
-  $world.LOG(`fight.encaisse${severity}`, { candelasRemoved: amount }, true)
 
-  if (!$world.CANDELAS) {
+  if ($world.CANDELAS) $world.LOG(`fight.encaisse${severity}`, { candelasRemoved: amount }, true)
+  else {
     if ($world.WILL === 10) {
-      $world.LOG('fight.jeNePeuxPasEchouer')
+      $world.LOG('fight.jeNePeuxPasEchouer', {}, true)
       $world.WILL = 0
       $world.CANDELAS = $world.MAX_CANDELAS
     } else {
-      $world.LOG('fight.jAiEchoue')
-      $world.GOTO(defeatSceneId)
+      $world.LOG('fight.jAiEchoue', {}, defeatSceneId)
     }
   }
 }

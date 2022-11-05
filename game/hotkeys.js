@@ -28,5 +28,8 @@ module.exports = {
   },
   'space,enter': function () {
     document.activeElement.click()
+  },
+  'ctrl+d': function () {
+    $ui.downloadLogs()
   }
 }

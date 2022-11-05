@@ -168,7 +168,7 @@ export const brasierOrfeuSupreme = {
     })
   }
 }
-
+/*
 export const eclatOrfeu = {
   intensity: 1,
   color: 'yellow',
@@ -180,7 +180,7 @@ export const eclatOrfeu = {
     $world.LOG('cards.eclat', { color: 'yellow' })
   }
 }
-
+*/
 export const glypheOrfeu = {
   intensity: 1,
   color: 'yellow',

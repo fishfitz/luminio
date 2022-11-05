@@ -1,36 +1,40 @@
 <template>
   <div>
     <div aria-live="off" style="display: inline-block; width: 50%">
-      <action tabindex="0" id="luminio">
+      <action tabgroup id="luminio">
         Luminio
         <br/>
-        Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }}
-        <template v-if="$world.PROTECTION">
+        <action> Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }} </action>
+        <action v-if="$world.PROTECTION">
           <br/>
           Protection : {{ $world.PROTECTION }}
           <template v-if="$world.SHIELD"> ({{ aura($world.SHIELD) }}) </template>
-        </template>
+        </action>
         <br/>
-        Volonté : {{ $world.WILL }} sur 10
+        <action> Volonté : {{ $world.WILL }} sur 10 </action>
       </action>
       <br/><br/><br/>
       <div tabgroup class="foes">
         <action
           v-for="(foe, index) in $world.FIGHT_FOES"
-          :key="index"
+            :key="index"
           @click="selectedCard && playCard(selectedCard, foe)"
           :id="`foe_${index}`">
-          {{ foe.name }} <br/>
-          Ténèbre : {{ foe.life }} sur {{ foe.maxLife }} <br/>
-          Aura :
-          <div v-for="(auraPattern, index) in foe.auraPattern">
-            <template v-if="foe.aura[index]"> {{ aura(foe.aura[index]) }} Remplie </template>
-            <template v-else>
-              <template v-if="isPatternCorrect(foe)"> {{ aura(auraPattern) }} </template>
-              <template v-else> Vide </template>
-            </template>
-          </div> <br/>
-          Intention : {{ intention(foe.intention?.type) }}
+          {{ foe.name }}
+          <br/>
+          <action> Ténèbre : {{ foe.life }} sur {{ foe.maxLife }} </action> <br/>
+          <action>
+            Aura :
+            <span v-for="(auraPattern, index) in foe.auraPattern" :key="index">
+              <template v-if="foe.aura[index]"> {{ aura(foe.aura[index]) }} Remplie </template>
+              <template v-else>
+                <template v-if="isPatternCorrect(foe)"> {{ aura(auraPattern) }} </template>
+                <template v-else> Vide </template>
+              </template>
+            </span>
+            <br/>
+          </action>
+          <action> Intention : {{ intention(foe.intention?.type) }} </action>
           <br/><br/><br/><br/>
         </action>
         <action v-if="selectedCard" @click="selectedCard = null">
@@ -39,19 +43,24 @@
       </div>
 
       <div tabgroup class="hand">
-        <div v-for="(card, index) in $world.HAND" :key="card.id">
-          <action
-            :disabled="!!selectedCard"
-            @click="selectCard(card)"
-            :id="`card_${index}`">
-            {{ card.name }}
-            <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
-              ({{ aura(card.color) }})
-            </template>
-            Coût : {{ Math.max($world.ALTER('cardCost', cardCost, card), 0) }} candelas
-            {{ render(card.description, $world) }}
-          </action>
-        </div>
+        <template v-if="$world.HAND.length">
+          <div v-for="(card, index) in $world.HAND" :key="card.id">
+            <action
+              :disabled="!!selectedCard"
+              @click="selectCard(card)"
+              :id="`card_${index}`">
+              {{ card.name }}
+              <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
+                ({{ aura(card.color) }})
+              </template>
+              Coût : {{ Math.max($world.ALTER('cardCost', cardCost, card), 0) }} candelas
+              {{ render(card.description, $world) }}
+            </action>
+          </div>
+        </template>
+        <template v-else>
+          <action :disabled="!!selectedCard" id="card_0"> Aucune carte en main </action>
+        </template>
       </div>
 
       <br/><br/><br/>
@@ -59,12 +68,19 @@
       <action :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
     </div>
 
-    <div tabgroup tabstartlast role="log" aria-live="assertive" aria-relevant="additions" style="display: inline-block; width: 50%">
-      <action v-for="(line, index) in $story.journal.filter(l => l.type === 'log').slice(-25)"
+    <div tabgroup tabstartlast style="display: inline-block; width: 50%">
+      <action v-for="(line, index) in $story.journal.filter(l => l.type === 'log')"
         :key="index"
-        :id="index === $story.journal.filter(l => l.type === 'log').length - 1 ? 'journal' : undefined">
+        :id="index === $story.journal.filter(l => l.type === 'log').length - 1 ? 'journal' : undefined"
+        style="display: block">
         {{ line.text }}
       </action>
+    </div>
+
+    <div aria-live="assertive" aria-relevant="additions text" style="color: red">
+      <div v-for="line in $story.journal.filter(l => l.type === 'log' && l.turn >= $world.FIGHT_TURN - 1)">
+        {{ line.text }}
+      </div>
     </div>
   </div>
 </template>
@@ -167,6 +183,7 @@ const win = () => {
   $world.HAND.length = 0
 
   if ($world.WILL < 10) $world.WILL += 1
+  $world.FIGHT_TURN = 0
 
   $world.GOTO($world.FIGHT_VICTORY)
 }
@@ -217,6 +234,7 @@ $world.FIGHT_FOES.forEach(resetFoe)
 
 onMounted(() => {
   $ui.focus('#luminio')
+  $world.FIGHT_TURN = 1
   $world.SHUFFLE_DECK()
   declareFoeIntentions()
   draw($world.ALTER('startOfTurnDrawAmount', 5))

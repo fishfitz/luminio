@@ -16,19 +16,21 @@ export default {
   ON: common.on,
 
   // Journal
-  LOG (key, data, nextSceneId, nextLineIndex = 0) {
+  LOG (key, data = {}, nextSceneId, nextLineIndex = 0) {
     if (nextSceneId) {
-      $world.$STORY.speak(
+      $story.speak(
         render(get(texts, key), { ...$world, ...french, ...data }),
         typeof nextSceneId === 'string' ? nextSceneId : null,
-        nextLineIndex
+        typeof nextSceneId === 'string' ? nextLineIndex : null
       )
     } else {
-      $world.$STORY.journal.push({
+      $story.journal.push({
         text: render(get(texts, key), { ...$world, ...french, ...data }),
-        type: 'log'
+        type: 'log',
+        turn: $world.FIGHT_TURN || undefined
       })
     }
+    console.info('Journal:', $story.journal.at(-1).text)
   },
 
   // Scenes

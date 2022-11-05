@@ -168,7 +168,7 @@ export const brasierCelesteSupreme = {
     })
   }
 }
-
+/*
 export const eclatCeleste = {
   intensity: 1,
   color: 'blue',
@@ -180,7 +180,7 @@ export const eclatCeleste = {
     $world.LOG('cards.eclat', { color: 'blue' })
   }
 }
-
+*/
 export const glypheCeleste = {
   intensity: 1,
   color: 'blue',

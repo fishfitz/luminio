@@ -20,7 +20,7 @@ export default {
 
   // Fight
   FIGHT_FOES: [],
-  FIGHT_TURN: 1,
+  FIGHT_TURN: 0,
   FIGHT_VICTORY: null,
   FIGHT_DEFEAT: null,
   HAND: [],

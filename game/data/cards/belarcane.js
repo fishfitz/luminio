@@ -170,7 +170,7 @@ export const brasierDeBelarcaneSupreme = {
     })
   }
 }
-
+/*
 export const eclatDeBelarcane = {
   intensity: 1,
   color: 'purple',
@@ -182,7 +182,7 @@ export const eclatDeBelarcane = {
     $world.LOG('cards.eclat', { color: 'purple' })
   }
 }
-
+*/
 export const glypheDeBelarcane = {
   intensity: 1,
   color: 'purple',
