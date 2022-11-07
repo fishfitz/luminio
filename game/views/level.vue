@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div aria-roledescription=" " tabindex="0"> Temps : {{ level.time }}, Candelas : {{ $world.CANDELAS }} / {{ $world.MAX_CANDELAS }}, Volonté : {{ $world.WILL }} / 10 </div>
+  <div role="presentation">
+    <action> Temps : {{ level.time }}, Candelas : {{ $world.CANDELAS }} / {{ $world.MAX_CANDELAS }}, Volonté : {{ $world.WILL }} / 10 </action>
     <div aria-roledescription=" " tabgroup tabkeepcolumn v-for="(row, rowIndex) in level.map">
       <action
         v-for="(room, colIndex) in row"
@@ -33,10 +33,9 @@ onMounted(() => {
 
 <style scoped lang="scss">
   .room {
-    font-size: small;
-    display: inline-block;
+    font-size: x-small;
+    display: inline-flex;
     padding: 5px;
-    margin: 5px;
     border: 1px solid grey;
     width: 100px;
     height: 100px;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div aria-live="off" style="display: inline-block; width: 50%">
+    <div role="presentation" aria-live="off" style="display: inline-block; width: 50%">
       <action tabgroup id="luminio">
         Luminio
         <br/>
@@ -92,6 +92,7 @@ import clone from 'just-clone'
 import render from '~carni/render'
 import { aura, intention } from '../utils/french'
 import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName, isPatternCorrect } from '../utils/fights'
+import cards from '../data/cards'
 
 const declareFoeIntentions = () => {
   for (const foe of $world.FIGHT_FOES) {
@@ -151,7 +152,7 @@ const playCard = (card, foe) => {
 
   card.execute(foe)
 
-  $world.CANDELAS -= Math.max($world.ALTER('cardCost', cardCost, card), 0);
+  $world.CANDELAS -= Math.max($world.ALTER('cardCost', card.cost ? card.cost(cardCost) : cardCost, card), 0);
 
   ($world[card.destination] || $world.DISCARDED).push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
   selectedCard = null

@@ -3,12 +3,12 @@ export default {
     jeNePeuxPasEchouer: 'Non ! Je ne peux pas échouer ! J\'utilise toute ma Volonté pour récupérer 100 candelas.',
     jAiEchoue: 'J\'ai échoué…',
     maSphereDisparait: 'Ma sphère protectrice disparaît.',
-    sonAuraEstHarmonisee: 'Son aura est harmonisée, ce qui l\'assome. Je récupère {{candelasGain}} candelas.',
+    sonAuraEstHarmonisee: 'Son aura est harmonisée, ce qui l\'assome. Je récupère {{candelasGain}} {{plural("candela", candelasGain)}}.',
     sonAuraSurcharge: 'Son aura surcharge, ce qui l\'assome.',
     sonAuraSObscurcit: 'Son aura s\'obscurcit.',
     sonAuraEstSouillee: 'Son aura est souillée, ce qui ne produit aucun effet.',
-    XSubitDegats: '{{cap(le(foe))}} subit {{amount}} dégâts.',
-    XSubitDegatsEtEstDetruit: '{{cap(le(foe))}} subit {{amount}} dégâts ce qui {{le(foe, "short")}} détruit.',
+    XSubitDegats: '{{cap(le(foe))}} subit {{amount}} {{plural("dégât", amount)}}.',
+    XSubitDegatsEtEstDetruit: '{{cap(le(foe))}} subit {{amount}} {{plural("dégât", amount)}} ce qui {{le(foe, "short")}} détruit.',
     estEtourditEtNeJouePas: '{{cap(le(foe))}} est {{fem("étourdi", foe.gender)}} et n\'agit pas.',
     maSphereAbsorbe: 'Ma sphère protectrice absorbe {{protectionRemoved}} {{plural("dégât", protectionRemoved)}}{{broken ? \' avant de se briser\' : \'\'}}.',
     encaisse1: 'J\'encaisse {{candelasRemoved}} {{plural("dégât", candelasRemoved)}} sans broncher.',
@@ -23,7 +23,8 @@ export default {
     maSphereSeRenforceChangementCouleur: 'Ma sphère protectrice se renforce de {{amount}} {{plural("point", amount)}} et elle devient {{chroma(color, \'fem\')}}.',
     maSphereTeinte: 'Elle teinte l\'aura {{du(foe)}} {{de(aura(color))}}.',
     jePioche: 'Je pioche {{ amount }} {{plural("carte", amount)}}.',
-    jeConserveMaProtection: 'Ma sphère s\'affaiblit mais je conserve {{ amount }} {{plural("point", amount)}} de protection.'
+    jeConserveMaProtection: 'Ma sphère s\'affaiblit mais je conserve {{ amount }} {{plural("point", amount)}} de protection.',
+    jeRecupereCandelas: 'Je récupère {{ amount }} {{plural("candela", amount)}}.'
   },
   actions: {
     griffesDOmbre1: '{{cap(le(foe))}} me lacère avec ses griffes démesurées.',

@@ -1,194 +1,111 @@
 import randomInt from 'just-random-integer'
+import { intensityName, intensityUpgrade } from '../../utils/french'
 
 // cartes de base
 
-export const flammeBelarcane = {
-  intensity: 1,
+const flammeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Flamme de Belarcane',
-  description: 'J\'inflige à ma cible entre 1 et 11 dégâts.',
-  upgrade: 'flammeBelarcaneMajeure',
+  name: intensityName('Flamme de Belarcane', 'fem', intensity),
+  description: `J'inflige à ma cible entre ${1 + (intensity - 1) * 3} et ${11 + (intensity - 1) * 3} dégâts.`,
+  upgrade: intensityUpgrade('flammeBelarcane', 'fem', intensity),
   targetted: true,
-  base: true,
+  base: intensity === 1,
   execute (foe) {
     $world.LOG('cards.flamme', { foe, color: 'purple' })
-    foe.receiveDamages(randomInt(1, 11), 'purple')
+    foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
   }
-}
+})
 
-export const flammeBelarcaneMajeure = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Flamme de Belarcane Majeure',
-  description: 'J\'inflige à ma cible entre 4 et 14 dégâts.',
-  upgrade: 'flammeBelarcaneSupreme',
-  targetted: true,
-  execute (foe) {
-    $world.LOG('cards.flamme', { foe, color: 'purple' })
-    foe.receiveDamages(randomInt(4, 14), 'purple')
-  }
-}
+export const flammeBelarcane = flammeBelarcaneBase(1)
+export const flammeBelarcaneMajeure = flammeBelarcaneBase(2)
+export const flammeBelarcaneSupreme = flammeBelarcaneBase(3)
 
-export const flammeBelarcaneSupreme = {
-  intensity: 3,
+const bouclierBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Flamme de Belarcane Suprême',
-  description: 'J\'inflige à ma cible entre 7 et 17 dégâts.',
-  upgrade: false,
-  targetted: true,
-  execute (foe) {
-    $world.LOG('cards.flamme', { foe, color: 'purple' })
-    foe.receiveDamages(randomInt(7, 17), 'purple')
-  }
-}
-
-export const bouclierBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Bouclier de Belarcane',
-  description: 'Je gagne entre 1 et 11 de protection.',
-  upgrade: 'bouclierBelarcaneMajeur',
+  name: intensityName('Bouclier de Belarcane', 'masc', intensity),
+  description: `Je gagne entre ${1 + (intensity - 1) * 3} et ${11 + (intensity - 1) * 3} de protection.`,
+  upgrade: intensityUpgrade('bouclierBelarcane', 'masc', intensity),
   targetted: false,
-  base: true,
+  base: intensity === 1,
   execute (foe) {
     $world.LOG('cards.bouclier', { color: 'purple' })
-    this.addProtection(randomInt(1, 11), 'purple')
+    this.addProtection(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
   }
-}
+})
 
-export const bouclierBelarcaneMajeur = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Bouclier de Belarcane Majeur',
-  description: 'Je gagne entre 4 et 14 de protection.',
-  upgrade: 'bouclierBelarcaneSupreme',
-  targetted: false,
-  execute (foe) {
-    $world.LOG('cards.bouclier', { color: 'purple' })
-    this.addProtection(randomInt(4, 14), 'purple')
-  }
-}
-
-export const bouclierBelarcaneSupreme = {
-  intensity: 3,
-  color: 'purple',
-  name: 'Bouclier de Belarcane Suprême',
-  description: 'Je gagne entre 7 et 17 de protection.',
-  upgrade: false,
-  targetted: false,
-  execute (foe) {
-    $world.LOG('cards.bouclier', { color: 'purple' })
-    this.addProtection(randomInt(7, 17), 'purple')
-  }
-}
+export const bouclierBelarcane = bouclierBelarcaneBase(1)
+export const bouclierBelarcaneMajeur = bouclierBelarcaneBase(2)
+export const bouclierBelarcaneSupreme = bouclierBelarcaneBase(3)
 
 // cartes communes
 
-export const armureDeBelarcane = {
-  intensity: 1,
+const armureDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Armure de Belarcane',
-  description: 'Je gagne entre 1 et 19 de protection.',
-  upgrade: 'armureDeBelarcaneMajeure',
+  name: intensityName('Armure de Belarcane', 'fem', intensity),
+  description: `Je gagne entre ${1 + (intensity - 1) * 5} et ${19 + (intensity - 1) * 5} de protection.`,
+  upgrade: intensityUpgrade('armureDeBelarcane', 'fem', intensity),
   targetted: false,
   execute (foe) {
     $world.LOG('cards.armure', { color: 'purple' })
-    this.addProtection(randomInt(1, 19), 'purple')
+    this.addProtection(randomInt(1 + (intensity - 1) * 5, 19 + (intensity - 1) * 5), 'purple')
   }
-}
+})
 
-export const armureDeBelarcaneMajeure = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Armure de Belarcane Majeure',
-  description: 'Je gagne entre 6 et 24 de protection.',
-  upgrade: 'armureDeBelarcaneSupreme',
-  targetted: false,
-  execute (foe) {
-    $world.LOG('cards.armure', { color: 'purple' })
-    this.addProtection(randomInt(6, 24), 'purple')
-  }
-}
+export const armureDeBelarcane = armureDeBelarcaneBase(1)
+export const armureDeBelarcaneMajeure = armureDeBelarcaneBase(2)
+export const armureDeBelarcaneSupreme = armureDeBelarcaneBase(3)
 
-export const armureDeBelarcaneSupreme = {
-  intensity: 3,
+const brasierDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Armure de Belarcane Suprême',
-  description: 'Je gagne entre 11 et 29 de protection.',
-  upgrade: false,
-  targetted: false,
-  execute (foe) {
-    $world.LOG('cards.armure', { color: 'purple' })
-    this.addProtection(randomInt(11, 29), 'purple')
-  }
-}
-
-export const brasierDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Brasier de Belarcane',
-  description: 'J\'inflige à tous mes ennemis entre 1 et 11 dégâts et je termine mon tour.',
-  upgrade: 'brasierDeBelarcaneMajeur',
+  name: intensityName('Brasier de Belarcane', 'masc', intensity),
+  description: `J'inflige à tous mes ennemis entre ${1 + (intensity - 1) * 3} et ${11 + (intensity - 1) * 3} dégâts et je termine mon tour.`,
+  upgrade: intensityUpgrade('brasierDeBelarcane', 'masc', intensity),
   targetted: false,
   endTurn: true,
   execute () {
     $world.LOG('cards.brasierDeBelarcane')
     $world.FIGHT_FOES.forEach(foe => {
-      foe.receiveDamages(randomInt(1, 11), 'purple')
+      foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
     })
   }
-}
+})
 
-export const brasierDeBelarcaneMajeur = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Brasier de Belarcane Majeur',
-  description: 'J\'inflige à tous mes ennemis entre 4 et 14 dégâts et je termine mon tour.',
-  upgrade: 'brasierDeBelarcaneSupreme',
-  targetted: false,
-  endTurn: true,
-  execute () {
-    $world.LOG('cards.brasierDeBelarcane')
-    $world.FIGHT_FOES.forEach(foe => {
-      foe.receiveDamages(randomInt(4, 14), 'purple')
-    })
-  }
-}
+export const brasierDeBelarcane = brasierDeBelarcaneBase(1)
+export const brasierDeBelarcaneMajeur = brasierDeBelarcaneBase(2)
+export const brasierDeBelarcaneSupreme = brasierDeBelarcaneBase(3)
 
-export const brasierDeBelarcaneSupreme = {
-  intensity: 3,
+const eclatDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Brasier de Belarcane Suprême',
-  description: 'J\'inflige à tous mes ennemis entre 7 et 17 dégâts et je termine mon tour.',
-  upgrade: false,
-  targetted: false,
-  endTurn: true,
-  execute () {
-    $world.LOG('cards.brasierDeBelarcane')
-    $world.FIGHT_FOES.forEach(foe => {
-      foe.receiveDamages(randomInt(7, 17), 'purple')
-    })
-  }
-}
-/*
-export const eclatDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Éclat de Belarcane',
-  description: 'Si cette carte permet de surcharger l\'aura de ma cible, je lui inflige entre 1 et 39 dégâts.',
-  upgrade: 'eclatDeBelarcaneMajeur',
+  name: intensityName('Éclat de Belarcane', 'masc', intensity),
+  description: `Si cette carte permet de surcharger l'aura de ma cible, je lui inflige entre ${1 + (intensity - 1) * 10} et ${39 + (intensity - 1) * 10} dégâts.`,
+  upgrade: intensityUpgrade('eclatDeBelarcane', 'masc', intensity),
   targetted: true,
   execute (foe) {
-    $world.LOG('cards.eclat', { color: 'purple' })
+    foe.addAura('purple')
+    if (foe.stunned) {
+      $world.LOG('cards.eclatReussite', { foe, color: 'purple' })
+      foe.receiveDamages(randomInt(1 + (intensity - 1) * 10, 39 + (intensity - 1) * 10))
+    } else {
+      $world.LOG('cards.eclatEchec', { color: 'purple' })
+    }
   }
-}
-*/
-export const glypheDeBelarcane = {
-  intensity: 1,
+})
+
+export const eclatDeBelarcane = eclatDeBelarcaneBase(1)
+export const eclatDeBelarcaneMajeur = eclatDeBelarcaneBase(2)
+export const eclatDeBelarcaneSupreme = eclatDeBelarcaneBase(3)
+
+const glypheDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Glyphe de Belarcane',
-  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 1 et 19 dégâts et je termine mon tour.',
-  upgrade: 'glypheDeBelarcaneMajeur',
+  name: intensityName('Glyphe de Belarcane', 'masc', intensity),
+  description: `J'inflige à chaque ennemi ayant un élément d'Orfeu dans son aura entre ${1 + (intensity - 1) * 5} et ${19 + (intensity - 1) * 5} dégâts et je termine mon tour.`,
+  upgrade: intensityUpgrade('glypheDeBelarcane', 'masc', intensity),
   targetted: false,
   endTurn: true,
   execute () {
@@ -199,328 +116,132 @@ export const glypheDeBelarcane = {
     $world.FIGHT_FOES
       .filter(foe => foe.aura.includes('yellow'))
       .forEach(foe => {
-        foe.receiveDamages(randomInt(1, 19), 'purple')
+        foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
       })
   }
-}
+})
 
-export const glypheDeBelarcaneMajeur = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Glyphe de Belarcane Majeure',
-  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 6 et 24 dégâts et je termine mon tour.',
-  upgrade: 'glypheDeBelarcaneMajeur',
-  targetted: false,
-  endTurn: true,
-  execute () {
-    $world.LOG(
-      $world.FIGHT_FOES.some(foe => foe.aura.includes('yellow')) ? 'cards.glypheReussite' : 'cards.glypheEchec',
-      { color: 'purple' }
-    )
-    $world.FIGHT_FOES
-      .filter(foe => foe.aura.includes('yellow'))
-      .forEach(foe => {
-        foe.receiveDamages(randomInt(6, 24), 'purple')
-      })
-  }
-}
+export const glypheDeBelarcane = glypheDeBelarcaneBase(1)
+export const glypheDeBelarcaneMajeur = glypheDeBelarcaneBase(2)
+export const glypheDeBelarcaneSupreme = glypheDeBelarcaneBase(3)
 
-export const glypheDeBelarcaneSupreme = {
-  intensity: 3,
+const mainDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Glyphe de Belarcane Majeure',
-  description: 'J\'inflige à chaque ennemi ayant un élément d\'Orfeu dans son aura entre 11 et 29 dégâts et je termine mon tour.',
-  upgrade: false,
-  targetted: false,
-  endTurn: true,
-  execute () {
-    $world.LOG(
-      $world.FIGHT_FOES.some(foe => foe.aura.includes('yellow')) ? 'cards.glypheReussite' : 'cards.glypheEchec',
-      { color: 'purple' }
-    )
-    $world.FIGHT_FOES
-      .filter(foe => foe.aura.includes('yellow'))
-      .forEach(foe => {
-        foe.receiveDamages(randomInt(11, 29), 'purple')
-      })
-  }
-}
-
-export const mainDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Main de Belarcane',
-  description: 'J\'inflige à ma cible entre 1 et 7 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{1 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{7 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
-  upgrade: 'mainDeBelarcaneMajeure',
+  name: intensityName('Main de Belarcane', 'fem', intensity),
+  description: `J'inflige à ma cible entre ${intensity} et ${6 + intensity} dégâts par autre sort de Belarcane dans ma main.`,
+  upgrade: intensityUpgrade('mainDeBelarcane', 'fem', intensity),
   targetted: true,
   execute (foe) {
-    const damages = randomInt(1, 7) * $world.HAND.filter(c => c.color === 'purple').length - 1
+    const damages = randomInt(intensity, 6 + intensity) * $world.HAND.filter(c => c.color === 'purple').length - 1
     $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'purple' })
     if (damages) foe.receiveDamages(damages, 'purple')
   }
-}
+})
 
-export const mainDeBelarcaneMajeure = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Main de Belarcane Majeure',
-  description: 'J\'inflige à ma cible entre 2 et 8 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{2 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{8 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
-  upgrade: 'mainDeBelarcaneSupreme',
-  targetted: true,
-  execute (foe) {
-    const damages = randomInt(2, 8) * $world.HAND.filter(c => c.color === 'purple').length - 1
-    $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'purple' })
-    if (damages) foe.receiveDamages(damages, 'purple')
-  }
-}
+export const mainDeBelarcane = mainDeBelarcaneBase(1)
+export const mainDeBelarcaneMajeure = mainDeBelarcaneBase(2)
+export const mainDeBelarcaneSupreme = mainDeBelarcaneBase(3)
 
-export const mainDeBelarcaneSupreme = {
-  intensity: 3,
+const motDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Main de Belarcane Supreme',
-  description: 'J\'inflige à ma cible entre 3 et 9 dégâts par autre sort de Belarcane dans ma main (actuellement entre {{3 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}} et {{9 * (HAND.filter(function(c) { return c.color === "purple" }).length - 1)}}).',
-  upgrade: false,
-  targetted: true,
-  execute (foe) {
-    const damages = randomInt(3, 9) * $world.HAND.filter(c => c.color === 'purple').length - 1
-    $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'purple' })
-    if (damages) foe.receiveDamages(damages, 'purple')
-  }
-}
-
-export const motDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Mot de Belarcane',
-  description: 'Ce sort me coûte 1 candela de moins. Je gagne entre 1 et 11 protection et je pioche 1 carte.',
-  upgrade: 'motDeBelarcaneMajeur',
+  name: intensityName('Mot de Belarcane', 'masc', intensity),
+  description: `Ce sort me coûte 1 candela de moins. Je gagne entre ${1 + (intensity - 1) * 3} et ${11 + (intensity - 1) * 3} protection et je pioche 1 carte.`,
+  upgrade: intensityUpgrade('motDeBelarcane', 'masc', intensity),
   targetted: false,
+  cost (amount) {
+    return Math.max(0, amount - 1)
+  },
   execute () {
-    // TODO: coute 1 candela de moins
     $world.LOG('cards.mot', { color: 'purple' })
-    this.addProtection(randomInt(1, 11), 'purple')
+    this.addProtection(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
     this.draw(1)
   }
-}
+})
 
-export const motDeBelarcaneMajeur = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Mot de Belarcane Majeur',
-  description: 'Ce sort me coûte 2 candelas de moins. Je gagne entre 4 et 14 protection et je pioche 1 carte.',
-  upgrade: 'motDeBelarcaneSupreme',
-  targetted: false,
-  execute () {
-    // TODO: coute 2 candelas de moins
-    $world.LOG('cards.mot', { color: 'purple' })
-    this.addProtection(randomInt(4, 14), 'purple')
-    this.draw(1)
-  }
-}
+export const motDeBelarcane = motDeBelarcaneBase(1)
+export const motDeBelarcaneMajeur = motDeBelarcaneBase(2)
+export const motDeBelarcaneSuprême = motDeBelarcaneBase(3)
 
-export const motDeBelarcaneSuprême = {
-  intensity: 3,
+const radianceDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Mot de Belarcane Suprême',
-  description: 'Ce sort me coûte 3 candelas de moins. Je gagne entre 7 et 17 protection et je pioche 2 cartes.',
-  upgrade: false,
-  targetted: false,
-  execute () {
-    // TODO: coute 3 candelas de moins
-    $world.LOG('cards.mot', { color: 'purple' })
-    this.addProtection(randomInt(7, 17), 'purple')
-    this.draw(2)
-  }
-}
-
-export const radianceDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Radiance de Belarcane',
-  description: 'Je mets 2 éléments de Belarcane dans l\'aura de ma cible, au lieu d\'un seul.',
-  upgrade: 'radianceDeBelarcaneMajeure',
+  name: intensityName('Radiance de Belarcane', 'fem', intensity),
+  description: `Je mets ${1 + intensity} éléments de Belarcane dans l'aura de ma cible, au lieu d'un seul.`,
+  upgrade: intensityUpgrade('radianceDeBelarcane', 'fem', intensity),
   targetted: true,
   execute (foe) {
     $world.LOG('cards.radiance', { foe, color: 'purple' })
     foe.addAura('purple')
-    foe.addAura('purple')
+    for (let i = 0; i < intensity; i++) {
+      foe.addAura('purple')
+    }
   }
-}
+})
 
-export const radianceDeBelarcaneMajeure = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Radiance de Belarcane Majeure',
-  description: 'Je mets 3 éléments de Belarcane dans l\'aura de ma cible, au lieu d\'un seul.',
-  upgrade: 'radianceDeBelarcaneSupreme',
-  targetted: true,
-  execute (foe) {
-    $world.LOG('cards.radiance', { foe, color: 'purple' })
-    foe.addAura('purple')
-    foe.addAura('purple')
-    foe.addAura('purple')
-  }
-}
+export const radianceDeBelarcane = radianceDeBelarcaneBase(1)
+export const radianceDeBelarcaneMajeure = radianceDeBelarcaneBase(2)
+export const radianceDeBelarcaneSupreme = radianceDeBelarcaneBase(3)
 
-export const radianceDeBelarcaneSupreme = {
-  intensity: 3,
+const rayonDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Radiance de Belarcane Supreme',
-  description: 'Je mets 4 éléments de Belarcane dans l\'aura de ma cible, au lieu d\'un seul.',
-  upgrade: false,
-  targetted: true,
-  execute (foe) {
-    $world.LOG('cards.radiance', { foe, color: 'purple' })
-    foe.addAura('purple')
-    foe.addAura('purple')
-    foe.addAura('purple')
-    foe.addAura('purple')
-  }
-}
-
-export const rayonDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Rayon de Belarcane',
-  description: 'J\'inflige à ma cible entre 1 et 11 dégâts par élément de Belarcane dans son aura.',
-  upgrade: 'rayonDeBelarcaneMajeur',
+  name: intensityName('Rayon de Belarcane', 'masc', intensity),
+  description: `J'inflige à ma cible entre ${1 + (intensity - 1) * 3} et ${11 + (intensity - 1) * 3} dégâts par élément de Belarcane dans son aura.`,
+  upgrade: intensityUpgrade('rayonDeBelarcane', 'masc', intensity),
   targetted: true,
   execute (foe) {
     $world.LOG('cards.rayon', { foe, color: 'purple' })
-    foe.receiveDamages(foe.aura.filter(a => a === 'purple').length * randomInt(1, 11), 'purple')
+    foe.receiveDamages(foe.aura.filter(a => a === 'purple').length * randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
   }
-}
+})
 
-export const rayonDeBelarcaneMajeur = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Rayon de Belarcane Majeur',
-  description: 'J\'inflige à ma cible entre 4 et 14 dégâts par élément de Belarcane dans son aura.',
-  upgrade: 'rayonDeBelarcaneSupreme',
-  targetted: true,
-  execute (foe) {
-    $world.LOG('cards.rayon', { foe, color: 'purple' })
-    foe.receiveDamages(foe.aura.filter(a => a === 'purple').length * randomInt(4, 14), 'purple')
-  }
-}
+export const rayonDeBelarcane = rayonDeBelarcaneBase(1)
+export const rayonDeBelarcaneMajeur = rayonDeBelarcaneBase(2)
+export const rayonDeBelarcaneSupreme = rayonDeBelarcaneBase(3)
 
-export const rayonDeBelarcaneSupreme = {
-  intensity: 3,
+const runeDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Rayon de Belarcane Supreme',
-  description: 'J\'inflige à ma cible entre 7 et 17 dégâts par élément de Belarcane dans son aura.',
-  upgrade: false,
-  targetted: true,
-  execute (foe) {
-    $world.LOG('cards.rayon', { foe, color: 'purple' })
-    foe.receiveDamages(foe.aura.filter(a => a === 'purple').length * randomInt(7, 17), 'purple')
-  }
-}
-
-export const runeDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Rune de Belarcane',
-  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura 10 dégâts et je termine mon tour.',
-  upgrade: 'runeDeBelarcaneMajeure',
+  name: intensityName('Rune de Belarcane', 'fem', intensity),
+  description: `J'inflige à chaque ennemi ayant un élément de Céleste dans son aura entre ${1 + (intensity - 1) * 5} et ${19 + (intensity - 1) * 5} dégâts et je termine mon tour.`,
+  upgrade: intensityUpgrade('runeDeBelarcane', 'fem', intensity),
   targetted: false,
   endTurn: true,
   execute () {
     $world.LOG(
-      $world.FIGHT_FOES.some(foe => foe.aura.includes('blue')) ? 'cards.runeReussite' : 'cards.runeEchec',
+      $world.FIGHT_FOES.some(foe => foe.aura.includes('yellow')) ? 'cards.runeReussite' : 'cards.runeEchec',
       { color: 'purple' }
     )
     $world.FIGHT_FOES
       .filter(foe => foe.aura.includes('blue'))
       .forEach(foe => {
-        foe.receiveDamages(randomInt(1, 19), 'purple')
+        foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
       })
   }
-}
+})
 
-export const runeDeBelarcaneMajeure = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Rune de Belarcane Majeure',
-  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura entre 6 et 24 dégâts et je termine mon tour.',
-  upgrade: 'runeDeBelarcaneSupreme',
-  targetted: false,
-  endTurn: true,
-  execute () {
-    $world.LOG(
-      $world.FIGHT_FOES.some(foe => foe.aura.includes('blue')) ? 'cards.runeReussite' : 'cards.runeEchec',
-      { color: 'purple' }
-    )
-    $world.FIGHT_FOES
-      .filter(foe => foe.aura.includes('blue'))
-      .forEach(foe => {
-        foe.receiveDamages(randomInt(6, 24), 'purple')
-      })
-  }
-}
+export const runeDeBelarcane = runeDeBelarcaneBase(1)
+export const runeDeBelarcaneMajeure = runeDeBelarcaneBase(2)
+export const runeDeBelarcaneSupreme = runeDeBelarcaneBase(3)
 
-export const runeDeBelarcaneSupreme = {
-  intensity: 3,
+const siropDeBelarcaneBase = (intensity) => ({
+  intensity,
   color: 'purple',
-  name: 'Rune de Belarcane Suprême',
-  description: 'J\'inflige à chaque ennemi ayant un élément Céleste dans son aura entre 11 et 29 dégâts et je termine mon tour.',
-  upgrade: false,
-  targetted: false,
-  endTurn: true,
-  execute () {
-    $world.LOG(
-      $world.FIGHT_FOES.some(foe => foe.aura.includes('blue')) ? 'cards.runeReussite' : 'cards.runeEchec',
-      { color: 'purple' }
-    )
-    $world.FIGHT_FOES
-      .filter(foe => foe.aura.includes('blue'))
-      .forEach(foe => {
-        foe.receiveDamages(randomInt(11, 29), 'purple')
-      })
-  }
-}
-
-export const siropDeBelarcane = {
-  intensity: 1,
-  color: 'purple',
-  name: 'Sirop de Belarcane',
-  description: 'Je récupère entre 1 et 5 candelas et exile cette carte.',
-  upgrade: 'siropDeBelarcaneMajeur',
+  name: intensityName('Sirop de Belarcane', 'masc', intensity),
+  description: `Je récupère entre ${1 + (intensity - 1) * 3} et ${5 + (intensity - 1) * 3} candelas et exile cette carte.`,
+  upgrade: intensityUpgrade('siropDeBelarcane', 'masc', intensity),
   targetted: false,
   destination: 'EXILE',
   execute () {
     $world.LOG('cards.siropDeBelarcane')
-    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + randomInt(1, 5))
-    // TODO: add the gain to log
+    const candelasBefore = $world.CANDELAS
+    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + randomInt(1 + (intensity - 1) * 3, 5 + (intensity - 1) * 3))
+    $world.LOG('fight.jeRecupereCandelas', { amount: $world.CANDELAS - candelasBefore })
   }
-}
+})
 
-export const siropDeBelarcaneMajeur = {
-  intensity: 2,
-  color: 'purple',
-  name: 'Sirop de Belarcane Majeur',
-  description: 'Je récupère entre 4 et 8 candelas et exile cette carte.',
-  upgrade: 'siropDeBelarcaneSupreme',
-  targetted: false,
-  destination: 'EXILE',
-  execute () {
-    $world.LOG('cards.siropDeBelarcane')
-    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + randomInt(4, 8))
-    // TODO: add the gain to log
-  }
-}
-
-export const siropDeBelarcaneSupreme = {
-  intensity: 3,
-  color: 'purple',
-  name: 'Sirop de Belarcane',
-  description: 'Je récupère entre 7 et 11 candelas et exile cette carte.',
-  upgrade: false,
-  targetted: false,
-  destination: 'EXILE',
-  execute () {
-    $world.LOG('cards.siropDeBelarcane')
-    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + randomInt(7, 11))
-    // TODO: add the gain to log
-  }
-}
+export const siropDeBelarcane = siropDeBelarcaneBase(1)
+export const siropDeBelarcaneMajeur = siropDeBelarcaneBase(2)
+export const siropDeBelarcaneSupreme = siropDeBelarcaneBase(3)

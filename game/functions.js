@@ -19,13 +19,13 @@ export default {
   LOG (key, data = {}, nextSceneId, nextLineIndex = 0) {
     if (nextSceneId) {
       $story.speak(
-        render(get(texts, key), { ...$world, ...french, ...data }),
+        render(get(texts, key), { ...$world, ...data }),
         typeof nextSceneId === 'string' ? nextSceneId : null,
         typeof nextSceneId === 'string' ? nextLineIndex : null
       )
     } else {
       $story.journal.push({
-        text: render(get(texts, key), { ...$world, ...french, ...data }),
+        text: render(get(texts, key), { ...$world, ...data }),
         type: 'log',
         turn: $world.FIGHT_TURN || undefined
       })
@@ -44,5 +44,7 @@ export default {
   EVOLVE_DECK: cards.evolveDeck,
   SHUFFLE_DECK: cards.shuffleDeck,
   ADD_CARD: cards.addCard,
-  REMOVE_CARD: cards.removeCard
+  REMOVE_CARD: cards.removeCard,
+
+  ...french
 }
