@@ -77,8 +77,8 @@
       </action>
     </div>
 
-    <div aria-live="assertive" aria-relevant="additions text" style="color: red">
-      <div v-for="line in $story.journal.filter(l => l.type === 'log' && l.turn >= $world.FIGHT_TURN - 1)">
+    <div aria-live="assertive" aria-relevant="additions text" aria-atomic="true" style="color: red">
+      <div v-for="line in $story.journal.filter(l => l.type === 'log' && l.turn >= $world.FIGHT_TURN - 1)" :key="line.id">
         {{ line.text }}
       </div>
     </div>

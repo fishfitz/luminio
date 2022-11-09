@@ -7,6 +7,7 @@ import texts from './data/texts/fr'
 import * as cards from './utils/cards'
 import * as scenes from './utils/scenes'
 import * as common from './utils/common'
+import { nanoid } from 'nanoid'
 
 export default {
   // Common
@@ -25,6 +26,7 @@ export default {
       )
     } else {
       $story.journal.push({
+        id: nanoid(),
         text: render(get(texts, key), { ...$world, ...data }),
         type: 'log',
         turn: $world.FIGHT_TURN || undefined
