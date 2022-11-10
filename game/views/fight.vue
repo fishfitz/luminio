@@ -68,19 +68,14 @@
       <action :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
     </div>
 
-    <div tabgroup tabstartlast style="display: inline-block; width: 50%">
-      <action v-for="(line, index) in $story.journal.filter(l => l.type === 'log')"
-        :key="index"
-        :id="index === $story.journal.filter(l => l.type === 'log').length - 1 ? 'journal' : undefined"
-        style="display: block">
+    <div aria-live="assertive" aria-relevant="additions" tabgroup tabstartlast
+      style="display: inline-block; width: 50%">
+      <action v-for="(line, index) in logs"
+        :key="line.id"
+        :id="index === logs.length - 1 ? 'journal' : undefined"
+        :style="{ display: logs.length - index < 10 ? 'block' : 'none' }">
         {{ line.text }}
       </action>
-    </div>
-
-    <div aria-live="assertive" aria-relevant="additions text" aria-atomic="true" style="color: red">
-      <div v-for="line in $story.journal.filter(l => l.type === 'log' && l.turn >= $world.FIGHT_TURN - 1)" :key="line.id">
-        {{ line.text }}
-      </div>
     </div>
   </div>
 </template>
@@ -93,6 +88,18 @@ import render from '~carni/render'
 import { aura, intention } from '../utils/french'
 import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName, isPatternCorrect } from '../utils/fights'
 import cards from '../data/cards'
+
+const findLast = (array, predicate) => {
+    let l = array.length
+    while (l--) {
+        if (predicate(array[l], l, array))
+            return l;
+    }
+    return -1;
+}
+
+const logs = $computed(() => $story.journal
+          .slice(findLast($story.journal, l => l.type !== 'log') + 1))
 
 const declareFoeIntentions = () => {
   for (const foe of $world.FIGHT_FOES) {
