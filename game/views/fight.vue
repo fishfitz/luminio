@@ -87,19 +87,10 @@ import clone from 'just-clone'
 import render from '~carni/render'
 import { aura, intention } from '../utils/french'
 import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName, isPatternCorrect } from '../utils/fights'
-import cards from '../data/cards'
-
-const findLast = (array, predicate) => {
-    let l = array.length
-    while (l--) {
-        if (predicate(array[l], l, array))
-            return l;
-    }
-    return -1;
-}
+import { findLast } from '../utils/common'
 
 const logs = $computed(() => $story.journal
-          .slice(findLast($story.journal, l => l.type !== 'log') + 1))
+  .slice(findLast($story.journal, l => l.type !== 'log') + 1))
 
 const declareFoeIntentions = () => {
   for (const foe of $world.FIGHT_FOES) {

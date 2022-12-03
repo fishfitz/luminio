@@ -94,12 +94,6 @@
     </template>
 
     <template v-else>
-      <!-- Dialog box -->
-      <action @click="$story.next" class="dialog" autofocus>
-        <span v-if="$story.line.speaker"> {{ $story.line.speaker.name }} — </span>
-        <div> {{ $story.line.text }} </div>
-      </action>
-
       <!-- Choices -->
       <ul v-if="$story.line.choices">
         <li v-for="choice in $story.line.choices">
@@ -108,6 +102,12 @@
           </action>
         </li>
       </ul>
+
+      <!-- Dialog box -->
+      <action v-else @click="$story.next" class="dialog" autofocus>
+        <span v-if="$story.line.speaker"> {{ $story.line.speaker.name }} — </span>
+        <div> {{ $story.line.text }} </div>
+      </action>
     </template>
   </div>
 </template>

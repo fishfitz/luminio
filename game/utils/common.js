@@ -11,3 +11,11 @@ export const on = (key, ...args) => {
   return $world.TRINKETS
     .forEach(trinket => trinket?.on?.[key]?.(...args))
 }
+
+export const findLast = (array, predicate) => {
+  let l = array.length
+  while (l--) {
+    if (predicate(array[l], l, array)) { return l }
+  }
+  return -1
+}
