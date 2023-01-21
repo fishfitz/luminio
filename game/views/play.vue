@@ -109,6 +109,14 @@
         <div> {{ $story.line.text }} </div>
       </action>
     </template>
+
+    <action tabgroup id="luminio">
+        Luminio
+        <br/>
+        <action> Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }} </action>
+        <br/>
+        <action> Volonté : {{ $world.WILL }} sur 10 </action>
+      </action>
   </div>
 </template>
 

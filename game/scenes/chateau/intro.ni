@@ -15,12 +15,3 @@ La porte s'ouvre… Je ne peux m'empêcher de frémir, mais mon devoir m'interdi
 // Illustration : Luminio, de face, se tenant devant la porte close, dans un hall sinistre
 Me voilà à l'intérieur. Je suis certain que l'Organiste m'attend, que tout ceci n'est qu'un piège. Mais ça ne se passera pas comme la dernière fois. Bon sang, il a prit mon rêveur, je ne peux pas échouer…
 $ VIEW('level')
-
-#default_defeat
-$ VIEW('play')
-Ce code ne devrait jamais être atteint ! (default defeat)
-
-#default_victory
-$ VIEW('play')
-Ce code ne devrait jamais être atteint ! (default victory)
-$ VIEW('level')

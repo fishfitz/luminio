@@ -51,8 +51,6 @@ export const damagePlayer = (amount, ignoreProtection = false, foe) => {
     } else {
       dead = true
       $world.LOG('fight.jAiEchoue')
-      $world.FIGHT_TURN = 0
-      $world.GOTO($world.FIGHT_DEFEAT)
     }
   }
 

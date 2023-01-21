@@ -28,7 +28,6 @@ export default {
       { sceneId: 'laGalerieAuxArmures', intensity: 4 },
       { sceneId: 'leFaiseurDOmbres', intensity: 4 }
     ],
-
     minorMystery: [
       { sceneId: 'chateauAmbiance1', intensity: 2 },
       { sceneId: 'chateauAmbiance2', intensity: 2 },
@@ -44,13 +43,15 @@ export default {
       { sceneId: 'laPierreQuiRoule', intensity: 4 },
       { sceneId: 'laGrandeSalle', intensity: 4 }
     ],
-
     rest: [
       { sceneId: 'chateauRepos', intensity: 1 },
       { sceneId: 'chateauRepos', intensity: 1 },
       { sceneId: 'chateauRepos', intensity: 1 },
       { sceneId: 'chateauRepos', intensity: 1 },
       { sceneId: 'chateauRepos', intensity: 1 }
+    ],
+    nightmare: [
+      { sceneId: 'passerALUsine', intensity: 5 }
     ]
   }
 }

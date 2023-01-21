@@ -11,7 +11,17 @@ import {
   lenteur,
   coupDEpee,
   coupDeLanterne,
-  danseDesOmbres
+  danseDesOmbres,
+  mitrailleuse1,
+  mitrailleuse2,
+  rechargement,
+  boom2,
+  boom1,
+  boom0,
+  coupDeMatraque,
+  appelDeRenfort,
+  coupDeFouet,
+  motivationDEquipe
 } from './actions'
 
 export const ombreFugace = () => {
@@ -122,6 +132,78 @@ export const faiseurDOmbres = () => {
     refreshAuraPattern: polychromatic(),
     behavior () {
       return $world.FIGHT_FOES.length === 5 ? coupDeLanterne() : danseDesOmbres()
+    }
+  }
+}
+
+export const robotSentinelle = () => {
+  return {
+    name: 'Robot sentinelle',
+    gender: 'masc',
+    proper: false,
+    maxLife: random(30, 50),
+    power: 0,
+    auraSlots: 3,
+    auraDarkening: () => obscurcissement(),
+    refreshAuraPattern: chaos(),
+    chargeCount: 2,
+    behavior () {
+      if (this.chargeCount === 2) return mitrailleuse1()
+      if (this.chargeCount === 1) return mitrailleuse2()
+      return rechargement()
+    }
+  }
+}
+
+export const robotBombe = () => {
+  return {
+    name: 'Robot bombe',
+    gender: 'masc',
+    proper: false,
+    maxLife: random(50, 80),
+    power: 0,
+    auraSlots: 3,
+    auraDarkening: () => obscurcissement(),
+    refreshAuraPattern: chaos(),
+    boomCount: 0,
+    behavior () {
+      if (this.boomCount === 0) return boom2()
+      if (this.boomCount === 1) return boom1()
+      return boom0()
+    }
+  }
+}
+
+export const agent = () => {
+  return {
+    name: 'Agent de sécurité',
+    gender: 'masc',
+    proper: false,
+    maxLife: random(30, 50),
+    power: 0,
+    auraSlots: 3,
+    auraDarkening: () => obscurcissement(),
+    refreshAuraPattern: polychromatic(),
+    behavior () {
+      if (this.life === this.maxLife || $world.FIGHT_FOES.length === 5) return coupDeMatraque()
+      else return appelDeRenfort()
+    }
+  }
+}
+
+export const contremaitre = () => {
+  return {
+    name: 'Contremaître',
+    gender: 'masc',
+    proper: false,
+    maxLife: random(80, 100),
+    power: 0,
+    auraSlots: 3,
+    auraDarkening: () => obscurcissement(),
+    refreshAuraPattern: monochromatic(),
+    behavior () {
+      if ($world.FIGHT_FOES.length === 1) return coupDeFouet()
+      else return motivationDEquipe()
     }
   }
 }

@@ -1,4 +1,4 @@
-// Mystères mineurs
+// Mystères mineurs chateau
 
 #chateauAmbiance1
 Je progresse dans de larges et hauts couloirs ténébreux éclairés seulement par quelques torches moribondes. Ces dernières semblent n'être là que pour agiter les ombres. Chaque coin et recoin est menaçant, mais pourtant, rien ne se passe.
@@ -31,7 +31,7 @@ $ DAMAGE_PLAYER(10, 'chateauDefaite')
 Je pousse un cri et je me retrouve assis par terre, le souffle court...
 $ VIEW('level')
 
-// Mystères intermédiaires
+// Mystères intermédiaires chateau
 
 #laGuillotine
 Clic !
@@ -76,8 +76,9 @@ luminio: Organiste ! Tu t'es en fin décidé à te montrer !
 J'ai serré les poings, j'ai presque crié. Mais la silhouette s'efface, me laissant seul dans le couloir.
 Mon cœur bat si fort...
 // ADD a doute card
+$ VIEW('level')
 
-// Mystère majeur
+// Mystère majeur chateau
 
 #laPierreQuiRoule
 Je me suis engagé depuis quelques instant dans un long couloir rectiligne quand, soudain, tout se met à trembler et je sens le sol s'incliner.

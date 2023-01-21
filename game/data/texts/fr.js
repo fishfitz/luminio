@@ -37,7 +37,18 @@ export default {
     lenteur: '{{cap(le(foe))}} est si {{fem("lent", foe.gender)}} que pour l\'instant, {{il(foe.gender)}} ne fait rien.',
     coupDEpee: '{{cap(le(foe))}} brandit sa grande épée et l\'abat sur moi.',
     coupDeLanterne: '{{cap(le(foe))}} me donne un grand coup de lanterne.',
-    danseDesOmbres: '{{cap(le(foe))}} brandit sa lanterne, faisant danser les ombres sur les murs de pierre. L\'une de ces ombres prend forme et se joint au combat.'
+    danseDesOmbres: '{{cap(le(foe))}} brandit sa lanterne, faisant danser les ombres sur les murs de pierre. L\'une de ces ombres prend forme et se joint au combat.',
+    mitrailleuse1: '{{cap(le(foe))}} ouvre le feu ! Sa mitrailleuse rotative tire de plus en plus vite à mesure que la rotation du canon accélère.',
+    mitrailleuse2: 'La mitrailleuse rotative {{du(foe)}} crache ses balles à toutes vitesse !',
+    rechargement: 'Une série de décliques succède à la mitraille {{du(foe)}}. Son chargeur est vide. La mitrailleuse cesse peu à peu de tourner alors que la machine procède au rechargement.',
+    boom2: 'Les voyants rouges {{du(foe)}} clignotent de plus en plus vite. Des bips stridents les accompagnent.',
+    boom1: 'Les voyants rouges et les bips stridents {{du(foe)}} s\'affolent !',
+    boom0: 'Après un ultime clignotement de voyant, le bip se prolonge et {{le(foe)}} explose !',
+    coupDeMatraque: '{{cap(le(foe))}} me donne un coup de matraque électrique.',
+    appelDeRenfort: '{{cap(le(foe))}} attrape son talkie-walkie et beugle dedans : Lapin hostile ! Besoin de renfort !',
+    appelDeRenfort2: '{{cap(un(foe))}} arrive.',
+    coupDeFouet: '{{cap(le(foe))}} me donne un furieux coup de fouet.',
+    motivationDEquipe: '{{cap(le(foe))}} fait claquer son fouet pour motiver ses collaborateurs.'
   },
   cards: {
     flamme: 'Une flamme {{chroma(color, \'fem\')}} jaillit de ma baguette et frappe {{le(foe)}}.',

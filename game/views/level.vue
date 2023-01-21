@@ -7,10 +7,11 @@
         :id="isPlayer(rowIndex, colIndex) ? 'last_position' : undefined"
         :key="colIndex"
         :autofocus="isPlayer(rowIndex, colIndex)"
-        @click="room.accessible && !room.explored && explore(room)"
+        @click="(room.accessible || $world.DEBUG_MODE) && !room.explored && explore(room)"
         class="room">
         <template v-if="isPlayer(rowIndex, colIndex)"> Dernière position </template>
         <template v-else>
+          <template v-if="$world.DEBUG_MODE"> {{ room.sceneId }} </template>
           {{ roomName(room) }}
           {{ room.accessible ? 'Accessible' : 'Inaccessible' }}
         </template>

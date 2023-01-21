@@ -42,7 +42,7 @@
         </action>
       </div>
 
-      <div tabgroup class="hand">
+      <div tabgroup class="hand" v-if="!isWin && !isLoss">
         <template v-if="$world.HAND.length">
           <div v-for="(card, index) in $world.HAND" :key="card.id">
             <action
@@ -65,7 +65,9 @@
 
       <br/><br/><br/>
 
-      <action :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
+      <action v-if="isWin" @click="afterWin" autofocus id="continue"> Continuer </action>
+      <action v-else-if="isLoss" @click="afterLose" autofocus id="continue"> Continuer </action>
+      <action v-else :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
     </div>
 
     <div aria-live="assertive" aria-relevant="additions" tabgroup tabstartlast
@@ -173,7 +175,15 @@ const selectCard = (card) => {
   }
 }
 
+let isWin = $ref(false)
 const win = () => {
+  isWin = true
+  nextTick(() => {
+    $ui.focus('continue')
+  })
+}
+
+const afterWin = () => {
   $world.DECK.push(...$world.DISCARDED, ...$world.EXILE, ...$world.HAND)
   $world.DECK = shuffle($world.DECK)
 
@@ -185,6 +195,19 @@ const win = () => {
   $world.FIGHT_TURN = 0
 
   $world.GOTO($world.FIGHT_VICTORY)
+}
+
+let isLoss = $ref(false)
+const lose = () => {
+  isLoss = true
+  nextTick(() => {
+    $ui.focus('continue')
+  })
+}
+
+const afterLose = () => {
+  $world.FIGHT_TURN = 0
+  $world.GOTO($world.FIGHT_DEFEAT)
 }
 
 const resetFoe = (foe) => {
@@ -202,7 +225,10 @@ const resetFoe = (foe) => {
   }
 
   foe.inflictDamages = (amount, ignoreProtection = false) => {
-    return damagePlayer(amount, ignoreProtection, foe)
+    const result = damagePlayer(amount, ignoreProtection, foe)
+    if (result.dead) lose()
+
+    return result
   }
 
   foe.summon = (minion) => {

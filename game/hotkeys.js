@@ -31,5 +31,8 @@ module.exports = {
   },
   'ctrl+d': function () {
     $ui.downloadLogs()
+  },
+  'ctrl+g': function () {
+    $world.DEBUG_MODE = true
   }
 }

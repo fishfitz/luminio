@@ -9,6 +9,13 @@ export const le = ({ name, gender = 'masc', amount = 1, proper = false }, short 
   return `${gender === 'masc' ? 'le' : 'la'} ${name.toLowerCase()}`
 }
 
+export const un = ({ name, gender = 'masc', amount = 1, proper = false }, short = false) => {
+  if (short) return gender === 'masc' ? 'un' : 'une'
+  if (proper) return name
+  if (amount > 1) return `des ${name.toLowerCase()}`
+  return `${gender === 'masc' ? 'un' : 'une'} ${name.toLowerCase()}`
+}
+
 export const du = ({ name, gender = 'masc', amount = 1, proper = false }, short = false) => {
   if (amount > 1) return `des ${proper ? name : name.toLowerCase()}`
   if (isFirstCharAVowel(name)) return `de l'${proper ? name : name.toLowerCase()}`

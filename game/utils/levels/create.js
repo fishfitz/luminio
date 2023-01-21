@@ -1,5 +1,7 @@
+import randomPick from 'just-random'
 import shuffle from 'just-shuffle'
 import firstLevelData from '../../data/levels/chateau'
+import secondLevelData from '../../data/levels/usine'
 
 const createMap = ([rows, cols]) => {
   const map = []
@@ -65,7 +67,8 @@ const createLevel = (levelData) => {
 
   Object.assign(map[levelData.nightmare[0]][levelData.nightmare[1]], {
     type: 'nightmare',
-    visible: true
+    visible: true,
+    ...randomPick(levelData.scenes.nightmare)
   })
 
   randomAssign(map, levelData)
@@ -79,5 +82,6 @@ const createLevel = (levelData) => {
 }
 
 export default () => [
-  createLevel(firstLevelData)
+  createLevel(firstLevelData),
+  createLevel(secondLevelData)
 ]

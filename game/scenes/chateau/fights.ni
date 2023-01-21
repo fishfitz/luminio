@@ -1,4 +1,4 @@
-// Combats mineurs
+// Combats mineurs chateau
 
 #duoDOmbresFugaces
 Je marche dans un des sombres couloirs du château quand mon attention est attirée par des ombres mouvantes.
@@ -41,7 +41,7 @@ $ EVOLVE_DECK()
 L'armure est en pièces et le fantôme s'est volatilisé. Deux monstres de moins sur ma route, plus que quelques centaines probablement.
 $ VIEW('level')
 
-// Combats intermédiaires
+// Combats intermédiaires chateau
 
 #ombreEpaisse
 Je passe à proximité d'une pièce plongée dans une totale obscurité.
@@ -75,7 +75,7 @@ luminio: Je vais où je dois aller.
 Il n'y a cependant plus personne pour entendre ma réponse car j'ai fait le ménage. Il va falloir plus que ça pour me stopper.
 $ VIEW('level')
 
-// Combats majeurs
+// Combats majeurs chateau
 
 #laGalerieAuxArmures
 Me voilà arrivé à l'entrée d'une galerie bordée de chaque côté d'armures poussiéreuses. La lueur de flambeaux répartis à distance régulière jette d'inquiétants reflets sur le métal.

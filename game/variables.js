@@ -40,5 +40,8 @@ export default {
 
   // Trinkets
   TRINKET_CHOICE: null,
-  TRINKETS: []
+  TRINKETS: [],
+
+  // Debug mode
+  DEBUG_MODE: false
 }

@@ -4,5 +4,11 @@ module.exports = {
   },
   fantome: {
     name: 'Fantome'
+  },
+  contremaitre: {
+    name: 'Contremaître'
+  },
+  agent: {
+    name: 'Agent de sécurité'
   }
 }
