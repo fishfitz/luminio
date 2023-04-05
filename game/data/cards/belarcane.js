@@ -1,5 +1,14 @@
 import randomInt from 'just-random-integer'
+import randomPick from 'just-random'
 import { intensityName, intensityUpgrade } from '../../utils/french'
+
+const belarcaneRandom = (min, max) => {
+  if ($world.EFFECTS.GRIMOIRE_COUNT) {
+    $world.EFFECTS.GRIMOIRE_COUNT--
+    return max
+  }
+  return randomInt(min, max)
+}
 
 // cartes de base
 
@@ -13,7 +22,7 @@ const flammeBelarcaneBase = (intensity) => ({
   base: intensity === 1,
   execute (foe) {
     $world.LOG('cards.flamme', { foe, color: 'purple' })
-    foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+    foe.receiveDamages(belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
   }
 })
 
@@ -31,7 +40,7 @@ const bouclierBelarcaneBase = (intensity) => ({
   base: intensity === 1,
   execute (foe) {
     $world.LOG('cards.bouclier', { color: 'purple' })
-    this.addProtection(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+    this.addProtection(belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
   }
 })
 
@@ -50,7 +59,7 @@ const armureDeBelarcaneBase = (intensity) => ({
   targetted: false,
   execute (foe) {
     $world.LOG('cards.armure', { color: 'purple' })
-    this.addProtection(randomInt(1 + (intensity - 1) * 5, 19 + (intensity - 1) * 5), 'purple')
+    this.addProtection(belarcaneRandom(1 + (intensity - 1) * 5, 19 + (intensity - 1) * 5), 'purple')
   }
 })
 
@@ -69,7 +78,7 @@ const brasierDeBelarcaneBase = (intensity) => ({
   execute () {
     $world.LOG('cards.brasierDeBelarcane')
     $world.FIGHT_FOES.forEach(foe => {
-      foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+      foe.receiveDamages(belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
     })
   }
 })
@@ -89,7 +98,7 @@ const eclatDeBelarcaneBase = (intensity) => ({
     foe.addAura('purple')
     if (foe.stunned) {
       $world.LOG('cards.eclatReussite', { foe, color: 'purple' })
-      foe.receiveDamages(randomInt(1 + (intensity - 1) * 10, 39 + (intensity - 1) * 10))
+      foe.receiveDamages(belarcaneRandom(1 + (intensity - 1) * 10, 39 + (intensity - 1) * 10))
     } else {
       $world.LOG('cards.eclatEchec', { color: 'purple' })
     }
@@ -116,7 +125,7 @@ const glypheDeBelarcaneBase = (intensity) => ({
     $world.FIGHT_FOES
       .filter(foe => foe.aura.includes('yellow'))
       .forEach(foe => {
-        foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+        foe.receiveDamages(belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
       })
   }
 })
@@ -133,7 +142,7 @@ const mainDeBelarcaneBase = (intensity) => ({
   upgrade: intensityUpgrade('mainDeBelarcane', 'fem', intensity),
   targetted: true,
   execute (foe) {
-    const damages = randomInt(intensity, 6 + intensity) * $world.HAND.filter(c => c.color === 'purple').length - 1
+    const damages = belarcaneRandom(intensity, 6 + intensity) * $world.HAND.filter(c => c.color === 'purple').length - 1
     $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'purple' })
     if (damages) foe.receiveDamages(damages, 'purple')
   }
@@ -155,7 +164,7 @@ const motDeBelarcaneBase = (intensity) => ({
   },
   execute () {
     $world.LOG('cards.mot', { color: 'purple' })
-    this.addProtection(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+    this.addProtection(belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
     this.draw(1)
   }
 })
@@ -193,7 +202,7 @@ const rayonDeBelarcaneBase = (intensity) => ({
   targetted: true,
   execute (foe) {
     $world.LOG('cards.rayon', { foe, color: 'purple' })
-    foe.receiveDamages(foe.aura.filter(a => a === 'purple').length * randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+    foe.receiveDamages(foe.aura.filter(a => a === 'purple').length * belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
   }
 })
 
@@ -217,7 +226,7 @@ const runeDeBelarcaneBase = (intensity) => ({
     $world.FIGHT_FOES
       .filter(foe => foe.aura.includes('blue'))
       .forEach(foe => {
-        foe.receiveDamages(randomInt(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
+        foe.receiveDamages(belarcaneRandom(1 + (intensity - 1) * 3, 11 + (intensity - 1) * 3), 'purple')
       })
   }
 })
@@ -237,7 +246,7 @@ const siropDeBelarcaneBase = (intensity) => ({
   execute () {
     $world.LOG('cards.siropDeBelarcane')
     const candelasBefore = $world.CANDELAS
-    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + randomInt(1 + (intensity - 1) * 3, 5 + (intensity - 1) * 3))
+    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + belarcaneRandom(1 + (intensity - 1) * 3, 5 + (intensity - 1) * 3))
     $world.LOG('fight.jeRecupereCandelas', { amount: $world.CANDELAS - candelasBefore })
   }
 })
@@ -245,3 +254,63 @@ const siropDeBelarcaneBase = (intensity) => ({
 export const siropDeBelarcane = siropDeBelarcaneBase(1)
 export const siropDeBelarcaneMajeur = siropDeBelarcaneBase(2)
 export const siropDeBelarcaneSupreme = siropDeBelarcaneBase(3)
+
+const deDuDestinBase = (intensity) => ({
+  intensity,
+  color: 'purple',
+  name: intensityName('Dé du destin', 'masc', intensity),
+  description: 'Cette carte peut faire un tas de trucs, ou rien du tout, c’est comme elle veut.',
+  upgrade: intensityUpgrade('deDuDestin', 'masc', intensity),
+  targetted: false,
+  base: intensity === 1,
+  execute () {
+    const roll = belarcaneRandom(1, 6)
+    $world.LOG('cards.desDuDestin', { roll })
+    const foe = randomPick($world.FIGHT_FOES)
+    if (roll === 1) $world.LOG('cards.desDuDestin1')
+    if (roll === 2) {
+      $world.LOG('cards.desDuDestin2', { foe })
+      foe.receiveDamages(belarcaneRandom(1 + (intensity - 1) * 3, 1 + (intensity - 1) * 3 + 10), 'purple')
+    }
+    if (roll === 3) {
+      $world.LOG('cards.desDuDestin3', { foe })
+      foe.addAura('purple')
+      foe.addAura('purple')
+      if (intensity > 1) foe.addAura('purple')
+      if (intensity > 2) foe.addAura('purple')
+    }
+    if (roll === 4) {
+      $world.LOG('cards.desDuDestin4')
+      this.addProtection(belarcaneRandom(1 + (intensity - 1) * 5, 19 + (intensity - 1) * 5), 'purple')
+    }
+    if (roll === 5) {
+      $world.LOG('cards.desDuDestin5')
+      const amount = belarcaneRandom(1 + (intensity - 1) * 3, 1 + (intensity - 1) * 3 + 10)
+      const candelasBefore = $world.CANDELAS
+      $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + amount)
+      $world.LOG('fight.jeRecupereCandelas', { amount: $world.CANDELAS - candelasBefore })
+    }
+    if (roll === 6) {
+      $world.LOG('cards.desDuDestin6')
+      const amount = belarcaneRandom(1 + (intensity - 1) * 3, 1 + (intensity - 1) * 3 + 10)
+      $world.FIGHT_FOES(foe => foe.receiveDamages(amount, 'purple'))
+    }
+  }
+})
+
+export const deDuDestin = deDuDestinBase(1)
+export const deDuDestinMajeur = deDuDestinBase(2)
+export const deDuDestinSupreme = deDuDestinBase(3)
+
+export const grimoireMysterieuxBase = (intensity) => ({
+  intensity,
+  color: 'purple',
+  name: intensityName('Grimoire mystérieux', 'masc', intensity),
+  description: intensity === 1
+    ? 'Le prochain sort de Belarcane que je joue ce tour est maximisé.'
+    : `Les ${intensity} prochains sorts de Belarcane que je joue ce tour sont maximisés.`,
+  execute () {
+    $world.LOG('cards.grimoireMysterieux')
+    $world.EFFECTS.GRIMOIRE_COUNT = intensity
+  }
+})

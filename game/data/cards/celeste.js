@@ -204,7 +204,7 @@ const runeDeCelesteBase = (intensity) => ({
   intensity,
   color: 'blue',
   name: intensityName('Rune de Céleste', 'fem', intensity),
-  description: `J'inflige à chaque ennemi ayant un élément d'Orfeu dans son aura ${2 + intensity * 2} protection + ${1 + intensity} par tour{{currently(${2 + intensity * 2} + ${1 + intensity} * FIGHT_TURN)}} et je termine mon tour.`,
+  description: `J'inflige à chaque ennemi ayant un élément d'Orfeu dans son aura ${2 + intensity * 2} dégâts + ${1 + intensity} par tour{{currently(${2 + intensity * 2} + ${1 + intensity} * FIGHT_TURN)}} et je termine mon tour.`,
   upgrade: intensityUpgrade('runeDeCeleste', 'fem', intensity),
   targetted: false,
   endTurn: true,
@@ -244,3 +244,43 @@ const siropDeCelesteBase = (intensity) => ({
 export const siropDeCeleste = siropDeCelesteBase(1)
 export const siropDeCelesteMajeur = siropDeCelesteBase(2)
 export const siropDeCelesteSupreme = siropDeCelesteBase(3)
+
+const cracheFeuDivinBase = (intensity) => ({
+  intensity,
+  color: 'blue',
+  name: intensityName('Crache feu divin', 'masc', intensity),
+  description: `J'inflige à ma cible 3 dégâts + ${1 + intensity * 2} par fois où j'ai joué cette carte lors de ce combat. {{currently(1 + ${2 * intensity} * EFFECTS.CRACHE_FEU_DIVIN)}}.`,
+  upgrade: intensityUpgrade('cracheFeuDivin', 'masc', intensity),
+  targetted: true,
+  base: intensity === 1,
+  execute (foe) {
+    $world.LOG('cards.cracheFeuDivin', { foe })
+    foe.receiveDamages(3 + (1 + intensity * 2) * $world.EFFECTS.CRACHE_FEU_DIVIN, 'blue')
+    $world.EFFECTS.CRACHE_FEU_DIVIN += 1
+  }
+})
+
+export const cracheFeuDivin = cracheFeuDivinBase(1)
+export const cracheFeuDivinMajeur = cracheFeuDivinBase(2)
+export const cracheFeuDivinSupreme = cracheFeuDivinBase(3)
+
+const toupieSansFinBase = (intensity) => ({
+  intensity,
+  color: 'blue',
+  name: intensityName('Toupie sans fin', 'fem', intensity),
+  description: `J'inflige à ma cible 3 dégâts + ${1 + intensity * 2} par fois où j'ai joué cette carte lors de ce combat. {{currently(1 + ${2 * intensity} * EFFECTS.CRACHE_FEU_DIVIN)}}.`,
+  upgrade: intensityUpgrade('toupieSansFin', 'fem', intensity),
+  targetted: false,
+  base: intensity === 1,
+  destination: 'EXILE',
+  startOnHand: true,
+  execute () {
+    $world.LOG('cards.toupieSansFin')
+    this.addProtection(10 + intensity * 10, 'blue')
+    $world.EFFECTS.TOUPIE += (10 + intensity * 10) / 20
+  }
+})
+
+export const toupieSansFin = toupieSansFinBase(1)
+export const toupieSansFinMajeure = toupieSansFinBase(2)
+export const toupieSansFinSupreme = toupieSansFinBase(3)

@@ -22,26 +22,35 @@ export default {
     mediumFight: [
       { sceneId: 'salleDeProduction', intensity: 3 },
       { sceneId: 'patrouille', intensity: 3 },
-      { sceneId: 'patrouilleRobotique', intensity: 3 }
+      { sceneId: 'patrouilleRobotique', intensity: 3 },
+      { sceneId: 'gardeCorruptible', intensity: 3 }
     ],
     majorFight: [
       { sceneId: 'salleDuGenerateur', intensity: 4 },
-      { sceneId: 'troupeDeChoc', intensity: 4 }
+      { sceneId: 'troupeDeChoc', intensity: 4 },
+      { scene: 'leDRI', intensity: 4 }
     ],
     minorMystery: [
       { sceneId: 'usineAmbiance1', intensity: 2 },
       { sceneId: 'usineAmbiance2', intensity: 2 },
       { sceneId: 'usineAmbiance3', intensity: 2 },
-      { sceneId: 'filsElectriques', intensity: 2 }
+      { sceneId: 'usineAmbiance4', intensity: 2 },
+      { sceneId: 'laPlaqueTournante', intensity: 2 },
+      { sceneId: 'filsElectriques', intensity: 2 },
+      { sceneId: 'accidentDuTravail', intensity: 2 },
+      { sceneId: 'bob', intensity: 2 }
     ],
     mediumMystery: [
       { sceneId: 'nuageToxique', intensity: 3 },
       { sceneId: 'lesPrisonniers', intensity: 3 },
-      { sceneId: 'salleDeSurveillance', intensity: 3 }
+      { sceneId: 'salleDeSurveillance', intensity: 3 },
+      { sceneId: 'gazDEchappement', intensity: 3 },
+      { sceneId: 'lesPilesDePapier', intensity: 3 }
     ],
     majorMystery: [
       { sceneId: 'piegesLaser', intensity: 4 },
-      { sceneId: 'etrangeMachine', intensity: 4 }
+      { sceneId: 'etrangeMachine', intensity: 4 },
+      { scene: 'leGrandFabricateur', intensity: 4 }
     ],
     rest: [
       { sceneId: 'usineRepos', intensity: 1 },
@@ -51,7 +60,7 @@ export default {
       { sceneId: 'usineRepos', intensity: 1 }
     ],
     nightmare: [
-      { sceneId: 'finDuJeu', intensity: 5 }
+      { sceneId: 'passerALHotel', intensity: 5 }
     ]
   }
 }

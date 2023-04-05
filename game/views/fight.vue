@@ -116,33 +116,73 @@ const draw = (amount) => {
   }
 }
 
-let cardCost = $ref(0)
-const resolveTurn = () => {
-  $world.DISCARDED.push(...$world.HAND)
-  $world.HAND.length = 0
-  draw($world.ALTER('startOfTurnDrawAmount', 5))
-
-  for (const foe of $world.FIGHT_FOES) {
-    if (foe.stunned) {
-      foe.stunned = false
-      $world.LOG('fight.estEtourditEtNeJouePas', { foe })
-    } else if (foe.intention) foe.intention.execute.apply(foe)
-  }
-
-  $world.FIGHT_TURN++
-  declareFoeIntentions()
-  cardCost = 0
-
-  const hadProtection = !!$world.PROTECTION
-  $world.PROTECTION -= $world.ALTER('startOfTurnProtectionLoss', $world.PROTECTION)
-  if (!$world.PROTECTION) $world.SHIELD = null
-  if ($world.PROTECTION) $world.LOG('fight.jeConserveMaProtection', { amount: $world.PROTECTION })
-  else if (hadProtection) $world.LOG('fight.maSphereDisparait')
-
-  nextTick(() => {
-    if ($world.HAND.length) $ui.focus('#card_0')
-    else $ui.focus('skip')
+const summon = (minion) => {
+  const clonedMinion = clone({
+    name: uniqueName(minion),
+    ...minion
   })
+  resetFoe(clonedMinion)
+  $world.FIGHT_FOES.push(clonedMinion)
+}
+
+let isWin = $ref(false)
+let isLoss = $ref(false)
+let cardCost = $ref(0)
+
+const lose = () => {
+  isLoss = true
+  nextTick(() => {
+    $ui.focus('continue')
+  })
+}
+
+const resolveTurn = () => {
+  $world.EFFECTS.GRIMOIRE_COUNT = 0
+
+  $world.DISCARDED.push(...$world.HAND.filter(c => !c.sticky))
+  $world.HAND = $world.HAND.filter(c => c.sticky)
+  draw($world.ALTER('startOfTurnDrawAmount', 5 - $world.HAND.length))
+
+  $world.FIGHT_TURN_START?.({ summon, lose })
+
+  if (!isWin && !isLoss) {
+    for (const foe of $world.FIGHT_FOES) {
+      if (foe.stunned) {
+        foe.stunned = false
+        $world.LOG('fight.estEtourditEtNeJouePas', { foe })
+      } else if (foe.intention) foe.intention.execute.apply(foe)
+    }
+
+    if ($world.EFFECTS.BOMBE_DE_LUMIERE) {
+      $world.EFFECTS.BOMBE_DE_LUMIERE = false
+      $world.FIGHT_FOES.forEach(foe => {
+        $world.LOG('cards.bombeDeLumiere2')
+        foe.receiveDamages($world.PROTECTION, 'white')
+      })
+    }
+
+    if (!isWin && !isLoss) {
+      $world.FIGHT_TURN++
+      declareFoeIntentions()
+      cardCost = 0
+
+      const hadProtection = !!$world.PROTECTION
+      $world.PROTECTION -= $world.ALTER('startOfTurnProtectionLoss', $world.PROTECTION)
+      if (!$world.PROTECTION) $world.SHIELD = null
+      if ($world.PROTECTION) $world.LOG('fight.jeConserveMaProtection', { amount: $world.PROTECTION })
+      else if (hadProtection) $world.LOG('fight.maSphereDisparait')
+
+      if ($world.EFFECTS.TOUPIE) {
+        addProtection($world.EFFECTS.TOUPIE, 'blue')
+        $world.EFFECTS.TOUPIE = 0
+      }
+
+      nextTick(() => {
+        if ($world.HAND.length) $ui.focus('#card_0')
+        else $ui.focus('skip')
+      })
+    }
+  }
 }
 
 let selectedCard = $ref(null)
@@ -152,18 +192,21 @@ const playCard = (card, foe) => {
 
   card.execute(foe)
 
-  $world.CANDELAS -= Math.max($world.ALTER('cardCost', card.cost ? card.cost(cardCost) : cardCost, card), 0);
+  $world.FIGHT_ACTION_AFTER?.({ summon, lose })
+  $world.CANDELAS -= Math.max($world.ALTER('cardCost', card.cost ? card.cost(cardCost) : cardCost, card), 0)
 
-  ($world[card.destination] || $world.DISCARDED).push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
-  selectedCard = null
-  cardCost++
+  if (!isWin && !isLoss) {
+    ($world[card.destination] || $world.DISCARDED).push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
+    selectedCard = null
+    cardCost++
 
-  if (card.endTurn) resolveTurn()
-  else {
-    nextTick(() => {
-      if ($world.HAND.length) $ui.focus('#card_0')
-      else $ui.focus('skip')
-    })
+    if (card.endTurn) resolveTurn()
+    else {
+      nextTick(() => {
+        if ($world.HAND.length) $ui.focus('#card_0')
+        else $ui.focus('skip')
+      })
+    }
   }
 }
 
@@ -175,8 +218,9 @@ const selectCard = (card) => {
   }
 }
 
-let isWin = $ref(false)
 const win = () => {
+  if ($world.FIGHT_LOCK) return
+
   isWin = true
   nextTick(() => {
     $ui.focus('continue')
@@ -185,7 +229,7 @@ const win = () => {
 
 const afterWin = () => {
   $world.DECK.push(...$world.DISCARDED, ...$world.EXILE, ...$world.HAND)
-  $world.DECK = shuffle($world.DECK)
+  $world.DECK = shuffle($world.DECK.filter(c => !c.temporary))
 
   $world.DISCARDED.length = 0
   $world.EXILE.length = 0
@@ -195,18 +239,12 @@ const afterWin = () => {
   $world.FIGHT_TURN = 0
 
   $world.GOTO($world.FIGHT_VICTORY)
-}
-
-let isLoss = $ref(false)
-const lose = () => {
-  isLoss = true
-  nextTick(() => {
-    $ui.focus('continue')
-  })
+  $world.VIEW('play')
 }
 
 const afterLose = () => {
   $world.FIGHT_TURN = 0
+  $world.VIEW('play')
   $world.GOTO($world.FIGHT_DEFEAT)
 }
 
@@ -231,14 +269,7 @@ const resetFoe = (foe) => {
     return result
   }
 
-  foe.summon = (minion) => {
-    const clonedMinion = clone({
-      name: uniqueName(minion),
-      ...minion
-    })
-    resetFoe(clonedMinion)
-    $world.FIGHT_FOES.push(clonedMinion)
-  }
+  foe.summon = summon
 
   foe.receiveDamages = (amount, color) => {
     foe.life = Math.max(foe.life - amount, 0)
@@ -246,7 +277,7 @@ const resetFoe = (foe) => {
     if (foe.life) $world.LOG('fight.XSubitDegats', { foe, amount })
 
     if (color) foe.addAura(color)
-    if (!foe.life) {
+    if (foe.life <= 0) {
       $world.LOG('fight.XSubitDegatsEtEstDetruit', { foe, amount })
       $world.ON('foeDeath', foe)
       $world.FIGHT_FOES.splice($world.FIGHT_FOES.indexOf(foe), 1)
@@ -258,10 +289,21 @@ const resetFoe = (foe) => {
 $world.FIGHT_FOES.forEach(resetFoe)
 
 onMounted(() => {
+  $world.EFFECTS.BOMBE_DE_LUMIERE = false
+  $world.EFFECTS.CRACHE_FEU_DIVIN = 0
+  $world.EFFECTS.TOUPIE = 0
+
   $ui.focus('#luminio')
+  $world.FIGHT_TURN_START?.({ summon, lose })
   $world.FIGHT_TURN = 1
   $world.SHUFFLE_DECK()
   declareFoeIntentions()
-  draw($world.ALTER('startOfTurnDrawAmount', 5))
+
+  const startOnHand = $world.DECK.filter(c => c.startOnHand)
+  if (startOnHand.length) {
+    $world.HAND.push(...startOnHand)
+    $world.DECK = $world.DECK.filter(c => !c.startOnHand)
+  }
+  draw($world.ALTER('startOfTurnDrawAmount', 5 - startOnHand.length))
 })
 </script>

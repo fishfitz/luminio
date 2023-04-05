@@ -41,6 +41,49 @@ $ EVOLVE_DECK()
 L'armure est en pièces et le fantôme s'est volatilisé. Deux monstres de moins sur ma route, plus que quelques centaines probablement.
 $ VIEW('level')
 
+#unRecoinOpportun
+Alors que je marche dans les sombres couloirs de ce château sinistre, j’entends de lourds bruits de pas métalliques venir dans ma direction.
+On dirait que je vais faire face à une patrouille de monstres, seulement, un recoin s’offre à moi si je désire me cacher.
+>>unRecoinOpportunFaireFace Je fais face. >>UnRecoinOpportunSeCacher Je me cache.
+
+#unRecoinOpportunFaireFace
+Si je veux pouvoir battre le Seigneur cauchemar, il faut que je m’entraîne et ses sbires sont une occasion pour ça.
+Je reste au milieu du couloir et bientôt je fais face à des armures hantées.
+$ GOTO(RANDOM_PICK(['unRecoinUneArmure', 'unRecoinDeuxArmures', 'unRecoinTroisArmures', 'unRecoinQuatreArmures']))
+
+#unRecoinUneArmure
+Enfin, je devrais plutôt dire : une seule armure hantée. Il n’y avait vraiment pas de quoi avoir peur.
+$ FIGHT('armureHantee', 'unRecoinVictoire', 'chateauDefaite')
+
+#unRecoinDeuxArmures
+Il y en a deux.
+$ FIGHT('armureHantee2', 'unRecoinVictoire', 'chateauDefaite')
+
+#unRecoinTroisArmures
+Il y en a tout de même trois.
+$ FIGHT('armureHantee3', 'unRecoinVictoire', 'chateauDefaite')
+
+#unRecoinQuatreArmures
+Il y en a quatre, ça fait quand même un peu beaucoup.
+$ FIGHT('armureHantee4', 'unRecoinVictoire', 'chateauDefaite')
+
+#unRecoinVictoire
+J’ai réduit cette patrouille à néant, il n’en reste que des morceaux épars dans le couloir.
+$ VIEW('level')
+
+#UnRecoinOpportunSeCacher
+Si je veux pouvoir faire face au Seigneur cauchemar, j’ai intérêt d’économiser mes forces.
+Je me cache dans le recoin.
+?RANDOM()>0.75?>>>UnRecoinOpportunSeCacherDefaite
+Plusieurs armures hantées passent devant moi sans me repérer. Dès qu’elles sont un peu plus loin, je poursuis mon chemin.
+$ VIEW('level')
+
+#UnRecoinOpportunSeCacherDefaite
+Une seule armure hantée apparaît bientôt dans le couloir et passe devant moi.
+$ ADD_CARD('doute')
+Je me sens un peu ridicule de prendre des précautions pour si peu.
+$ VIEW('level')
+
 // Combats intermédiaires chateau
 
 #ombreEpaisse
@@ -105,4 +148,44 @@ $ EVOLVE_DECK('upgrade')
 Je plisse les yeux, mon attention attirée par quelque chose qui est tombé par terre, à proximité de ce qui reste du Faiseur d'ombres.
 $ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu', 'patte_de_lapin', 'montre_du_lapin_blanc']))
 Le silence retombe dans le petit salon désormais plongé dans une quasi obscurité.
+$ VIEW('level')
+
+#leGriffeNuit
+Me voilà devant une porte semblable à tant d’autres. Derrière, je sens une très inquiétante source d’Imergie.
+Ce n’est pas elle que j’ai deviné dès mon entrée dans le château et qui me mènera assurément à l’objet de ma quête, mais… tout de même, cette source-ci est troublante.
+Est-il bien raisonnable de vérifier ? En même temps, si c’est un monstre qui se cache derrière, il n’est pas venu me chercher, c’est donc qu’il garde quelque chose.
+>>leGriffeNuitEntrer J'entre. >>leGriffeNuitSeDetourner Je me détourne.
+
+#leGriffeNuitEntrer
+Je pose la main sur la poignée de fer et l’actionne. La porte achève de s’ouvrir d’elle-même, sans un bruit.
+Derrière, il n’y a qu’une absolue obscurité. Et soudain, deux yeux malfaisants percent cette noirceur. Ensuite vient le rire, et l’obscurité se déverse sur moi…
+$ FIGHT('leGriffeNuit', 'leGriffeNuitVictoire', 'chateauDefaite')
+
+#leGriffeNuitVictoire
+J’ai vaincu l’abomination ténébreuse et ses rejetons. Les ténèbres se déchirent, révélant l’intérieur de la salle, ainsi que le gros coffre qu’elle contient.
+// TODO : on obtient une carte blanche
+Je m’avance et je l’ouvre. La pure lumière qu’il renferme inonde mon visage.
+$ VIEW('level')
+
+#leGriffeNuitSeDetourner
+Je préfère me détourner. La curiosité est un vilain défaut et je ne suis pas venu ici pour percer tous les mystères de ce château perverti.
+$ VIEW('level')
+
+#lesHurleuses
+Au détour d’un énième virage, je me retrouve à l’entrée d’une petite chapelle qu’éclairent chichement quelques cierges.
+Au fond de cette chapelle, sur l’autel, je vois un coffret d’où émanent des lueurs chaleureuses. Dois-je entrer pour vérifier de quoi il s’agit ? J’ai comme un mauvais pressentiment.
+>>lesHurleusesRisquer Je prends le risque. >>lesHurleusesEviter Je préfère éviter.
+
+#lesHurleusesRisquer
+Prudent, je m’avance entre les chandelles. Me voilà devant l’autel, devant ce coffret. Je regarde à gauche, à droite, rien ne bouge. Je tends la main, ouvre le coffret et déniche à l’intérieur quelque chose d’utile.
+$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+Je suis en train de me dire que mes craintes étaient infondées quand un cœur de hurlements perce progressivement le silence de la chapelle. Tout un groupe de spectres terrifiants me barre maintenant le passage.
+$ FIGHT('lesHurleuses', 'lesHurleusesVictoire', 'chateauDefaite')
+
+#lesHurleusesVictoire
+Le silence revient dans la chapelle. On ne me piège pas aussi facilement. Je m’en vais, satisfait.
+$ VIEW('level')
+
+#lesHurleusesEviter
+Ce coffret va rester là où il est et moi, je m’en retourne à l’objet de ma quête.
 $ VIEW('level')

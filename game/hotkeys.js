@@ -34,5 +34,7 @@ module.exports = {
   },
   'ctrl+g': function () {
     $world.DEBUG_MODE = true
+    $world.FIGHT_FOES[0]?.receiveDamages(10000)
+    $world.CANDELAS = $world.MAX_CANDELAS
   }
 }

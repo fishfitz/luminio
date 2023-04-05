@@ -26,3 +26,10 @@ export const chaos = (colors = ['yellow', 'purple', 'blue']) => {
     }
   }
 }
+
+export const organist = () => {
+  return function () {
+    const colors = shuffle([['yellow', 'yellow', 'yellow'], ['purple', 'purple', 'purple'], ['blue', 'blue', 'blue']])
+    this.auraPattern = colors.flatMap(c => c)
+  }
+}

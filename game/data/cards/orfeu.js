@@ -28,7 +28,7 @@ const bouclierOrfeuBase = (intensity) => ({
   upgrade: intensityUpgrade('bouclierOrfeu', 'masc', intensity),
   targetted: false,
   base: intensity === 1,
-  execute (foe) {
+  execute () {
     $world.LOG('cards.bouclier', { color: 'yellow' })
     this.addProtection(3 + intensity * 3, 'yellow')
   }
@@ -244,3 +244,40 @@ const siropDOrfeuBase = (intensity) => ({
 export const siropDOrfeu = siropDOrfeuBase(1)
 export const siropDOrfeuMajeur = siropDOrfeuBase(2)
 export const siropDOrfeuSupreme = siropDOrfeuBase(3)
+
+const epeeDuBraveBase = (intensity) => ({
+  intensity,
+  color: 'yellow',
+  name: intensityName('Épée du brave', 'fem', intensity),
+  description: `J'inflige à ma cible ${intensity * ($world.DECK.length + $world.DISCARDED.length)} dégâts.`,
+  upgrade: intensityUpgrade('epeeDuBrave', 'fem', intensity),
+  targetted: true,
+  base: intensity === 1,
+  execute (foe) {
+    $world.LOG('cards.epeeDuBrave', { foe })
+    foe.receiveDamages(intensity * ($world.DECK.length + $world.DISCARDED.length), 'yellow')
+  }
+})
+
+export const epeeDuBrave = epeeDuBraveBase(1)
+export const epeeDuBraveMajeure = epeeDuBraveBase(2)
+export const epeeDuBraveSupreme = epeeDuBraveBase(3)
+
+const souffleDuDragonBase = (intensity) => ({
+  intensity,
+  color: 'yellow',
+  name: intensityName('Souffle du dragon', 'masc', intensity),
+  description: `Ce sort me coûte 6 Candelas de plus. J'inflige à ma cible ${10 + intensity * 10} dégâts.`,
+  upgrade: intensityUpgrade('souffleDuDragon', 'masc', intensity),
+  targetted: true,
+  base: intensity === 1,
+  cost: (cost) => cost + 6,
+  execute (foe) {
+    $world.LOG('cards.souffleDuDragon', { foe })
+    foe.receiveDamages(10 + intensity * 10, 'yellow')
+  }
+})
+
+export const souffleDuDragon = souffleDuDragonBase(1)
+export const souffleDuDragonMajeur = souffleDuDragonBase(2)
+export const souffleDuDragonSupreme = souffleDuDragonBase(3)

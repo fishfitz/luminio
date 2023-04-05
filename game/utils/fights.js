@@ -64,13 +64,22 @@ export const damagePlayer = (amount, ignoreProtection = false, foe) => {
 
 // Randomly discard cards from player's hand
 export const discardPlayer = (amount) => {
-  $world.LOG('fight.jeMeDefausse', { amount: Math.min(amount, $world.HAND.length) })
   let amountLeft = amount
-  while ($world.HAND.length && amountLeft) {
-    $world.DISCARDED.push(...$world.HAND.splice(random(0, $world.HAND.length - 1), 1))
+
+  const discardable = $world.HAND.filter(card => !card.discardProtected)
+  $world.HAND = $world.HAND.filter(card => card.discardProtected)
+
+  while (discardable.length && amountLeft) {
+    $world.DISCARDED.push(...discardable.splice(random(0, $world.HAND.length - 1), 1))
     amountLeft -= 1
   }
-  return { amountDiscarded: amount - amountLeft }
+
+  $world.HAND.push(...discardable)
+
+  const amountDiscarded = amount - amountLeft
+  $world.LOG('fight.jeMeDefausse', { amount: amountDiscarded })
+
+  return { amountDiscarded }
 }
 
 // Add to player protection

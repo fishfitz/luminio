@@ -27,6 +27,7 @@ Les entraves se referment et mon travail débute…
 Voilà tout ce que j’ai gagné à me croire plus fort que je ne l’étais…
 // Graphisme : Luminio, pelage gris, accoutré en ouvrier, qui travaille enchaîné à une chaîne de montage en compagnie d’autres esclaves.
 
-#finDuJeu
-Ici, Luminio affronte ici un cauchemar aléatoire, puis passe à l'acte 3.
-Pour le moment, le jeu s'arrête ici.
+#passerALHotel
+Ici Luminio affronte un cauchemar aléatoire
+Pour l'instant on passe directement à l'acte 3.
+>>hotel_intro
