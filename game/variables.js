@@ -5,7 +5,7 @@ import * as foes from './data/fights/foes'
 export default {
   // Levels
   LEVELS: createLevels(),
-  CURRENT_LEVEL: 3,
+  CURRENT_LEVEL: 0,
   TIME_CANDELA_GAIN: 0,
   MAX_TIME: 12,
   PICKED_NIGHTMARES: [],
