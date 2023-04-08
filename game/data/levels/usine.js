@@ -60,7 +60,8 @@ export default {
       { sceneId: 'usineRepos', intensity: 1 }
     ],
     nightmare: [
-      { sceneId: 'passerALHotel', intensity: 5 }
+      { sceneId: 'laVoiture', intensity: 5 },
+      { sceneId: 'laForet', intensity: 5 }
     ]
   }
 }

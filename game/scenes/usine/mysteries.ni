@@ -92,7 +92,7 @@ Bob fait de son mieux pour m’aider. Il prend visiblement plaisir à ces quelqu
 $ VIEW('level')
 
 #bobEssentiel
-$ EVOLVE_DECK()
+$ EVOLVE_DECK('remove')
 Bob se montre prolixe sur la manière de bien s’organiser, il a un solide sens de la pratique et j’en tire assurément quelque chose. Sans compter que tous les deux, on s’apprécie.
 $ VIEW('level')
 
@@ -164,14 +164,14 @@ $ VIEW('level')
 
 #gazDEchappementEchec
 $ DAMAGE_PLAYER(5, 'usineDefaite')
-$ WILL = Math.Max(0, WILL - 1)
+$ WILL = Math.max(0, WILL - 1)
 Je réalise bientôt que je me suis immobilisé et que je hume à plein poumon la fumée dont l’odeur est si agréable.
 >>gazDEchappementArracher (Test de difficulté 6) Je m’arrache à l’influence de la fumée. >>gazDEchappementEcarter (Coût : 20 candelas) J’use de mon pouvoir pour écarter la fumée.
 
 #gazDEchappementEcarter
 $ DAMAGE_PLAYER(20, 'usineDefaite')
 Je serre les poings, ferme les yeux, retient difficilement ma respiration et, soudain, mon pouvoir se manifeste, créant un vent pour éloigner la fumée du moteur.
->>>gazDEchappementReussite2
+>>gazDEchappementReussite2
 
 #gazDEchappementReussite2
 J’arrive de l’autre côté de la pièce avec un sacré mal de tête. Je discerne maintenant la véritable odeur d’hydrocarbure qu’une illusion perfide m’avait fait apprécier.
@@ -182,21 +182,21 @@ $ TEST(5, 'gazDEchappementReussite2', 'gazDEchappementEchec2')
 
 #gazDEchappementEchec2
 $ DAMAGE_PLAYER(10, 'usineDefaite')
-$ WILL = Math.Max(0, WILL - 2)
+$ WILL = Math.max(0, WILL - 2)
 Je sniffe toujours avidement l’étrange fumée à l’odeur merveilleuse. Je me suis même approché du tuyau d’échappement pour profiter d’une odeur plus intense.
 >>gazDEchappementArracher2 (Test de difficulté 9) Je m’arrache à l’influence de la fumée. >>gazDEchappementEcarter2 (Coût : 40 candelas) J’use de mon pouvoir pour écarter la fumée.
 
 #gazDEchappementEcarter2
 $ DAMAGE_PLAYER(40, 'usineDefaite')
 Je serre les poings, ferme les yeux, retient difficilement ma respiration et, soudain, mon pouvoir se manifeste, créant un vent pour éloigner la fumée du moteur.
->>>gazDEchappementReussite2
+>>gazDEchappementReussite2
 
 #gazDEchappementArracher2
 $ TEST(9, 'gazDEchappementReussite2', 'gazDEchappementEchec3')
 
 #gazDEchappementEchec3
 $ DAMAGE_PLAYER(40, 'usineDefaite')
-$ WILL = Math.Max(0, WILL - 3)
+$ WILL = Math.max(0, WILL - 3)
 Je cligne des yeux et réalise que je suis affalé par terre, dans mon vomi. Un mal de tête atroce me vrille le crâne. Je suis, vidé… absolument vidé…
 Péniblement, je me redresse et titube jusqu’à la sortie de la salle. Le moteur s’est arrêté, faute de carburant ou victime d’une panne.
 $ VIEW('level')
@@ -211,7 +211,7 @@ $ PILES_COUNT = 1
 
 #lesPilesDePapierChercher
 $ PILES_COUNT += 1
-$ PROGRESSIVE_TEST(3, `lesPilesDePapierReussite${PILES_COUNT}`, 'lesPilesDePapierEchec')
+$ PROGRESSIVE_TEST(3, `lesPilesDePapierReussite${PILES_COUNT - 1}`, 'lesPilesDePapierEchec')
 
 #lesPilesDePapierReussite1
 Je me plonge dans le tri de plusieurs piles de papiers. Il faut de la méthode pour ne pas se perdre dans tout ce Bazard. Pour ne pas s’y perdre, mais également, pour ne pas tout faire tomber.
@@ -224,7 +224,7 @@ Après de nouveaux efforts et de nouvelles piles de documents examinées, je met
 
 #lesPilesDePapierReussite3
 Fier de moi, je brandis bientôt les dernières pages perdues du feuillet !
->>>lesPilesDePapierSArreter3
+>>lesPilesDePapierSArreter3
 
 #lesPilesDePapierEchec
 Mes recherches deviennent laborieuses et plus je m’acharne, plus je m’embrouille. Pour ne rien arranger, les piles de papiers m’ont l’air de plus en plus grande, de plus en plus hautes, de plus en plus instables. L’une d’elle finit par s’effondrer à cause d’un geste d’humeur de ma part et dès lors c’est comme si tout un château de cartes était mis à bas.
@@ -234,25 +234,25 @@ $ VIEW('level')
 
 #lesPilesDePapierSArreter1
 Je m’assois par terre et consulte le feuillet. Le feuillet a beau être très incomplet, j’y devine des explications pour optimiser le fonctionnement d’une machine.
-$ EVOLVE_DECK()
->>>lesPilesDePapierFin
+$ EVOLVE_DECK('remove')
+>>lesPilesDePapierFin
 
 #lesPilesDePapierSArreter2
 Le feuillet quasi complet décrit un procédé pour optimiser le fonctionnement d’une machine.
-$ EVOLVE_DECK()
+$ EVOLVE_DECK('remove')
 Il s’agit en grande partie de retirer du processus des étapes superflues, pour ne pas dire absurdes.
-$ EVOLVE_DECK()
->>>lesPilesDePapierFin
+$ EVOLVE_DECK('remove')
+>>lesPilesDePapierFin
 
 #lesPilesDePapierSArreter3
 Le feuillet au complet me permet de prendre toute la mesure du génie qui l’a rédigé.
-$ EVOLVE_DECK()
+$ EVOLVE_DECK('remove')
 Si l’on suivait ses idées, les machines de cette sinistre fabrique iraient droit à l’essentiel, elles seraient un modèle d’optimisation.
-$ EVOLVE_DECK()
+$ EVOLVE_DECK('remove')
 Ma lecture du feuillet achevée, je le dépose en évidence sur une pile de documents. 
-$ EVOLVE_DECK()
+$ EVOLVE_DECK('remove')
 Qui sait, peut-être que cela pourra aider les pauvres ouvriers à faire un travail moins absurde.
-$ EVOLVE_DECK()
+$ EVOLVE_DECK('remove')
 Sur ce, je m’en vais.
 $ VIEW('level')
 

@@ -156,7 +156,7 @@ $ ADD_CARD('peur')
 $ EVOLVE_DECK('upgrade')
 Je repose le livre à sa place. Tant d’autres s’offrent à moi…
 $ BIBLIOTHEQUE_COUNT += 1
-?BIBLIOTHEQUE_COUNT < 3?>>laBibliothequeTenebreuseExaminer J'examine un livre. laBibliothequeTenebreusePartir Je m'en vais.
+?BIBLIOTHEQUE_COUNT <= 3?>>laBibliothequeTenebreuseExaminer J'examine un livre. >>laBibliothequeTenebreusePartir Je m'en vais.
 Je repose ce livre, tout frissonnant et exalté à la fois.
 J’ai envie de poursuivre mes lectures, le pouvoir qui dort ici me serait grandement utile pour venir à bout de ma terrible tâche, mais le temps presse et je me suis déjà trop attardé ici.
 $ VIEW('level')
@@ -170,37 +170,39 @@ Je découvre une petite pièce encombrée de caisses et de cartons, pleine de po
 C’est un débarrât et j’imagine qu’on y a relégué des choses qui ne plaisaient plus au maître des lieux. Je peux peut-être y jeter un coup d’œil, mais l’empilement semble d’un équilibre précaire.
 $ PROGRESSIVE_COUNT = 0
 $ DEBARRAT_RESULTS = ['leDebarratPoussiereuxFiole', 'leDebarratPoussiereuxTresor', 'leDebarratPoussiereuxSouvenir']
->>>leDebarratPoussiereuxChoix
+>>leDebarratPoussiereuxChoix
 
 #leDebarratPoussiereuxChoix
 >>leDebarratPoussiereuxFouiller Je fouille dans les caisses et les cartons. >>leDebarratPoussiereuxPartir Je quitte le débarrât.
 
 #leDebarratPoussiereuxFouiller
 $ PROGRESSIVE_TEST(2, `leDebarratPoussiereuxReussite`, 'leDebarratPoussiereuxEchec')
-?RANDOM()>0.65 || !DEBARRAT_RESULTS.length?>>>leDebarratPoussiereuxRien
+
+#leDebarratPoussiereuxReussite
+?RANDOM()>0.65 || !DEBARRAT_RESULTS.length?>>leDebarratPoussiereuxRien
 $ GOTO(RANDOM_PICK(DEBARRAT_RESULTS))
 
 #leDebarratPoussiereuxFiole
 Je déniche dans un carton quelconque une petite fiole de lumière. En la vidant d’un trait, elle me rend quelques forces.
 $ CANDELAS = Math.min(MAX_CANDELAS, ALTER('restCandelasGain', CANDELAS + 15))
 $ DEBARRAT_RESULTS = DEBARRAT_RESULTS.filter(c => c !== 'leDebarratPoussiereuxFiole')
->>>leDebarratPoussiereuxChoix
+>>leDebarratPoussiereuxChoix
 
 #leDebarratPoussiereuxTresor
 Je trouve dans une caisse un objet digne d’intérêt. Je ne suis pas venu pour rien !
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 $ DEBARRAT_RESULTS = DEBARRAT_RESULTS.filter(c => c !== 'leDebarratPoussiereuxTresor')
->>>leDebarratPoussiereuxChoix
+>>leDebarratPoussiereuxChoix
 
 #leDebarratPoussiereuxSouvenir
 Je mets la main sur un petit coffret renfermant un souvenir de jadis, quand l’Organiste était encore du bon côté.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
 $ EVOLVE_DECK('upgrade')
->>>leDebarratPoussiereuxChoix
+$ DEBARRAT_RESULTS = DEBARRAT_RESULTS.filter(c => c !== 'leDebarratPoussiereuxSouvenir')
+>>leDebarratPoussiereuxChoix
 
 #leDebarratPoussiereuxRien
 J’ouvre quelques caisses, éventre quelques cartons… Je ne trouve que des choses vieilles, ternes, salies, et souvent cassées aussi. Rien d’intéressant.
->>>leDebarratPoussiereuxChoix
+>>leDebarratPoussiereuxChoix
 
 #leDebarratPoussiereuxEchec
 Ce qui devait arriver, arrive ! Je déséquilibre un tas de caisses qui, en s’effondrant, entraîne tout le reste avec lui.
@@ -244,7 +246,7 @@ J'ai un choc en reconnaissant l'endroit. C'est ici-même que j'ai compris que l'
 Je le considérais comme un mentor et voilà que je découvrais en lui la corruption du cauchemar...
 On s'est battus, j'ai dû fuir... Ce jour là, j'ai failli disparaître...
 Ce souvenir cuisant, je ne suis pas prêt de l'oublier, mais retourner sur les lieux de son origine ravive mes doutes.
-// ADD a doute card
+$ ADD_CARD('doute')
 Là, abandonné au sol, git un des objets que j'ai perdu en ce jour funeste.
 $ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
 L'Organiste l'a-t-il laissé là à mon intention ?

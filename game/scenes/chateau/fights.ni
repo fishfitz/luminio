@@ -74,7 +74,7 @@ $ VIEW('level')
 #UnRecoinOpportunSeCacher
 Si je veux pouvoir faire face au Seigneur cauchemar, j’ai intérêt d’économiser mes forces.
 Je me cache dans le recoin.
-?RANDOM()>0.75?>>>UnRecoinOpportunSeCacherDefaite
+?RANDOM()>0.75?>>UnRecoinOpportunSeCacherDefaite
 Plusieurs armures hantées passent devant moi sans me repérer. Dès qu’elles sont un peu plus loin, je poursuis mon chemin.
 $ VIEW('level')
 
@@ -131,7 +131,7 @@ $ FIGHT('laGalerieAuxArmures', 'laGalerieAuxArmuresVictoire', 'chateauDefaite')
 $ EVOLVE_DECK('upgrade')
 La dernière armure est tombée au sol dans un grand vacarme. Toute la galerie est jonchée de débris métalliques.
 Maintenant, je peux m'approcher de l'autel pour voir ce qui est posé dessus.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu', 'patte_de_lapin', 'montre_du_lapin_blanc']))
+$ ADD_TRINKET()
 Une bonne chose de faite...
 $ VIEW('level')
 
@@ -146,7 +146,7 @@ $ FIGHT('leFaiseurDOmbres', 'leFaiseurDOmbresVictoire', 'chateauDefaite')
 #leFaiseurDOmbresVictoire
 $ EVOLVE_DECK('upgrade')
 Je plisse les yeux, mon attention attirée par quelque chose qui est tombé par terre, à proximité de ce qui reste du Faiseur d'ombres.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu', 'patte_de_lapin', 'montre_du_lapin_blanc']))
+$ ADD_TRINKET()
 Le silence retombe dans le petit salon désormais plongé dans une quasi obscurité.
 $ VIEW('level')
 
@@ -163,7 +163,7 @@ $ FIGHT('leGriffeNuit', 'leGriffeNuitVictoire', 'chateauDefaite')
 
 #leGriffeNuitVictoire
 J’ai vaincu l’abomination ténébreuse et ses rejetons. Les ténèbres se déchirent, révélant l’intérieur de la salle, ainsi que le gros coffre qu’elle contient.
-// TODO : on obtient une carte blanche
+$ ADD_WHITE_CARD()
 Je m’avance et je l’ouvre. La pure lumière qu’il renferme inonde mon visage.
 $ VIEW('level')
 
@@ -178,7 +178,7 @@ Au fond de cette chapelle, sur l’autel, je vois un coffret d’où émanent de
 
 #lesHurleusesRisquer
 Prudent, je m’avance entre les chandelles. Me voilà devant l’autel, devant ce coffret. Je regarde à gauche, à droite, rien ne bouge. Je tends la main, ouvre le coffret et déniche à l’intérieur quelque chose d’utile.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 Je suis en train de me dire que mes craintes étaient infondées quand un cœur de hurlements perce progressivement le silence de la chapelle. Tout un groupe de spectres terrifiants me barre maintenant le passage.
 $ FIGHT('lesHurleuses', 'lesHurleusesVictoire', 'chateauDefaite')
 

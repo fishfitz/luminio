@@ -15,7 +15,7 @@ export const souvenirCuisant = {
 export const souvenirExacerbe = {
   intensity: 1,
   color: 'black',
-  name: 'Souvenir cuisant',
+  name: 'Souvenir exacerbé',
   description: `
     Cette carte n'est pas défaussée à la fin de mon tour.
     Je perds si j'en ai trois exemplaires dans la main.
@@ -32,6 +32,19 @@ export const souvenirExacerbe = {
       organist.addAura('black')
       organist.addAura('black')
     }
+  }
+}
+
+export const doute = {
+  intensity: 1,
+  color: 'black',
+  name: 'Doute',
+  description: 'Je pioche une carte.',
+  upgrade: false,
+  targetted: false,
+  execute () {
+    $world.LOG('cards.doute')
+    this.draw(1)
   }
 }
 
@@ -101,7 +114,7 @@ export const ordreDeTuer = {
   intensity: 1,
   color: 'black',
   name: 'Ordre de tuer',
-  description: 'Cette carte n`\'est pas défaussée à la fin de mon tour. Je pioche 1 carte supplémentaire. Quand je la joue, j\'exile cette carte et confère à la radio un bonus de dégâts.',
+  description: 'Cette carte n\'est pas défaussée à la fin de mon tour. Je pioche 1 carte supplémentaire. Quand je la joue, j\'exile cette carte et confère à la radio un bonus de dégâts.',
   upgrade: false,
   targetted: false,
   sticky: true,

@@ -18,7 +18,4 @@ barman: Voici pour vous, l’ami !
 Le verre glisse jusqu’à moi. Je l’attrape et titube jusqu’au canapé où je m’affale.
 Je dis que je vais me remettre en route, mais c’est une façon de parler. Je ne sais plus très bien ce que je fais ici. Peu importe, plus rien n’a d’importance. Je me laisse pénétrer par la musique rythmée du bar.
 Après un petit roupillon, j’irai danser…
-
-#finDuJeu
-Ici, Luminio accède à un niveau spécial puis affronte une des formes du seigneur cauchemar.
-Pour le moment, le jeu s'arrête ici.
+$ VIEW('credits')

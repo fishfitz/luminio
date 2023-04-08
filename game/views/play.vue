@@ -63,7 +63,7 @@
               Améliorer {{ card.name }}
             </action>
           </li>
-          <li>
+          <li v-if="!$world.FORCE_CHOICE">
             <action @click="skipDeckChange">
               Ne rien faire
             </action>
@@ -106,7 +106,7 @@
       <!-- Dialog box -->
       <action v-else @click="$story.next" class="dialog" autofocus>
         <span v-if="$story.line.speaker"> {{ $story.line.speaker.name }} — </span>
-        <div> {{ $story.line.text }} </div>
+        <div v-html="$story.line.text"/>
       </action>
     </template>
 
@@ -162,6 +162,7 @@ const deckRemove = (card) => {
 
 const deckUpgrade = (card) => {
   $world.REMOVE_CARD(card)
+  console.log(card.upgrade)
   $world.ADD_CARD(card.upgrade)
   skipDeckChange()
 }

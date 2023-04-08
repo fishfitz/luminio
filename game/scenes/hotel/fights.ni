@@ -110,7 +110,7 @@ timothee: Ho, merci Luminio, merci beaucoup !
 Après l’avoir libéré de ses liens, j’aide mon collègue à descendre de la table. Il chancelle sur ses jambes, mais il est tout de même plus en forme que je m’y attendais.
 luminio: Tu devrais filer d’ici. L’Organiste va se concentrer sur moi, profite-en.
 timothee: Tu as raison, Luminio. Sois prudent. Tiens, il m’ont tout pris, sauf ça.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 timothee: Peut-être que ça te sera utile.
 $ VIEW('level')
 
@@ -125,6 +125,6 @@ $ FIGHT('galerieDesMiroirs', 'galerieDesMiroirsVictoire', 'hotelDefaite')
 $ EVOLVE_DECK('upgrade')
 Le calme revient dans la galerie dévastée. 
 L’un des miroirs brisés dissimulait une cachette contenant un coffret. Je décide de l’ouvrir pour voir ce qu’il contient.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 Le sol est jonché de morceaux de verre. Étant pieds nus, je me déplace avec précaution.
 $ VIEW('level')

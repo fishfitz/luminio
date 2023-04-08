@@ -46,6 +46,7 @@ export default {
   EVOLVE_DECK: cards.evolveDeck,
   SHUFFLE_DECK: cards.shuffleDeck,
   ADD_CARD: cards.addCard,
+  ADD_WHITE_CARD: cards.addWhiteCard,
   REMOVE_CARD: cards.removeCard,
 
   ...french

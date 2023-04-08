@@ -75,7 +75,8 @@ export const cap = (word) => {
 
 export const fem = (word, gender = 'masc') => {
   if (!word) return ''
-  return gender === 'masc' ? word : feminize(word)
+  const format = word.charAt(0).toUpperCase() === word.charAt(0) ? cap : v => v
+  return gender === 'masc' ? word : format(feminize(word))
 }
 
 export const nth = (count, gender = 'masc') => {
@@ -101,7 +102,7 @@ const intensitiyNames = { 1: '', 2: ' Majeur', 3: ' Suprême' }
 export const intensityName = (name, gender, intensity) => `${name}${fem(intensitiyNames[intensity], gender)}`
 
 const intensitiyUpgrades = { 1: 'Majeur', 2: 'Supreme' }
-export const intensityUpgrade = (upgrade, gender, intensity) => intensity === 3 ? null : `${upgrade}${fem(intensitiyUpgrades[upgrade], gender)}`
+export const intensityUpgrade = (upgrade, gender, intensity) => intensity === 3 ? null : `${upgrade}${fem(intensitiyUpgrades[intensity], gender)}`
 
 export const currently = (amount) => {
   if ($world.FIGHT_TURN) return ` (actuellement ${amount})`

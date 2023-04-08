@@ -165,7 +165,8 @@ export default {
     desDuDestin6: 'Le top ! Le dé se change en bourrasque de flammes violettes !',
     grimoireMysterieux: 'Un vieux grimoire de magicien apparaît en lévitation devant moi. Il s\'ouvre tout seul et ses pages défilent, elles me murmurent leurs secrets. Le livre, ensuite, se referme et se volatilise.',
     cracheFeuDivin: 'Mon crache-feu se change brièvement en argent miroitant et je m\'en sers comme d\'une matraque pour cogner {{le(foe)}}. Cela provoque une explosion argentée éblouissante !',
-    toupieSansFin: 'Une jolie toupie de bois apparaît dans ma main. Je souffle dessus et elle se met à tourner en équilibre sur mon pouce. Puis, elle se volatilise dans un petit flash de lumière.'
+    toupieSansFin: 'Une jolie toupie de bois apparaît dans ma main. Je souffle dessus et elle se met à tourner en équilibre sur mon pouce. Puis, elle se volatilise dans un petit flash de lumière.',
+    doute: 'Mes doutes me font hésiter...'
   },
   tests: {
     success: 'J\'ai pioché {{count}} {{plural("carte", count)}} sans piocher de carte ténèbre, ce qui est suffisant.',

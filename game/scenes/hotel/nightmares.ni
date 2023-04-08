@@ -58,7 +58,7 @@ $ FIGHT_TURN_START = null
 #leBombardierDefaite
 L'onde sonore qui me frappe me rejette au fond de mon siège. L'impact me coupe le souffle un bref moment.
 Lorsque je reprends contenance, je n'ai que le temps d'apercevoir le doigt du rêveur, puis le bouton rouge qu'il presse. J'ouvre la bouche mais...
-Mon coeur me remonte dans la gorge azlors que je suis éjecté de l'avion. Curieusement, je me retrouve instantanément à terre, debout et, les jambes flageolantes. Autour de moi s'étend un village animé. Des enfants jouent au ballon non loin. Plusieurs chiens semblent se disputer un biscuit. Là-bas c'est un petiut marché qui s'étend, répendant ses parfums variés que je perçois à présent.
+Mon coeur me remonte dans la gorge alors que je suis éjecté de l'avion. Curieusement, je me retrouve instantanément à terre, debout et, les jambes flageolantes. Autour de moi s'étend un village animé. Des enfants jouent au ballon non loin. Plusieurs chiens semblent se disputer un biscuit. Là-bas c'est un petiut marché qui s'étend, répendant ses parfums variés que je perçois à présent.
 Soudain je reviens à la raison. Le bombardier, la charge, je dois prévenir ces gens. J'intercept l'un des enfants, lui criant de fuire.
 Mais il ne semble pas me comprendre, pas plus que les autres villageois. Je  panique progressivement. Le temps, ralenti, me laisse tout le loisir de constater mon impuissance.
 Puis le vrombissement du b52 les atteint plus clairement que n'importe quel discours. La peur se répend comme une traînée de poudre, mais bien trop tard.

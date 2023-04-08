@@ -57,7 +57,7 @@ export default {
       { sceneId: 'hotelRepos', intensity: 1 }
     ],
     nightmare: [
-      { sceneId: 'finDuJeu', intensity: 5 }
+      { sceneId: 'leBombardier', intensity: 5 }
     ]
   }
 }

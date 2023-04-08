@@ -3,6 +3,7 @@ import shuffle from 'just-shuffle'
 import firstLevelData from '../../data/levels/chateau'
 import secondLevelData from '../../data/levels/usine'
 import thirdLevelData from '../../data/levels/hotel'
+import finalLevelData from '../../data/levels/final'
 
 const createMap = ([rows, cols]) => {
   const map = []
@@ -85,5 +86,6 @@ const createLevel = (levelData) => {
 export default () => [
   createLevel(firstLevelData),
   createLevel(secondLevelData),
-  createLevel(thirdLevelData)
+  createLevel(thirdLevelData),
+  finalLevelData()
 ]

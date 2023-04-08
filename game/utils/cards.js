@@ -44,6 +44,12 @@ export const addCard = (card, destination) => {
   })
 }
 
+const whiteCards = ['bombeDeLumiere', 'chapeauBougie', 'mancheAMalice', 'rayonArcEnCiel', 'resilienceDuHeros', 'soleilRadieux', 'sphereImmaculee']
+
+export const addWhiteCard = () => {
+  addCard(randomPick(whiteCards))
+}
+
 export const removeCard = (card) => {
   $world.DECK = $world.DECK.filter(({ id }) => id !== card.id)
   shuffleDeck()

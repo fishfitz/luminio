@@ -1,4 +1,4 @@
-import { intensityName, intensityUpgrade } from '../../utils/french'
+import { intensityName, intensityUpgrade, plural } from '../../utils/french'
 
 // cartes de base
 
@@ -249,7 +249,7 @@ const epeeDuBraveBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Épée du brave', 'fem', intensity),
-  description: `J'inflige à ma cible ${intensity * ($world.DECK.length + $world.DISCARDED.length)} dégâts.`,
+  description: `J'inflige à ma cible ${intensity} ${plural('dégât', intensity)} par carte dans ma pioche et ma défausse {{ currently(intensity * ($world.DECK.length + $world.DISCARDED.length)) }}.`,
   upgrade: intensityUpgrade('epeeDuBrave', 'fem', intensity),
   targetted: true,
   base: intensity === 1,

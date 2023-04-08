@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1> Credits </h1>
-    Awesome game by awesome people!
+    Apparaît à la fin du jeu
     <br>
-    <view-link to="menu"> Retour au menu </view-link>
   </div>
 </template>

@@ -17,7 +17,8 @@ import {
   cannibale,
   refletMalefique,
   leBombardier$laRadio,
-  laVoiture$monstruositeHumide
+  laVoiture$monstruositeHumide,
+  organiste
 } from './foes'
 
 export default {
@@ -297,6 +298,14 @@ export default {
   leBombardier: () => ({
     foes: [
       { ...leBombardier$laRadio(), name: 'Radio' }
+    ]
+  }),
+
+  // Acte 4
+
+  organiste: () => ({
+    foes: [
+      organiste()
     ]
   })
 }

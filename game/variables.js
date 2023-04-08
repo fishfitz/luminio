@@ -5,10 +5,11 @@ import * as foes from './data/fights/foes'
 export default {
   // Levels
   LEVELS: createLevels(),
-  CURRENT_LEVEL: 0,
+  CURRENT_LEVEL: 3,
   TIME_CANDELA_GAIN: 0,
   MAX_TIME: 12,
   PICKED_NIGHTMARES: [],
+  FORCE_CHOICE: false,
 
   // Player
   CANDELAS: 100,
@@ -54,6 +55,10 @@ export default {
 
   // Nightmares
   NIGHTMARES: {
+    LA_FORET: {
+      GAUGE: 0,
+      ANEANTIR_COST: 1
+    },
     LA_FOULE: {
       GAUGE: 0,
       TURN_START ({ summon }) {
@@ -79,7 +84,7 @@ export default {
     },
     LE_BOMBARDIER: {
       TURN_START ({ lose }) {
-        if ($world.HAND.every(c => ['Ordre de tuer', 'Ordre patriotique', 'Ordre humiliant'].includes(c.name))) lose()
+        if ($world.HAND.length && $world.HAND.every(c => ['Ordre de tuer', 'Ordre patriotique', 'Ordre humiliant'].includes(c.name))) lose()
       }
     },
     LA_VOITURE: {
@@ -89,6 +94,11 @@ export default {
       },
       ACTION_AFTER ({ lose }) {
         if (!$world.FIGHT_FOES.length && !$world.NIGHTMARES.LA_VOITURE.PORTIERE_ARRACHEE) lose()
+      }
+    },
+    ORGANISTE: {
+      TURN_START ({ lose }) {
+        if ($world.HAND.filter(c => c.name === 'Souvenir exacerbé').length >= 3) lose()
       }
     }
   },

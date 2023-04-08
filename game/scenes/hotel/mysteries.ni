@@ -63,7 +63,17 @@ Je me demande à quoi elle sert, si jamais elle sert à quelque chose. Peut-êtr
 
 #laSalleBlancheProfiter
 Je m’assois en tailleur pour une séance bienvenue de méditation. Le résultat escompté n’est pas vraiment celui que j’attendais. Des idées étranges pénètrent dans ma tête.
-// Todo On est contraint de transformer 3 cartes tirées au hasard. On les transforme les unes après les autres.
+$ FORCE_CHOICE = true
+$ EVOLVE_DECK()
+$ DECK_EVOLUTION.selectedCard = RANDOM_PICK($world.DECK.filter(c => !c.irremovable))
+_
+$ EVOLVE_DECK()
+$ DECK_EVOLUTION.selectedCard = RANDOM_PICK($world.DECK.filter(c => !c.irremovable))
+_
+$ EVOLVE_DECK()
+$ DECK_EVOLUTION.selectedCard = RANDOM_PICK($world.DECK.filter(c => !c.irremovable))
+Je sors de la salle un peu chancelant.
+$ FORCE_CHOICE = false
 $ VIEW('level')
 
 #laSalleBlancheSEnAller
@@ -140,7 +150,7 @@ $ TEST(5, 'leTableauPouvoirReussite', 'leTableauPouvoirEchec')
 
 #leTableauPouvoirReussite
 Ma volonté l’emporte sur la chose malfaisante contenue dans la peinture et je me retrouve à tenir ce que je convoitais.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 La toile, elle, montre maintenant une table vide.
 $ VIEW('level')
 
@@ -163,6 +173,7 @@ Elle semble fidèle en tout point et pourtant, l’expression qu’elle dégage 
 
 #laPeintureAlterer
 Je ferme les yeux, me concentre et rouvre les yeux. Voilà, c’est mieux ! La toile dégage maintenant une impression positive et familière.
+TODO: dupliquer une carte
 // Todo dupliquer une carte
 $ VIEW('level')
 
@@ -209,7 +220,7 @@ Je traverse ce qui ressemble à une vaste salle de bal. Des couples en beaux cos
 Puis je remarque le vaste chandelier qui domine cette pièce. C’est une reproduction de la couronne de l’Organiste. Chaque bougie symbolise l’un de ses exploits.
 Il a tant de bougies et moi, je n’en ai qu’une seule… Les doutes me prennent…
 ?DECK.every(c => c.name !== 'Doute')?>>leSensDesBougiesSuccess
->>>leSensDesBougiesEchec
+>>leSensDesBougiesEchec
 
 #leSensDesBougiesSuccess
 Mais je me ressaisis. Ce n’est pas le moment de flancher, ce n’est pas le moment de douter !
@@ -233,7 +244,7 @@ $ JETONS = 0
 $ PROGRESSIVE_COUNT = 0
 Une machine à sous ne semble attendre que moi.
 ?WILL?>>leCasinoJouer (Test progressif de difficulté 1) Je tente ma chance. >>leCasinoFiler Je file d’ici en vitesse.
->>>leCasinoFiler
+>>leCasinoFiler
 
 #leCasinoFiler
 Non merci ! Pas de jeu d’argent avec moi ! Je sais trop bien où est-ce que ça peut mener.
@@ -251,13 +262,13 @@ J’ai {{ JETONS }} jetons. La machine à sous clignote de mille feux devant moi
 
 #leCasinoGains
 Je m’approche du comptoir pour retirer mes gains.
->>>leCasinoChoix
+>>leCasinoChoix
 
 #leCasinoChoix
-?JETONS === 1?>>>leCasinoGains1
-?JETONS === 2?>>>leCasinoGains2
-?JETONS === 3?>>>leCasinoGains3
-?JETONS >= 5?>>>leCasinoGains4
+?JETONS === 1?>>leCasinoGains1
+?JETONS === 2?>>leCasinoGains2
+?JETONS === 3?>>leCasinoGains3
+?JETONS >= 5?>>leCasinoGains4
 
 #leCasinoGains1
 >>leCasinoAmeliorerCarte 1 Jeton : Améliorer une carte >>leCasinoFin Je m'en vais.
@@ -273,27 +284,27 @@ Je m’approche du comptoir pour retirer mes gains.
 
 #leCasinoAmeliorerCarte
 $ JETONS -= 1
-$ $ EVOLVE_DECK('upgrade')
-?JETONS? >>>leCasinoChoix
->>>leCasinoFin
+$ EVOLVE_DECK('upgrade')
+?JETONS? >>leCasinoChoix
+>>leCasinoFin
 
 #leCasinoRetirerCarte
 $ JETONS -= 2
 $ EVOLVE_DECK()
-?JETONS? >>>leCasinoChoix
->>>leCasinoFin
+?JETONS? >>leCasinoChoix
+>>leCasinoFin
 
 #leCasinoTresor
 $ JETONS -= 3
 $ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
-?JETONS? >>>leCasinoChoix
->>>leCasinoFin
+?JETONS? >>leCasinoChoix
+>>leCasinoFin
 
 #leCasinoCarteBlanche
 $ JETONS -= 5
-// Todo carte blanche
-?JETONS? >>>leCasinoChoix
->>>leCasinoFin
+$ ADD_WHITE_CARD()
+?JETONS? >>leCasinoChoix
+>>leCasinoFin
 
 #leCasinoFin
 Je sais que j’ai pris des risques à m’attarder ici, mais c’est toutefois avec le sourire que je m’en vais.

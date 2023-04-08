@@ -92,10 +92,11 @@ agent: Tiens tiens, qu’est-ce qu’on a là ? Ce ne serait pas un intrus par 
 Je tourne la tête et aperçois le garde qui vient de m’interpeler. Debout à côté d’un gros bouton rouge mural, il tapote sa matraque électrique. Il m’adresse un sourire torve et poursuit :
 agent: J’imagine que je vais devoir déclencher l’alarme. Ou alors… tu pourrais me filer quelque chose de valeur et on dira que je regardais ailleurs. T’en dis quoi, l’intrus ?
 ?TRINKETS.length?>>gardeCorruptibleDonner Je donne un trésor au garde. >>gardeCorruptibleRefuser Je refuse l’arrangement.
->>>gardeCorruptibleRefuser
+>>gardeCorruptibleRefuser
 
 #gardeCorruptibleDonner
 luminio: Quelque chose de valeur… Quelque chose comme ça ?
+TODO: choisir un trésor à donner
 // TODO: choisir un trésor à donner
 Les yeux du garde se mettent à briller de convoitise.
 agent: Par exemple.
@@ -127,7 +128,7 @@ $ FIGHT('salleDuGenerateur', 'salleDuGenerateurVictoire', 'usineDefaite')
 $ EVOLVE_DECK('upgrade')
 La pièce est maintenant dévasté à un point tel qu’un trou est apparu dans l’un des murs.
 En m’y engageant, je découvre l’intérieur d’un coffre-fort contenant quelque chose qui pourrait être intéressant.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 Il n'y a plus rien d'intéressant ici.
 $ VIEW('level')
 
@@ -142,7 +143,7 @@ $ FIGHT('troupeDeChoc', 'troupeDeChocVictoire', 'usineDefaite')
 $ EVOLVE_DECK('upgrade')
 Il faut plus qu’une troupe de choc pour me stopper !
 En observant la dépouille du chef du groupe, je déniche quelque chose d’intéressant.
-$ ADD_TRINKET(RANDOM_PICK(['cristal_celeste', 'cristal_belarcane', 'cristal_orfeu']))
+$ ADD_TRINKET()
 Il n'y a plus rien d'intéressant ici.
 $ VIEW('level')
 
@@ -162,6 +163,7 @@ $ FIGHT('leDRI', 'leDRIVictoire', 'usineDefaite')
 
 #leDRIVictoire
 luminio: Une bonne chose de faite.
+$ ADD_WHITE_CARD()
 C’en est fini de cet horrible directeur des ressources inhumaines. En fouillant rapidement son bureau, je déniche quelque chose d’intéressant pour ma mission.
 $ VIEW('level')
 

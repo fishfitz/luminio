@@ -18,10 +18,11 @@ Comme si la chose comprenait, et c'est très vraisemblablement le cas, le fracat
 $ NIGHTMARES.LA_FORET.GAUGE = 0
 $ NIGHTMARES.LA_FORET.ANEANTIR_COST = 1
 $ PROGRESSIVE_COUNT = 0
+>>laForetTour
 
 #laForetTour
 $ NIGHTMARES.LA_FORET.GAUGE++
-$ NIGHTMARES.LA_FORET >= 12 ? GOTO(laForetVictoire) : GOTO(RANDOM_PICK(['laForetRacines', 'laForetLiannes', 'laForetSentier']))
+$ NIGHTMARES.LA_FORET.GAUGE >= 12 ? GOTO('laForetVictoire') : GOTO(RANDOM_PICK(['laForetRacines', 'laForetLiannes', 'laForetSentier']))
 
 #laForetRacines
 Tandis que nous nous précipitons tant bien que mal, le sol se distord sous nos pieds et des racines, que j'aurais jurées absentes auparavant, semblent en jaillir pour s'emparer de nous !

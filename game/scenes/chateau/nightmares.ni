@@ -98,7 +98,6 @@ luminio: Vous trouvez ? Réécrivez-la alors. Vous en êtes aussi le narrateur.
 Tout aussi discrètement, sans heurt ni vacarme, je constate que, là où je reste sur place, Bastien commence déjà à s'élever. Et, tandis que je suis rapidement arraché à ce rêve, son auteur, lui, s'envole toujours plus haut, le sourire aux lèvres, inconscient pour l'heure de la force de volonté dont il a su faire preuve, et dont il lui faudra encore déployer des trésors.
 La pièce dans laquelle je me matérialise est nue, vide de tout même de couleurs. Si quelque chose a un jour imprégné ce lieu, il n'en reste plus traces.
 >>hotel_intro
-// TODO
 
 #laChuteDefaite
 Je n'y arrive pas. Je n'y parviens pas ! Ses pensées, mes pensées, nos pensées sont trop confuses.
