@@ -1,175 +1,37 @@
 <template>
-  <div tabgroup role="log" aria-live="assertive" aria-relevant="text">
+  <div role="log" aria-live="assertive" aria-relevant="text">
+    <!-- State -->
+    <state />
 
-    <!-- Trinkets choice -->
-    <template v-if="$world.TRINKET_CHOICE">
-      <action autofocus>
-        {{ $world.TRINKET_CHOICE.name }}
-        {{ $world.TRINKET_CHOICE.description }}
-      </action>
+    <div class="sr" v-tab>
+      Histoire
+      Touche d'accès : S
+    </div>
 
-      <template v-if="$world.TRINKETS.length < 3">
-        <action @click="addTrinket($world.TRINKETS.length)"> Ramasser le trésor </action>
-        <action @click="skipTrinket()"> Ignorer le trésor </action>
-      </template>
+    <div :tabgroup="$world.GROUP === 'story'">
+      <!-- Special choices -->
+      <choice-trinkets v-if="$world.TRINKET_CHOICE" />
 
+      <!-- Deck evolution -->
+      <evolve v-else-if="$world.DECK_EVOLUTION" />
+
+      <!-- Regular story -->
       <template v-else>
-        <action v-for="(trinket, index) in $world.TRINKETS" :key="index" @click="addTrinket(index)">
-          Ramasser le trésor pour remplacer
-          {{ trinket.name }} {{ trinket.description }}
-        </action>
-        <action @click="skipTrinket()"> Ignorer la relique </action>
+        <choices v-if="$story.line.choices" />
+        <textbox />
       </template>
-    </template>
-
-    <template v-else-if="$world.DECK_EVOLUTION">
-      <!-- Remove card from deck -->
-      <template v-if="$world.DECK_EVOLUTION.type === 'remove'">
-        <action autofocus>
-          Choisissez une carte à retirer
-        </action>
-
-        <ul>
-          <li v-for="card in $world.DECK.filter(card => !card.irremovable)">
-            <action @click="deckRemove(card)">
-              {{ card.name }}
-              <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
-                ({{ aura(card.color) }})
-              </template>
-              {{ render(card.description, $world) }}
-            </action>
-          </li>
-        </ul>
-      </template>
-
-      <!-- Replace first step or upgrade -->
-      <template v-else-if="$world.DECK_EVOLUTION && !$world.DECK_EVOLUTION.selectedCard && $world.DECK_EVOLUTION.type !== 'add'">
-        <action autofocus>
-          Choisissez une carte à remplacer <template v-if="$world.DECK_EVOLUTION.type === 'upgrade'"> ou à améliorer</template>
-        </action>
-        <ul>
-          <li v-for="card in $world.DECK.filter(c => !c.irremovable).slice(0, 3)">
-            <div tabindex="0">
-              {{ card.name }}
-              <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
-                ({{ aura(card.color) }})
-              </template>
-              {{ render(card.description, $world) }}
-            </div>
-            <action @click="deckSelectForReplace(card)">
-              Remplacer {{ card.name }}
-            </action>
-            <action v-if="$world.DECK_EVOLUTION.type === 'upgrade' && card.upgrade" @click="deckUpgrade(card)">
-              Améliorer {{ card.name }}
-            </action>
-          </li>
-          <li v-if="!$world.FORCE_CHOICE">
-            <action @click="skipDeckChange">
-              Ne rien faire
-            </action>
-          </li>
-        </ul>
-      </template>
-
-      <!-- Replace second step or add -->
-      <template v-else>
-        <action v-if="$world.DECK_EVOLUTION.type === 'add'" tabindex="0" autofocus>
-          Choisissez une carte à ajouter à votre deck
-        </action>
-        <action v-else autofocus>
-          Choisissez une carte pour remplacer {{ $world.DECK_EVOLUTION.selectedCard.name }}
-        </action>
-        <ul>
-          <li v-for="card in $world.DECK_EVOLUTION.cards">
-            <action @click="$world.DECK_EVOLUTION.type === 'add' ? deckAdd(card) : deckReplace(card)">
-              {{ card.name }}
-              <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
-                ({{ aura(card.color) }})
-              </template>
-              {{ render(card.description, $world) }}
-            </action>
-          </li>
-        </ul>
-      </template>
-    </template>
-
-    <template v-else>
-      <!-- Choices -->
-      <ul v-if="$story.line.choices">
-        <li v-for="choice in $story.line.choices">
-          <action @click="$story.pickChoice(choice)" class="dialog" autofocus>
-            {{ choice.text }}
-          </action>
-        </li>
-      </ul>
-
-      <!-- Dialog box -->
-      <action v-else @click="$story.next" class="dialog" autofocus>
-        <span v-if="$story.line.speaker"> {{ $story.line.speaker.name }} — </span>
-        <div v-html="$story.line.text"/>
-      </action>
-    </template>
-
-    <action tabgroup id="luminio">
-        Luminio
-        <br/>
-        <action> Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }} </action>
-        <br/>
-        <action> Volonté : {{ $world.WILL }} sur 10 </action>
-      </action>
+    </div>
   </div>
 </template>
 
 <script setup>
-import clone from 'just-clone'
-import render from '~carni/render'
-import { aura } from '../utils/french'
+import choiceTrinkets from '../components/play/choice-trinkets.vue'
+import evolve from '../components/play/evolve/index.vue'
+import textbox from '../components/play/textbox.vue'
+import choices from '../components/play/choices.vue'
+import state from '../components/state/index.vue'
 
-const skipTrinket = () => {
-  $world.TRINKET_CHOICE = null
-}
-
-const addTrinket = (index) => {
-  if ($world.TRINKETS[index]) $world.TRINKETS[index]?.remove?.()
-  $world.TRINKETS[index] = clone($world.TRINKET_CHOICE)
-  $world.TRINKETS[index]?.add?.()
-  skipTrinket()
-}
-
-const skipDeckChange = () => {
-  $world.DECK_EVOLUTION = null
-}
-
-const deckSelectForReplace = (card) => {
-  $world.DECK_EVOLUTION.selectedCard = card
-}
-
-const deckReplace = (card) => {
-  $world.REMOVE_CARD($world.DECK_EVOLUTION.selectedCard)
-  $world.ADD_CARD(card)
-  skipDeckChange()
-}
-
-const deckAdd = (card) => {
-  $world.ADD_CARD(card)
-  skipDeckChange()
-}
-
-const deckRemove = (card) => {
-  $world.REMOVE_CARD(card)
-  skipDeckChange()
-}
-
-const deckUpgrade = (card) => {
-  $world.REMOVE_CARD(card)
-  console.log(card.upgrade)
-  $world.ADD_CARD(card.upgrade)
-  skipDeckChange()
-}
+onMounted(() => {
+  $world.focusGroup('story')
+})
 </script>
-
-<style scoped lang="scss">
-  .dialog {
-    display: inline-block;
-  }
-</style>

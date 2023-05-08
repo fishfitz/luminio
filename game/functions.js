@@ -49,5 +49,11 @@ export default {
   ADD_WHITE_CARD: cards.addWhiteCard,
   REMOVE_CARD: cards.removeCard,
 
+  // UI
+  focusGroup: (group) => {
+    $world.GROUP = group
+    $ui.focusFirstGroup()
+  },
+
   ...french
 }

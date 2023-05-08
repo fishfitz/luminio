@@ -1,34 +1,47 @@
 module.exports = {
+  // Convenient shortcuts
   f11: function () {
     $ui.fullscreen()
-  },
-  'j,ctrl+j': function () {
-    $ui.focus('#journal')
-  },
-  'h,ctrl+h,m,ctrl+m': function () {
-    $ui.focus('#card_0')
-  },
-  'e,ctrl+e,f,ctrl+f': function () {
-    $ui.focus('#foe_0')
-  },
-  'p,ctrl+p': function () {
-    $ui.focus('#last_position')
-  },
-  up: function () {
-    $ui.focusPreviousGroup()
-  },
-  down: function () {
-    $ui.focusNextGroup()
-  },
-  left: function () {
-    $ui.focusPreviousElementInGroup()
-  },
-  right: function () {
-    $ui.focusNextElementInGroup()
   },
   'space,enter': function () {
     document.activeElement.click()
   },
+
+  // Accessibility shortcuts
+  l: function () {
+    $world.focusGroup('luminio')
+  },
+  e: function () {
+    $world.focusGroup('foes')
+  },
+  m: function () {
+    $world.focusGroup('hand')
+  },
+  j: function () {
+    $world.focusGroup('journal')
+  },
+  s: function () {
+    $world.focusGroup('story')
+  },
+  f: function () {
+    document.getElementById('continue').click()
+  },
+
+  // Accessibility navigation
+  up: function () {
+    $ui.focusPreviousElementInGroup()
+  },
+  down: function () {
+    $ui.focusNextElementInGroup()
+  },
+  left: function () {
+    $ui.focusPreviousGroup()
+  },
+  right: function () {
+    $ui.focusNextGroup()
+  },
+
+  // Debug shortcuts
   'ctrl+d': function () {
     $ui.downloadLogs()
   },

@@ -1,98 +1,52 @@
 <template>
   <div>
-    <div role="presentation" aria-live="off" style="display: inline-block; width: 50%">
-      <action tabgroup id="luminio">
-        Luminio
-        <br/>
-        <action> Candelas : {{ $world.CANDELAS }} sur {{ $world.MAX_CANDELAS }} </action>
-        <action v-if="$world.PROTECTION">
-          <br/>
-          Protection : {{ $world.PROTECTION }}
-          <template v-if="$world.SHIELD"> ({{ aura($world.SHIELD) }}) </template>
-        </action>
-        <br/>
-        <action> Volonté : {{ $world.WILL }} sur 10 </action>
-      </action>
-      <br/><br/><br/>
-      <div tabgroup class="foes">
-        <action
-          v-for="(foe, index) in $world.FIGHT_FOES"
-            :key="index"
-          @click="selectedCard && playCard(selectedCard, foe)"
-          :id="`foe_${index}`">
-          {{ foe.name }}
-          <br/>
-          <action> Ténèbre : {{ foe.life }} sur {{ foe.maxLife }} </action> <br/>
-          <action>
-            Aura :
-            <span v-for="(auraPattern, index) in foe.auraPattern" :key="index">
-              <template v-if="foe.aura[index]"> {{ aura(foe.aura[index]) }} Remplie </template>
-              <template v-else>
-                <template v-if="isPatternCorrect(foe)"> {{ aura(auraPattern) }} </template>
-                <template v-else> Vide </template>
-              </template>
-            </span>
-            <br/>
-          </action>
-          <action> Intention : {{ intention(foe.intention?.type) }} </action>
-          <br/><br/><br/><br/>
-        </action>
-        <action v-if="selectedCard" @click="selectedCard = null">
-          Annuler
-        </action>
+    <div role="presentation" aria-live="off">
+      <state
+        :items="['settings', 'luminio', 'trinkets', 'journal', 'deck']"
+        :luminio-items="['candelas', 'protection', 'will']"
+      />
+
+      <foes
+        :selected-card="selectedCard"
+        @select-foe="selectFoe"/>
+
+      <hand
+        :selected-card="selectedCard"
+        :card-cost="cardCost"
+        @select-card="selectCard"
+      />
+
+      <div class="sr" v-tab>
+        Terminer le tour Touche d'accès : F
       </div>
 
-      <div tabgroup class="hand" v-if="!isWin && !isLoss">
-        <template v-if="$world.HAND.length">
-          <div v-for="(card, index) in $world.HAND" :key="card.id">
-            <action
-              :disabled="!!selectedCard"
-              @click="selectCard(card)"
-              :id="`card_${index}`">
-              {{ card.name }}
-              <template v-if="card.name.toLowerCase().indexOf(aura(card.color).toLowerCase()) === -1">
-                ({{ aura(card.color) }})
-              </template>
-              Coût : {{ Math.max($world.ALTER('cardCost', cardCost, card), 0) }} candelas
-              {{ render(card.description, $world) }}
-            </action>
-          </div>
-        </template>
-        <template v-else>
-          <action :disabled="!!selectedCard" id="card_0"> Aucune carte en main </action>
-        </template>
+      <div
+        class="action-button"
+        :tabgroup="$world.GROUP === 'hand'"
+      >
+        <action v-if="isWin" v-tab @click="afterWin" id="continue">
+          Continuer
+        </action>
+        <action v-else-if="isLoss" v-tab @click="afterLose" id="continue">
+          Continuer
+        </action>
+        <action v-else v-tab :disabled="!!selectedCard" @click="resolveTurn" id="continue">
+          Passer
+        </action>
       </div>
-
-      <br/><br/><br/>
-
-      <action v-if="isWin" @click="afterWin" autofocus id="continue"> Continuer </action>
-      <action v-else-if="isLoss" @click="afterLose" autofocus id="continue"> Continuer </action>
-      <action v-else :disabled="!!selectedCard" @click="resolveTurn" id="skip"> Passer </action>
-    </div>
-
-    <div aria-live="assertive" aria-relevant="additions" tabgroup tabstartlast
-      style="display: inline-block; width: 50%">
-      <action v-for="(line, index) in logs"
-        :key="line.id"
-        :id="index === logs.length - 1 ? 'journal' : undefined"
-        :style="{ display: logs.length - index < 10 ? 'block' : 'none' }">
-        {{ line.text }}
-      </action>
     </div>
   </div>
 </template>
 
 <script setup>
+import state from '../components/state/index.vue'
+import foes from '../components/fight/foes/index.vue'
+import hand from '../components/fight/hand/index.vue'
+
 import { nextTick } from 'vue'
 import shuffle from 'just-shuffle'
 import clone from 'just-clone'
-import render from '~carni/render'
-import { aura, intention } from '../utils/french'
-import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName, isPatternCorrect } from '../utils/fights'
-import { findLast } from '../utils/common'
-
-const logs = $computed(() => $story.journal
-  .slice(findLast($story.journal, l => l.type !== 'log') + 1))
+import { damagePlayer, discardPlayer, addAura, addProtection, uniqueName } from '../utils/fights'
 
 const declareFoeIntentions = () => {
   for (const foe of $world.FIGHT_FOES) {
@@ -117,12 +71,12 @@ const draw = (amount) => {
 }
 
 const summon = (minion) => {
-  const clonedMinion = clone({
+  const clonedMinion = {
     name: uniqueName(minion),
     ...minion
-  })
+  }
+  $world.FIGHT_FOES = [...$world.FIGHT_FOES, clonedMinion]
   resetFoe(clonedMinion)
-  $world.FIGHT_FOES.push(clonedMinion)
 }
 
 let isWin = $ref(false)
@@ -132,7 +86,7 @@ let cardCost = $ref(0)
 const lose = () => {
   isLoss = true
   nextTick(() => {
-    $ui.focus('continue')
+    $ui.focus('#continue')
   })
 }
 
@@ -178,8 +132,8 @@ const resolveTurn = () => {
       }
 
       nextTick(() => {
-        if ($world.HAND.length) $ui.focus('#card_0')
-        else $ui.focus('skip')
+        if ($world.HAND.length) $world.focusGroup('hand')
+        else $ui.focus('#continue')
       })
     }
   }
@@ -195,18 +149,27 @@ const playCard = (card, foe) => {
   $world.FIGHT_ACTION_AFTER?.({ summon, lose })
   $world.CANDELAS -= Math.max($world.ALTER('cardCost', card.cost ? card.cost(cardCost) : cardCost, card), 0)
 
+  selectedCard = null
+
   if (!isWin && !isLoss) {
     ($world[card.destination] || $world.DISCARDED).push(...$world.HAND.splice($world.HAND.indexOf(card), 1))
-    selectedCard = null
     cardCost++
 
     if (card.endTurn) resolveTurn()
     else {
       nextTick(() => {
-        if ($world.HAND.length) $ui.focus('#card_0')
-        else $ui.focus('skip')
+        if ($world.HAND.length) $world.focusGroup('hand')
+        else $ui.focus('#continue')
       })
     }
+  }
+}
+
+const selectFoe = (foe) => {
+  if (foe && selectedCard) playCard(selectedCard, foe)
+  else if (selectedCard) {
+    selectedCard = null
+    $world.focusGroup('hand')
   }
 }
 
@@ -214,7 +177,7 @@ const selectCard = (card) => {
   if (!card.targetted) playCard(card)
   else {
     selectedCard = card
-    $ui.focus('#foe_0')
+    $world.focusGroup('foes')
   }
 }
 
@@ -223,7 +186,7 @@ const win = () => {
 
   isWin = true
   nextTick(() => {
-    $ui.focus('continue')
+    $ui.focus('#continue')
   })
 }
 
@@ -293,17 +256,31 @@ onMounted(() => {
   $world.EFFECTS.CRACHE_FEU_DIVIN = 0
   $world.EFFECTS.TOUPIE = 0
 
-  $ui.focus('#luminio')
+  $world.HAND = []
+
   $world.FIGHT_TURN_START?.({ summon, lose })
   $world.FIGHT_TURN = 1
   $world.SHUFFLE_DECK()
   declareFoeIntentions()
+
+  $world.focusGroup('foes')
 
   const startOnHand = $world.DECK.filter(c => c.startOnHand)
   if (startOnHand.length) {
     $world.HAND.push(...startOnHand)
     $world.DECK = $world.DECK.filter(c => !c.startOnHand)
   }
-  draw($world.ALTER('startOfTurnDrawAmount', 5 - startOnHand.length))
+  draw($world.ALTER('startOfTurnDrawAmount', 5 - $world.HAND.length))
 })
 </script>
+
+<style lang="scss" scoped>
+  .action-button {
+    background-color: white;
+    position: absolute;
+    right: 100px;
+    bottom: 100px;
+    padding: 20px;
+    border-radius: 30px;
+  }
+</style>

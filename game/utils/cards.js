@@ -68,10 +68,4 @@ export const evolveDeck = (type = 'replace') => {
         !$world.DECK_EVOLUTION.cards.some(c => c.name === name))
     if (eligibleCards.length) $world.DECK_EVOLUTION.cards.push(randomPick(eligibleCards))
   }
-
-  for (let i = 0; i < 3; i++) {
-    const eligibleCards = $world.DECK
-      .filter(({ id }) => !$world.DECK_EVOLUTION.cards.some(c => c.id === id))
-    if (eligibleCards.length) $world.DECK_EVOLUTION.cards.push(randomPick(eligibleCards))
-  }
 }

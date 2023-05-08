@@ -1,45 +1,47 @@
 <template>
   <div role="presentation">
-    <action> Temps : {{ level.time }}, Candelas : {{ $world.CANDELAS }} / {{ $world.MAX_CANDELAS }}, Volonté : {{ $world.WILL }} / 10 </action>
-    <div aria-roledescription=" " tabgroup tabkeepcolumn v-for="(row, rowIndex) in level.map">
-      <action
-        v-for="(room, colIndex) in row"
-        :id="isPlayer(rowIndex, colIndex) ? 'last_position' : undefined"
-        :key="colIndex"
-        :autofocus="isPlayer(rowIndex, colIndex)"
-        @click="(room.accessible || $world.DEBUG_MODE) && !room.explored && explore(room)"
-        class="room">
-        <template v-if="isPlayer(rowIndex, colIndex)"> Dernière position </template>
-        <template v-else>
-          <template v-if="$world.DEBUG_MODE"> {{ room.sceneId }} </template>
-          {{ roomName(room) }}
-          {{ room.accessible ? 'Accessible' : 'Inaccessible' }}
-        </template>
-      </action>
+    <state />
+
+    <div class="sr" v-tab>
+      Histoire (carte)
+      Touche d'accès : S
+    </div>
+
+    <div class="map-container centered">
+      <div
+        v-for="(row, rowIndex) in level.map"
+        aria-roledescription=" "
+        tabkeepcolumn
+        :tabgroup="$world.GROUP === 'story'"
+      >
+        <room
+          v-for="(room, colIndex) in row"
+          :key="room.scene"
+          :room="room"
+          :row="rowIndex"
+          :column="colIndex"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { update, explore, roomName } from '../utils/levels/map'
+import { update } from '../utils/levels/map'
+import state from '../components/state/index.vue'
+import room from '../components/level/room.vue'
 
 const level = $computed(() => $world.LEVELS[$world.CURRENT_LEVEL])
-const isPlayer = (rowIndex, colIndex) => rowIndex === level.playerPosition[0] && colIndex === level.playerPosition[1]
 
 onMounted(() => {
   update()
+  $world.GROUP = 'story'
   $ui.focus('#last_position')
 })
 </script>
 
 <style scoped lang="scss">
-  .room {
-    font-size: x-small;
-    display: inline-flex;
-    padding: 5px;
-    border: 1px solid grey;
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-  }
+.map-container {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
 </style>

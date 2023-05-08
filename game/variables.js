@@ -110,6 +110,9 @@ export default {
   TRINKET_CHOICE: null,
   TRINKETS: [],
 
+  // Focused group
+  GROUP: null,
+
   // Debug mode
-  DEBUG_MODE: true
+  DEBUG_MODE: false
 }
