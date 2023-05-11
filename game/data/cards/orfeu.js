@@ -1,18 +1,20 @@
 import { intensityName, intensityUpgrade, plural } from '../../utils/french'
 
+const valE = 2
+
 // cartes de base
 
 const flammeOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Flamme d\'Orfeu', 'fem', intensity),
-  description: `J'inflige à ma cible ${3 + intensity * 3} dégâts.`,
+  description: `J'inflige à ma cible ${3 + intensity * (3 + valE)} dégâts.`,
   upgrade: intensityUpgrade('flammeOrfeu', 'fem', intensity),
   targetted: true,
   base: intensity === 1,
   execute (foe) {
     $world.LOG('cards.flamme', { foe, color: 'yellow' })
-    foe.receiveDamages(3 + intensity * 3, 'yellow')
+    foe.receiveDamages(3 + intensity * (3 + valE), 'yellow')
   }
 })
 
@@ -24,13 +26,13 @@ const bouclierOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Bouclier d\'Orfeu', 'masc', intensity),
-  description: `Je gagne ${3 + intensity * 3} de protection.`,
+  description: `Je gagne ${3 + intensity * (3 + valE)} de protection.`,
   upgrade: intensityUpgrade('bouclierOrfeu', 'masc', intensity),
   targetted: false,
   base: intensity === 1,
   execute () {
     $world.LOG('cards.bouclier', { color: 'yellow' })
-    this.addProtection(3 + intensity * 3, 'yellow')
+    this.addProtection(3 + intensity * (3 + valE), 'yellow')
   }
 })
 
@@ -44,12 +46,12 @@ const armureDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Armure d\'Orfeu', 'fem', intensity),
-  description: `Je gagne ${5 + intensity * 5} de protection.`,
+  description: `Je gagne ${5 + intensity * (5 + valE)} de protection.`,
   upgrade: intensityUpgrade('armureDOrfeu', 'fem', intensity),
   targetted: false,
   execute (foe) {
     $world.LOG('cards.armure', { color: 'yellow' })
-    this.addProtection(5 + intensity * 5, 'yellow')
+    this.addProtection(5 + intensity * (5 + valE), 'yellow')
   }
 })
 
@@ -61,14 +63,14 @@ const brasierDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Brasier d\'Orfeu', 'masc', intensity),
-  description: `J'inflige à tous mes ennemis ${3 + intensity * 3} dégâts et je termine mon tour.`,
+  description: `J'inflige à tous mes ennemis ${3 + intensity * (3 + valE)} dégâts et je termine mon tour.`,
   upgrade: intensityUpgrade('brasierDOrfeu', 'masc', intensity),
   targetted: false,
   endTurn: true,
   execute () {
     $world.LOG('cards.brasierDOrfeu')
     $world.FIGHT_FOES.forEach(foe => {
-      foe.receiveDamages(3 + intensity * 3, 'yellow')
+      foe.receiveDamages(3 + intensity * (3 + valE), 'yellow')
     })
   }
 })
@@ -81,14 +83,14 @@ const eclatDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Éclat d\'Orfeu', 'masc', intensity),
-  description: `Si cette carte permet de surcharger l'aura de ma cible, je lui inflige ${10 + intensity * 10} dégâts.`,
+  description: `Si cette carte permet de surcharger l'aura de ma cible, je lui inflige ${10 + intensity * (10 + valE)} dégâts.`,
   upgrade: intensityUpgrade('eclatDOrfeu', 'masc', intensity),
   targetted: true,
   execute (foe) {
     foe.addAura('yellow')
     if (foe.stunned) {
       $world.LOG('cards.eclatReussite', { foe, color: 'yellow' })
-      foe.receiveDamages(10 + intensity * 10)
+      foe.receiveDamages(10 + intensity * (10 + valE))
     } else {
       $world.LOG('cards.eclatEchec', { color: 'yellow' })
     }
@@ -103,7 +105,7 @@ const glypheDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Glyphe d\'Orfeu', 'masc', intensity),
-  description: `J'inflige à chaque ennemi ayant un élément de Céleste dans son aura ${5 + intensity * 5} dégâts et je termine mon tour.`,
+  description: `J'inflige à chaque ennemi ayant un élément Céleste dans son aura ${5 + intensity * (5 + valE)} dégâts et je termine mon tour.`,
   upgrade: intensityUpgrade('glypheDOrfeu', 'masc', intensity),
   targetted: false,
   endTurn: true,
@@ -115,7 +117,7 @@ const glypheDOrfeuBase = (intensity) => ({
     $world.FIGHT_FOES
       .filter(foe => foe.aura.includes('blue'))
       .forEach(foe => {
-        foe.receiveDamages(5 + intensity * 5, 'yellow')
+        foe.receiveDamages(5 + intensity * (5 + valE), 'yellow')
       })
   }
 })
@@ -128,11 +130,11 @@ const mainDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Main d\'Orfeu', 'fem', intensity),
-  description: `J'inflige à ma cible ${3 + intensity} dégâts par autre sort d'Orfeu dans ma main.`,
+  description: `J'inflige à ma cible ${3 + intensity * valE} dégâts par autre sort d'Orfeu dans ma main.`,
   upgrade: intensityUpgrade('mainDOrfeu', 'fem', intensity),
   targetted: true,
   execute (foe) {
-    const damages = (3 + intensity) * $world.HAND.filter(c => c.color === 'yellow').length - 1
+    const damages = (3 + intensity + valE) * $world.HAND.filter(c => c.color === 'yellow').length - 1
     $world.LOG(damages ? 'cards.mainReussite' : 'cards.mainEchec', { foe, color: 'yellow' })
     if (damages) foe.receiveDamages(damages, 'yellow')
   }
@@ -146,7 +148,7 @@ const motDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Mot d\'Orfeu', 'masc', intensity),
-  description: `Ce sort me coûte 1 candela de moins. Je gagne ${3 + intensity * 3} protection et je pioche 1 carte.`,
+  description: `Ce sort me coûte 1 candela de moins. Je gagne ${3 + intensity * (3 + valE)} protection et je pioche 1 carte.`,
   upgrade: intensityUpgrade('motDOrfeu', 'masc', intensity),
   targetted: false,
   cost (amount) {
@@ -154,7 +156,7 @@ const motDOrfeuBase = (intensity) => ({
   },
   execute () {
     $world.LOG('cards.mot', { color: 'yellow' })
-    this.addProtection(3 + intensity * 3, 'yellow')
+    this.addProtection(3 + intensity * (3 + valE), 'yellow')
     this.draw(1)
   }
 })
@@ -187,12 +189,12 @@ const rayonDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Rayon d\'Orfeu', 'masc', intensity),
-  description: `J'inflige à ma cible ${3 + intensity * 3} dégâts par élément d'Orfeu dans son aura.`,
+  description: `J'inflige à ma cible ${3 + intensity * (3 + valE)} dégâts par élément d'Orfeu dans son aura.`,
   upgrade: intensityUpgrade('rayonDOrfeu', 'masc', intensity),
   targetted: true,
   execute (foe) {
     $world.LOG('cards.rayon', { foe, color: 'yellow' })
-    foe.receiveDamages(foe.aura.filter(a => a === 'yellow').length * (3 + intensity * 3), 'yellow')
+    foe.receiveDamages(foe.aura.filter(a => a === 'yellow').length * (3 + intensity * (3 + valE)), 'yellow')
   }
 })
 
@@ -204,7 +206,7 @@ const runeDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Rune d\'Orfeu', 'fem', intensity),
-  description: `J'inflige à chaque ennemi ayant un élément de Belarcane dans son aura ${5 + intensity * 5} dégâts et je termine mon tour.`,
+  description: `J'inflige à chaque ennemi ayant un élément de Belarcane dans son aura ${5 + intensity * (5 + valE)} dégâts et je termine mon tour.`,
   upgrade: intensityUpgrade('runeDOrfeu', 'fem', intensity),
   targetted: false,
   endTurn: true,
@@ -216,7 +218,7 @@ const runeDOrfeuBase = (intensity) => ({
     $world.FIGHT_FOES
       .filter(foe => foe.aura.includes('purple'))
       .forEach(foe => {
-        foe.receiveDamages(5 + intensity * 5, 'yellow')
+        foe.receiveDamages(5 + intensity * (5 + valE), 'yellow')
       })
   }
 })
@@ -229,14 +231,14 @@ const siropDOrfeuBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Sirop d\'Orfeu', 'masc', intensity),
-  description: `Je récupère ${intensity * 3} candelas et exile cette carte.`,
+  description: `Je récupère ${intensity * (3 + valE)} candelas et exile cette carte.`,
   upgrade: intensityUpgrade('siropDOrfeu', 'masc', intensity),
   targetted: false,
   destination: 'EXILE',
   execute () {
     $world.LOG('cards.siropDOrfeu')
     const candelasBefore = $world.CANDELAS
-    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + intensity * 3)
+    $world.CANDELAS = Math.min($world.MAX_CANDELAS, $world.CANDELAS + intensity * (3 + valE))
     $world.LOG('fight.jeRecupereCandelas', { amount: $world.CANDELAS - candelasBefore })
   }
 })
@@ -249,13 +251,13 @@ const epeeDuBraveBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Épée du brave', 'fem', intensity),
-  description: `J'inflige à ma cible ${intensity} ${plural('dégât', intensity)} par carte dans ma pioche et ma défausse {{ currently(intensity * ($world.DECK.length + $world.DISCARDED.length)) }}.`,
+  description: `J'inflige à ma cible ${intensity + valE} ${plural('dégât', intensity + valE)} par carte dans ma pioche et ma défausse {{ currently(intensity * ($world.DECK.length + $world.DISCARDED.length)) }}.`,
   upgrade: intensityUpgrade('epeeDuBrave', 'fem', intensity),
   targetted: true,
   base: intensity === 1,
   execute (foe) {
     $world.LOG('cards.epeeDuBrave', { foe })
-    foe.receiveDamages(intensity * ($world.DECK.length + $world.DISCARDED.length), 'yellow')
+    foe.receiveDamages((intensity + valE) * ($world.DECK.length + $world.DISCARDED.length), 'yellow')
   }
 })
 
@@ -267,14 +269,14 @@ const souffleDuDragonBase = (intensity) => ({
   intensity,
   color: 'yellow',
   name: intensityName('Souffle du dragon', 'masc', intensity),
-  description: `Ce sort me coûte 6 Candelas de plus. J'inflige à ma cible ${10 + intensity * 10} dégâts.`,
+  description: `Ce sort me coûte 6 Candelas de plus. J'inflige à ma cible ${10 + intensity * (10 + valE)} dégâts.`,
   upgrade: intensityUpgrade('souffleDuDragon', 'masc', intensity),
   targetted: true,
   base: intensity === 1,
   cost: (cost) => cost + 6,
   execute (foe) {
     $world.LOG('cards.souffleDuDragon', { foe })
-    foe.receiveDamages(10 + intensity * 10, 'yellow')
+    foe.receiveDamages(10 + intensity * (10 + valE), 'yellow')
   }
 })
 

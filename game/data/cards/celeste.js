@@ -5,7 +5,7 @@ import { intensityName, intensityUpgrade } from '../../utils/french'
 const flammeCelesteBase = (intensity) => ({
   intensity,
   color: 'blue',
-  name: intensityName('Flamme de Céleste', 'fem', intensity),
+  name: intensityName('Flamme Céleste', 'fem', intensity),
   description: `J'inflige à ma cible 3 dégâts + ${intensity} par tour{{currently(3 + ${intensity} * FIGHT_TURN)}}.`,
   upgrade: intensityUpgrade('flammeCeleste', 'fem', intensity),
   targetted: true,
